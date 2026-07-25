@@ -8,9 +8,8 @@ class RatePage extends StatefulWidget {
 }
 
 class _RatePageState extends State<RatePage> {
-  int _selectedStars = 0; // تخزين عدد النجوم المحددة من قبل المستخدم
+  int _selectedStars = 0;
 
-  // دالة ذكية لتغيير النص الترحيبي بناءً على عدد النجوم المحددة
   String _getRatingFeedback() {
     switch (_selectedStars) {
       case 1:
@@ -31,7 +30,7 @@ class _RatePageState extends State<RatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF8FAFC), // الخلفية الموحدة للتطبيق
+      backgroundColor: const Color(0xffF8FAFC),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -39,14 +38,12 @@ class _RatePageState extends State<RatePage> {
         title: const Text(
           "Rate App",
           style: TextStyle(
-            color: Color(0xff1E3A8A), // الأزرق الداكن الاحترافي الخاص بالهوية
+            color: Color(0xff1E3A8A),
             fontWeight: FontWeight.w800,
             fontSize: 20,
           ),
         ),
-        iconTheme: const IconThemeData(
-          color: Color(0xff1E3A8A),
-        ),
+        iconTheme: const IconThemeData(color: Color(0xff1E3A8A)),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -68,23 +65,21 @@ class _RatePageState extends State<RatePage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // 1. أيقونة توضيحية علوية مبهجة
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: const BoxDecoration(
-                    color: Color(0xffFEF3C7), // خلفية صفراء ناعمة جداً
+                    color: Color(0xffFEF3C7),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
                     Icons.star_rounded,
-                    color: Color(0xffD97706), // لون ذهبي غني للأيقونة
+                    color: Color(0xffD97706),
                     size: 50,
                   ),
                 ),
-                
+
                 const SizedBox(height: 24),
-                
-                // 2. العنوان الرئيسي
+
                 const Text(
                   "Enjoying AI-MIDS?",
                   style: TextStyle(
@@ -93,10 +88,9 @@ class _RatePageState extends State<RatePage> {
                     color: Color(0xff1E293B),
                   ),
                 ),
-                
+
                 const SizedBox(height: 12),
-                
-                // 3. النص الوصفي المتغير ديناميكياً
+
                 Text(
                   _getRatingFeedback(),
                   textAlign: TextAlign.center,
@@ -106,10 +100,9 @@ class _RatePageState extends State<RatePage> {
                     height: 1.5,
                   ),
                 ),
-                
+
                 const SizedBox(height: 32),
-                
-                // 4. شريط النجوم التفاعلي (Interactive Stars Row)
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(5, (index) {
@@ -122,19 +115,22 @@ class _RatePageState extends State<RatePage> {
                           _selectedStars = starValue;
                         });
                       },
-                      iconSize: 42, // حجم مريح للضغط بإصبع اليد
+                      iconSize: 42,
                       icon: Icon(
-                        isSelected ? Icons.star_rounded : Icons.star_border_rounded,
-                        color: isSelected ? const Color(0xffF59E0B) : const Color(0xffCBD5E1),
+                        isSelected
+                            ? Icons.star_rounded
+                            : Icons.star_border_rounded,
+                        color: isSelected
+                            ? const Color(0xffF59E0B)
+                            : const Color(0xffCBD5E1),
                       ),
                       splashRadius: 24,
                     );
                   }),
                 ),
-                
+
                 const SizedBox(height: 36),
-                
-                // 5. أزرار التحكم (إرسال / إلغاء)
+
                 Row(
                   children: [
                     Expanded(
@@ -142,11 +138,13 @@ class _RatePageState extends State<RatePage> {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: _selectedStars == 0
-                              ? null // تعطيل الزر إذا لم يختر المستخدم أي نجمة بعد
+                              ? null
                               : () {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                      content: Text("Thank you for your rating!"),
+                                      content: Text(
+                                        "Thank you for your rating!",
+                                      ),
                                       backgroundColor: Color(0xff10B981),
                                       behavior: SnackBarBehavior.floating,
                                     ),
@@ -166,7 +164,9 @@ class _RatePageState extends State<RatePage> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: _selectedStars == 0 ? const Color(0xff94A3B8) : Colors.white,
+                              color: _selectedStars == 0
+                                  ? const Color(0xff94A3B8)
+                                  : Colors.white,
                             ),
                           ),
                         ),
@@ -179,7 +179,10 @@ class _RatePageState extends State<RatePage> {
                         child: OutlinedButton(
                           onPressed: () => Navigator.pop(context),
                           style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: Color(0xffE2E8F0), width: 1.5),
+                            side: const BorderSide(
+                              color: Color(0xffE2E8F0),
+                              width: 1.5,
+                            ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(14),
                             ),
