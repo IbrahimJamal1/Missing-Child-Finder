@@ -210,7 +210,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   height: 56,
                   child: ElevatedButton(
                     onPressed: () {
-                      
+                      Navigator.pushNamed(context, 'publish');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xffDC2626),
