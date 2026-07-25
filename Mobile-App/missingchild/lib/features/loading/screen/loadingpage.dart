@@ -85,7 +85,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   alignment: Alignment.topRight,
                   child: TextButton(
                     onPressed: () {
-                      // Navigator.pushNamed(context, "login");
+                      Navigator.pushNamed(context, "login");
                     },
                     child: const Text(
                       "Skip",
@@ -210,7 +210,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   height: 56,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Navigator.pushNamed(context, "publish");
+                      
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xffDC2626),
@@ -236,7 +236,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     Expanded(
                       child: OutlinedButton(
                         onPressed: () {
-                          // Navigator.pushNamed(context, "login");
+                          Navigator.pushNamed(context, "login");
                         },
                         style: OutlinedButton.styleFrom(
                           minimumSize: const Size(double.infinity, 54),
@@ -251,8 +251,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
-                          // Navigator.pushNamed(
-                          //     context, "register");
+                          Navigator.pushNamed(context, 'register');
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.infinity, 54),

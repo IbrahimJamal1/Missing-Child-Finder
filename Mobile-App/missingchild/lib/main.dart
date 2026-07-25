@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:missingchild/features/auth/screens/login.dart';
+import 'package:missingchild/features/auth/screens/register.dart';
+import 'package:missingchild/features/auth/screens/resetpass.dart';
 import 'package:missingchild/features/loading/screen/loadingpage.dart';
 
 void main() {
@@ -18,7 +21,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-
+        'login': (context) => Login(),
+        'reset': (context) => Resetpass(),
+        'register':(context) => Register(),
+        
       },
       home: WelcomeScreen(),
     );
