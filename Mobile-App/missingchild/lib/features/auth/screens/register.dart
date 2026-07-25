@@ -19,7 +19,6 @@ class _RegisterState extends State<Register> {
   DateTime currenttime =DateTime.now();
 
   bool _isPasswordHidden = true;
-
   @override
   void dispose() {
     username.dispose();

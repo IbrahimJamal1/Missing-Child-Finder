@@ -10,6 +10,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final GlobalKey<FormState> loginkey = GlobalKey<FormState>();
   bool hidePassword = true;
+
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
 
@@ -207,13 +208,7 @@ class _LoginState extends State<Login> {
                             ),
 
                             onPressed: () {
-                              if (loginkey.currentState!.validate()||true) {
-                                Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  'home',
-                                  (route) => false,
-                                );
-                              }
+                              
                             },
 
                             child: const Text(
@@ -282,7 +277,8 @@ class _LoginState extends State<Login> {
                   children: [
                     const Text("Don't have an account?"),
                     TextButton(
-                      onPressed: () {Navigator.pushNamed(context, "register");
+                      onPressed: () {
+                        Navigator.pushNamed(context, "register");
                       },
                       child: const Text(
                         "Sign Up",
