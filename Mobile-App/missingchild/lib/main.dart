@@ -2,6 +2,7 @@ import 'package:ai_safetrack/features/about/screens/about_screen.dart';
 import 'package:ai_safetrack/features/auth/screens/login.dart';
 import 'package:ai_safetrack/features/auth/screens/register.dart';
 import 'package:ai_safetrack/features/auth/screens/resetpass.dart';
+import 'package:ai_safetrack/features/comment/screen/commentpage.dart';
 import 'package:ai_safetrack/features/feedback/screens/feedback.dart';
 import 'package:ai_safetrack/features/feedback/screens/rate.dart';
 import 'package:ai_safetrack/features/home/screen/home.dart';
@@ -33,7 +34,6 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        'main': (context) => MyApp(),
         'map': (context) => Showmap(),
         'publish': (context) => Publish(),
         'home': (context) => Home(),
@@ -50,6 +50,7 @@ class _MyAppState extends State<MyApp> {
         'feedback': (context) => FeedbackPage(),
         'rate': (context) => RatePage(),
         'about': (context) => AboutPage(),
+        'comment': (context) => Commentpage(),  
       },
 
       home: WelcomeScreen(),

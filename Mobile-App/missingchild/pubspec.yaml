@@ -103,13 +103,15 @@ flutter:
 
 flutter_native_splash:
   color: "#FFFFFF"
-  image: images/logo.png
+  background_image: images/logo.png
 
   android: true
   ios: true
 
+  # إعدادات أندرويد 12 وما فوق
   android_12:
     color: "#FFFFFF"
-    image: images/logo.png
-   
+    background_image: images/logo.png
+
+  fullscreen: true
     

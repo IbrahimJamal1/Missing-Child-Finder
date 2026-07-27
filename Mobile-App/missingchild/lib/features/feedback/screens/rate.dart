@@ -115,7 +115,7 @@ class _RatePageState extends State<RatePage> {
                           _selectedStars = starValue;
                         });
                       },
-                      iconSize: 42,
+                      iconSize: 35,
                       icon: Icon(
                         isSelected
                             ? Icons.star_rounded
@@ -124,7 +124,7 @@ class _RatePageState extends State<RatePage> {
                             ? const Color(0xffF59E0B)
                             : const Color(0xffCBD5E1),
                       ),
-                      splashRadius: 24,
+                      splashRadius: 20,
                     );
                   }),
                 ),

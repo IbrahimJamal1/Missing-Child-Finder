@@ -248,7 +248,7 @@ class ReportCard extends StatelessWidget {
                               },
                             );
                           },
-                          icon: const Icon(Icons.share_rounded, size: 20),
+                          icon: const Icon(Icons.share_rounded, size: 18),
                           label: const Text(
                             "Share",
                             style: TextStyle(fontWeight: FontWeight.w600),
@@ -294,7 +294,7 @@ class ReportCard extends StatelessWidget {
                               location: address,
                             );
                           },
-                          icon: const Icon(Icons.qr_code_rounded, size: 20),
+                          icon: const Icon(Icons.qr_code_rounded, size: 18),
                           label: const Text(
                             "QR",
                             style: TextStyle(fontWeight: FontWeight.w600),
@@ -321,11 +321,11 @@ class ReportCard extends StatelessWidget {
                         height: 48,
                         child: ElevatedButton.icon(
                           onPressed: () {
-                            
+                            Navigator.pushNamed(context, 'comment');
                           },
                           icon: const Icon(
                             Icons.chat_bubble_outline_rounded,
-                            size: 20,
+                            size: 18,
                           ),
                           label: const Text(
                             "Comment",
