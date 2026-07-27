@@ -10,11 +10,11 @@ class Resetpass extends StatefulWidget {
 class _ResetpassState extends State<Resetpass> {
   
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phone = TextEditingController();
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _phone.dispose();
     super.dispose();
   }
 
@@ -72,7 +72,7 @@ class _ResetpassState extends State<Resetpass> {
                         const SizedBox(height: 8),
 
                         Text(
-                          "Enter your email address and we'll send you instructions to reset your password.",
+                          "Enter your phone number and we'll send you instructions to reset your password.",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14,
@@ -81,22 +81,22 @@ class _ResetpassState extends State<Resetpass> {
                         ),
                         const SizedBox(height: 28),
 
-                        // Email Input Field
+                        // Phone Input Field
                         TextFormField(
-                          controller: _emailController,
-                          keyboardType: TextInputType.emailAddress,
+                          controller: _phone,
+                          keyboardType: TextInputType.phone,
                           validator: (value) {
                             if (value == null ||
                                 value.trim().isEmpty ||
-                                !value.contains('@')) {
-                              return "Please enter a valid email address";
+                                !value.contains(RegExp(r'^[0-9]+$'))) {
+                              return "Please enter a valid phone number";
                             }
                             return null;
                           },
                           decoration: InputDecoration(
-                            labelText: "Email Address",
-                            hintText: "example@gmail.com",
-                            prefixIcon: const Icon(Icons.email_outlined,
+                            labelText: "Phone Number",
+                            hintText: "01xxxxxxx",
+                            prefixIcon: const Icon(Icons.phone,
                                 color: Color(0xff2563EB)),
                             filled: true,
                             fillColor: Colors.grey.shade50,
@@ -144,10 +144,12 @@ class _ResetpassState extends State<Resetpass> {
                                 
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Text("Password reset email sent!"),
+                                    content: Text("Password reset Phone sent!"),
                                     backgroundColor: Color(0xff2563EB),
                                   ),
                                 );
+
+                                Navigator.pushNamed(context,'otpforgetpass');
                               }
                             },
                             child: const Text(

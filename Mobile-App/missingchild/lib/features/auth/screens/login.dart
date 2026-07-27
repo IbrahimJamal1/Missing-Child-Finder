@@ -11,12 +11,12 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final GlobalKey<FormState> loginkey = GlobalKey<FormState>();
   bool hidePassword = true;
-  final TextEditingController email = TextEditingController();
+  final TextEditingController emailorphone = TextEditingController();
   final TextEditingController password = TextEditingController();
 
   @override
   void dispose() {
-    email.dispose();
+    emailorphone.dispose();
     password.dispose();
     super.dispose();
   }
@@ -58,24 +58,16 @@ class _LoginState extends State<Login> {
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: email,
-
-                          keyboardType: TextInputType.emailAddress,
-
+                          controller: emailorphone,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "Enter your email";
+                              return "Enter your email or phone number";
                             }
-
-                            if (!value.contains("@")) {
-                              return "Invalid email";
-                            }
-
                             return null;
                           },
 
                           decoration: InputDecoration(
-                            hintText: "Email",
+                            hintText: "Email Or Phone Number",
 
                             prefixIcon: const Icon(
                               Icons.email_outlined,

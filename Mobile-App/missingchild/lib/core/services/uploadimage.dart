@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 File? profileImage;
 File? idImage;
 File? imagechild;
-
+File? liveImage;
 
 Future<void> pickImage(String type) async {
 
@@ -37,5 +37,17 @@ Future<void> pickImage(String type) async {
 
     print("No image selected");
 
+  }
+}
+
+
+Future<void> uploadLiveImage() async {
+  final ImagePicker picker = ImagePicker();
+  final XFile? image = await picker.pickImage(
+    source: ImageSource.camera,
+    imageQuality: 80,
+  );
+  if (image != null) {
+    liveImage = File(image.path);
   }
 }

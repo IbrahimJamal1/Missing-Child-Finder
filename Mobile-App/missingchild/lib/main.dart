@@ -1,7 +1,10 @@
 import 'package:ai_safetrack/features/about/screens/about_screen.dart';
 import 'package:ai_safetrack/features/auth/screens/login.dart';
+import 'package:ai_safetrack/features/auth/screens/otpVerification.dart';
+import 'package:ai_safetrack/features/auth/screens/otpforget.dart';
 import 'package:ai_safetrack/features/auth/screens/register.dart';
 import 'package:ai_safetrack/features/auth/screens/resetpass.dart';
+import 'package:ai_safetrack/features/auth/screens/updatepass.dart';
 import 'package:ai_safetrack/features/comment/screen/commentpage.dart';
 import 'package:ai_safetrack/features/feedback/screens/feedback.dart';
 import 'package:ai_safetrack/features/feedback/screens/rate.dart';
@@ -15,6 +18,7 @@ import 'package:ai_safetrack/features/publish/screens/publish.dart';
 import 'package:ai_safetrack/features/reports/screens/accident.dart';
 import 'package:ai_safetrack/features/reports/screens/found.dart';
 import 'package:ai_safetrack/features/reports/screens/missing.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -50,7 +54,10 @@ class _MyAppState extends State<MyApp> {
         'feedback': (context) => FeedbackPage(),
         'rate': (context) => RatePage(),
         'about': (context) => AboutPage(),
-        'comment': (context) => Commentpage(),  
+        'comment': (context) => Commentpage(), 
+        'otpVerification': (context) =>  Otpverification(), 
+        'otpforgetpass': (context) =>  Otpforgetpass(), 
+        'updatepass': (context) =>  UpdatePasswordScreen(),
       },
 
       home: WelcomeScreen(),

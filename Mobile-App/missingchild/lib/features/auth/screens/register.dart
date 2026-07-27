@@ -16,7 +16,7 @@ class _RegisterState extends State<Register> {
   final TextEditingController phone = TextEditingController();
   final TextEditingController usermail = TextEditingController();
   final TextEditingController userpassword = TextEditingController();
-  DateTime currenttime =DateTime.now();
+  DateTime currenttime = DateTime.now();
 
   bool _isPasswordHidden = true;
   @override
@@ -25,6 +25,9 @@ class _RegisterState extends State<Register> {
     phone.dispose();
     usermail.dispose();
     userpassword.dispose();
+    idImage = null;
+    liveImage = null;
+    profileImage = null;
     super.dispose();
   }
 
@@ -213,7 +216,6 @@ class _RegisterState extends State<Register> {
 
                         const SizedBox(height: 8),
 
-                        // ID Upload Button
                         OutlinedButton.icon(
                           onPressed: () async {
                             await pickImage("id");
@@ -255,15 +257,69 @@ class _RegisterState extends State<Register> {
                           ),
                         ),
 
+                        SizedBox(height: 24),
+
+                        OutlinedButton.icon(
+                          onPressed: () async {
+                            await uploadLiveImage();
+                            setState(() {});
+                          },
+                          icon: Icon(
+                            liveImage != null
+                                ? Icons.photo_camera_rounded
+                                : Icons.camera_alt_outlined,
+                            color: liveImage != null
+                                ? Colors.green
+                                : const Color(0xFF1E293B),
+                          ),
+                          label: Text(
+                            liveImage != null
+                                ? "Live Photo UPLOADED"
+                                : "UPLOAD Live Photo",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.5,
+                              color: liveImage != null
+                                  ? Colors.green
+                                  : const Color(0xFF1E293B),
+                            ),
+                          ),
+                          style: OutlinedButton.styleFrom(
+                            minimumSize: const Size(double.infinity, 52),
+                            side: BorderSide(
+                              color: liveImage != null
+                                  ? Colors.green
+                                  : Colors.grey.shade300,
+                              width: 1.5,
+                            ),
+                            backgroundColor: liveImage != null
+                                ? Colors.green.shade50
+                                : Colors.grey.shade50,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          ),
+                        ),
+
                         const SizedBox(height: 24),
 
                         // Submit Button
                         ElevatedButton(
                           onPressed: () {
-                            if (registerkey.currentState!.validate()) {
+                            if (registerkey.currentState!.validate()||true) {
                               
+                              
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    "confirm your Phone number to complete registration",
+                                  ),
+                                  backgroundColor: Color(0xff2563EB),
+                                ),
+                              );
 
-
+                              Navigator.pushNamed(context, 'otpVerification');
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -289,7 +345,6 @@ class _RegisterState extends State<Register> {
                         ),
 
                         const SizedBox(height: 16),
-
 
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -327,5 +382,4 @@ class _RegisterState extends State<Register> {
       ),
     );
   }
-
 }
