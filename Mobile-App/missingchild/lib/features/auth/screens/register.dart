@@ -1,6 +1,6 @@
+import 'package:ai_safetrack/core/services/uploadimage.dart';
+import 'package:ai_safetrack/features/auth/widgets/customfiled.dart';
 import 'package:flutter/material.dart';
-import 'package:missingchild/core/services/uploadimage.dart';
-import 'package:missingchild/features/auth/widgets/customfiled.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -273,7 +273,7 @@ class _RegisterState extends State<Register> {
                             elevation: 4,
                             shadowColor: const Color(
                               0xFF2563EB,
-                            ).withOpacity(0.4),
+                            ).withValues(alpha: 0.4),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),

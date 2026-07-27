@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:missingchild/core/services/gataddressloca.dart';
-import 'package:missingchild/core/services/uploadimage.dart';
+import 'package:ai_safetrack/core/services/gataddressloca.dart';
+import 'package:ai_safetrack/core/services/uploadimage.dart';
 
 class Publish extends StatefulWidget {
   const Publish({super.key});

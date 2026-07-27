@@ -6,7 +6,7 @@ class ApiService {
   ApiService()
     : dio = Dio(
         BaseOptions(
-          baseUrl: "https://reqres.in/api",
+          baseUrl: "",
           connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 10),
         ),

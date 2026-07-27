@@ -1,6 +1,6 @@
+import 'package:ai_safetrack/features/about/widgets/aboutcard.dart';
+import 'package:ai_safetrack/features/about/widgets/featurerow.dart';
 import 'package:flutter/material.dart';
-import 'package:missingchild/features/about/widgets/aboutcard.dart';
-import 'package:missingchild/features/about/widgets/featurerow.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});

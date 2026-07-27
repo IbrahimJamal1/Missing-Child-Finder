@@ -1,20 +1,20 @@
+import 'package:ai_safetrack/features/about/screens/about_screen.dart';
+import 'package:ai_safetrack/features/auth/screens/login.dart';
+import 'package:ai_safetrack/features/auth/screens/register.dart';
+import 'package:ai_safetrack/features/auth/screens/resetpass.dart';
+import 'package:ai_safetrack/features/feedback/screens/feedback.dart';
+import 'package:ai_safetrack/features/feedback/screens/rate.dart';
+import 'package:ai_safetrack/features/home/screen/home.dart';
+import 'package:ai_safetrack/features/loading/screen/loadingpage.dart';
+import 'package:ai_safetrack/features/map/screens/showmap.dart';
+import 'package:ai_safetrack/features/notification/screens/notification.dart';
+import 'package:ai_safetrack/features/profile/screens/editprofile.dart';
+import 'package:ai_safetrack/features/profile/screens/profile.dart';
+import 'package:ai_safetrack/features/publish/screens/publish.dart';
+import 'package:ai_safetrack/features/reports/screens/accident.dart';
+import 'package:ai_safetrack/features/reports/screens/found.dart';
+import 'package:ai_safetrack/features/reports/screens/missing.dart';
 import 'package:flutter/material.dart';
-import 'package:missingchild/features/about/screens/about_screen.dart';
-import 'package:missingchild/features/auth/screens/login.dart';
-import 'package:missingchild/features/auth/screens/register.dart';
-import 'package:missingchild/features/auth/screens/resetpass.dart';
-import 'package:missingchild/features/feedback/screens/feedback.dart';
-import 'package:missingchild/features/feedback/screens/rate.dart';
-import 'package:missingchild/features/home/screen/home.dart';
-import 'package:missingchild/features/loading/screen/loadingpage.dart';
-import 'package:missingchild/features/map/screens/showmap.dart';
-import 'package:missingchild/features/notification/screens/notification.dart';
-import 'package:missingchild/features/profile/screens/editprofile.dart';
-import 'package:missingchild/features/profile/screens/profile.dart';
-import 'package:missingchild/features/publish/screens/publish.dart';
-import 'package:missingchild/features/reports/screens/accident.dart';
-import 'package:missingchild/features/reports/screens/found.dart';
-import 'package:missingchild/features/reports/screens/missing.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-        routes: {
+      routes: {
         'main': (context) => MyApp(),
         'map': (context) => Showmap(),
         'publish': (context) => Publish(),

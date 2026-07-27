@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/features/auth/widgets/header.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -10,7 +11,6 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final GlobalKey<FormState> loginkey = GlobalKey<FormState>();
   bool hidePassword = true;
-
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
 
@@ -33,43 +33,7 @@ class _LoginState extends State<Login> {
             child: Column(
               children: [
                 //================ HEADER ==================
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.only(top: 30, bottom: 40),
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xff2563EB), Color(0xff60A5FA)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(40),
-                      bottomRight: Radius.circular(40),
-                    ),
-                  ),
-
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 15),
-
-                      const Text(
-                        "Welcome Back",
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-
-                      const SizedBox(height: 8),
-
-                      const Text(
-                        "Login to continue",
-                        style: TextStyle(color: Colors.white70, fontSize: 17),
-                      ),
-                    ],
-                  ),
-                ),
+                buildHeader(),
 
                 const SizedBox(height: 30),
 
@@ -208,7 +172,7 @@ class _LoginState extends State<Login> {
                             ),
 
                             onPressed: () {
-                              
+                              Navigator.pushNamed(context, "home");
                             },
 
                             child: const Text(
@@ -244,18 +208,10 @@ class _LoginState extends State<Login> {
 
                           child: OutlinedButton.icon(
                             onPressed: () {},
-                            icon: const Icon(
-                              Icons.g_mobiledata,
-                              size: 35,
-                              color: Colors.red,
-                            ),
 
-                            label: const Text(
-                              "Continue with Google",
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.black87,
-                              ),
+                            label: Image.asset(
+                              "images/google-logo-icon-png-svg.png",
+                              height: 30,
                             ),
 
                             style: OutlinedButton.styleFrom(
@@ -271,7 +227,7 @@ class _LoginState extends State<Login> {
                 ),
 
                 const SizedBox(height: 30),
-
+                
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

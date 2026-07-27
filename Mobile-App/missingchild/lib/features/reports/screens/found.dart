@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:missingchild/features/reports/screens/foundadult.dart';
-import 'package:missingchild/features/reports/screens/foundchild.dart';
+import 'package:ai_safetrack/features/reports/screens/foundadult.dart';
+import 'package:ai_safetrack/features/reports/screens/foundchild.dart';
 
 class Found extends StatefulWidget {
   const Found({super.key});

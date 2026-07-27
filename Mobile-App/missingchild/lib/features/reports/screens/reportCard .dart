@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:missingchild/core/services/callphone.dart';
-import 'package:missingchild/core/services/gataddressloca.dart';
-import 'package:missingchild/core/services/qrcode.dart';
+import 'package:ai_safetrack/core/services/callphone.dart';
+import 'package:ai_safetrack/core/services/gataddressloca.dart';
+import 'package:ai_safetrack/core/services/qrcode.dart';
 
 class ReportCard extends StatelessWidget {
   //user info

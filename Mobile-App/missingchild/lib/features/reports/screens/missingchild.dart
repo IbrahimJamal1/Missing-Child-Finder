@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:missingchild/getdata.dart';
+import 'package:ai_safetrack/getdata.dart';
 import 'reportCard .dart';
 
 class MissingChild extends StatelessWidget {

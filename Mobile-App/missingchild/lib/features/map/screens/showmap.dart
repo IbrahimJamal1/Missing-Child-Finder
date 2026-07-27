@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:missingchild/core/services/currentlocation.dart';
-import 'package:missingchild/core/widget/search.dart';
+import 'package:ai_safetrack/core/services/currentlocation.dart';
+import 'package:ai_safetrack/core/widget/search.dart';
 
 class Showmap extends StatefulWidget {
   const Showmap({super.key});
@@ -41,7 +41,6 @@ class _ShowmapState extends State<Showmap> {
     }
   }
 
-  // جلب موقع المستخدم الحالي
   Future<void> getCurrentLocation() async {
     try {
       Position position = await determinePosition();
@@ -65,35 +64,6 @@ class _ShowmapState extends State<Showmap> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF8FAFC),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: const Text(
-          "Location Map",
-          style: TextStyle(
-            color: Color(0xff1E3A8A),
-            fontWeight: FontWeight.w800,
-            fontSize: 18,
-          ),
-        ),
-        iconTheme: const IconThemeData(color: Color(0xff1E3A8A)),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, "notification");
-            },
-            icon: const Icon(Icons.notifications_none_rounded),
-          ),
-          IconButton(
-            onPressed: () {
-              
-              showSearch(context: context, delegate: MySearchDelegate());
-            },
-            icon: const Icon(Icons.search_rounded),
-          ),
-        ],
-      ),
       body: loading
           ? const Center(
               child: CircularProgressIndicator(color: Color(0xff3B82F6)),

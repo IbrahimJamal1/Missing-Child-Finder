@@ -12,19 +12,20 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   final pages = [
     {
-      "image": "images/onboarding1.png",
+      "image": "images/onboarding3.jpg",
       "title": "Reunite Families",
       "desc":
           "Helping bring missing children home by connecting reports with real-time location data.",
     },
     {
-      "image": "images/onboarding2.png",
+      "image": "images/onboarding2.jpg",
       "title": "Instant Reporting",
       "desc":
           "Publish verified emergency reports immediately to reach nearby community members.",
     },
     {
-      "image": "images/onboarding3.png",
+      
+      "image": "images/onboarding1.png",
       "title": "Safe & Reliable",
       "desc":
           "A secure network designed to protect child identity while maximizing search efficiency.",
@@ -204,7 +205,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
 
                 const SizedBox(height: 30),
-
+                //publish button
                 SizedBox(
                   width: double.infinity,
                   height: 56,
@@ -233,6 +234,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
                 Row(
                   children: [
+                    //login button
                     Expanded(
                       child: OutlinedButton(
                         onPressed: () {
@@ -248,6 +250,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       ),
                     ),
                     const SizedBox(width: 14),
+                    //register button
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {

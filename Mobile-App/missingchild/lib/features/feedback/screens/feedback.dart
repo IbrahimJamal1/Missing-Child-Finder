@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ai_safetrack/features/feedback/widget/buildactioncard.dart';
+import 'package:ai_safetrack/features/feedback/widget/buildcardcategory.dart';
 
 class FeedbackPage extends StatefulWidget {
   const FeedbackPage({super.key});
@@ -25,83 +27,128 @@ class _FeedbackPageState extends State<FeedbackPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        scrolledUnderElevation: 0,
         centerTitle: true,
         title: const Text(
           "Send Feedback",
           style: TextStyle(
-            color: Color(0xff1E3A8A),
-            fontWeight: FontWeight.w800,
-            fontSize: 20,
+            color: Color(0xff0F172A),
+            fontWeight: FontWeight.w700,
+            fontSize: 18,
           ),
         ),
-        iconTheme: const IconThemeData(color: Color(0xff1E3A8A)),
+        iconTheme: const IconThemeData(color: Color(0xff0F172A)),
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
         child: Form(
           key: _feedbackKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 1. عنوان فرعي ترحيبي
+              // Header Section
               const Text(
                 "We value your opinion",
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff1E293B),
+                  color: Color(0xff0F172A),
+                  letterSpacing: -0.5,
                 ),
               ),
-              const SizedBox(height: 6),
+              const SizedBox(height: 8),
               const Text(
                 "Tell us how we can improve your experience or report any issues you faced.",
                 style: TextStyle(
                   color: Color(0xff64748B),
                   fontSize: 14,
-                  height: 1.4,
+                  height: 1.5,
                 ),
               ),
 
               const SizedBox(height: 28),
 
+              // Category Selector
               const Text(
                 "Select Category",
                 style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff1E293B),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xff334155),
                 ),
               ),
               const SizedBox(height: 12),
-              Row(
+              
+              // 2x2 Grid to ensure responsive fit across all screen sizes
+              GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                childAspectRatio: 2.2,
                 children: [
-                  _buildCategoryCard(
-                    "Suggestion",
-                    Icons.lightbulb_outline_rounded,
+
+                  buildCategoryCard(
+                    category: "Suggesttion",
+                    icon: Icons.lightbulb_outline_rounded,
+                    selectedCategory: _selectedCategory,
+                    onSelect: (category) {
+                      setState(() {
+                        _selectedCategory = category;
+                      });
+                    },
                   ),
-                  const SizedBox(width: 10),
-                  _buildCategoryCard("Bug Report", Icons.bug_report_outlined),
-                  const SizedBox(width: 10),
-                  _buildCategoryCard("Other", Icons.more_horiz_rounded),
+
+                  buildCategoryCard(
+                    category: "Bug Report",
+                    icon: Icons.bug_report_outlined,
+                    selectedCategory: _selectedCategory,
+                    onSelect: (category) {
+                      setState(() {
+                        _selectedCategory = category;
+                      });
+                    },
+                  ),
+
+                   buildActionCard(
+                    "Rate Us",
+                    Icons.star_outline_rounded,
+                    onTap: () => Navigator.pushNamed(context, 'rate'),
+                  ),
+                  buildCategoryCard(
+                    category: "Other",
+                    icon: Icons.lightbulb_outline_rounded,
+                    selectedCategory: _selectedCategory,
+                    onSelect: (category) {
+                      setState(() {
+                        _selectedCategory = category;
+                      });
+                    },
+                  ),
                 ],
               ),
 
               const SizedBox(height: 28),
 
+              // Message Input Header
               const Text(
                 "Your Message",
                 style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff1E293B),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xff334155),
                 ),
               ),
               const SizedBox(height: 12),
+              
               TextFormField(
                 controller: _feedbackController,
-                maxLines: 4, // إعطاء مساحة عمودية مريحة للكتابة
-                maxLength: 500, // حد أقصى للحروف لحماية الـ Database
+                maxLines: 5,
+                maxLength: 500,
+                textAlignVertical: TextAlignVertical.top,
+                style: const TextStyle(fontSize: 14, color: Color(0xff0F172A)),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return 'Please write your message before sending';
@@ -120,7 +167,8 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   filled: true,
                   fillColor: Colors.white,
                   alignLabelWithHint: true,
-                  counterStyle: const TextStyle(color: Color(0xff94A3B8)),
+                  counterStyle: const TextStyle(color: Color(0xff94A3B8), fontSize: 12),
+                  contentPadding: const EdgeInsets.all(16),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
                     borderSide: const BorderSide(color: Color(0xffE2E8F0)),
@@ -128,7 +176,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
                     borderSide: const BorderSide(
-                      color: Color(0xff3B82F6),
+                      color: Color(0xff2563EB),
                       width: 1.5,
                     ),
                   ),
@@ -146,26 +194,41 @@ class _FeedbackPageState extends State<FeedbackPage> {
                 ),
               ),
 
-              const SizedBox(height: 32),
+              const SizedBox(height: 24),
 
-              // 4. زر الإرسال (Submit Button)
+              
               SizedBox(
                 width: double.infinity,
                 height: 52,
                 child: ElevatedButton.icon(
                   onPressed: () {
                     if (_feedbackKey.currentState!.validate()) {
-                      // منطق الإرسال للسيرفر يوضع هنا لاحقاً
+
+                      //backend logic
+
+
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                            "Feedback Sent Successfully! Thank you.",
+                        SnackBar(
+                          content: const Row(
+                            children: [
+                              Icon(Icons.check_circle_outline, color: Colors.white),
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  "Feedback Sent Successfully! Thank you.",
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                            ],
                           ),
-                          backgroundColor: Color(0xff10B981),
+                          backgroundColor: const Color(0xff10B981),
                           behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
                       );
-                      _feedbackController.clear(); // مسح النص بعد الإرسال
+                      _feedbackController.clear();
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -197,54 +260,4 @@ class _FeedbackPageState extends State<FeedbackPage> {
     );
   }
 
-  // ويدجت مساعدة لبناء كروت التصنيف التفاعلية
-  Widget _buildCategoryCard(String category, IconData icon) {
-    final bool isSelected = _selectedCategory == category;
-
-    return Expanded(
-      child: InkWell(
-        onTap: () {
-          setState(() {
-            _selectedCategory = category;
-          });
-        },
-        borderRadius: BorderRadius.circular(14),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 14),
-          decoration: BoxDecoration(
-            color: isSelected ? const Color(0xffEFF6FF) : Colors.white,
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: isSelected
-                  ? const Color(0xff3B82F6)
-                  : const Color(0xffE2E8F0),
-              width: isSelected ? 1.5 : 1,
-            ),
-          ),
-          child: Column(
-            children: [
-              Icon(
-                icon,
-                color: isSelected
-                    ? const Color(0xff3B82F6)
-                    : const Color(0xff64748B),
-                size: 24,
-              ),
-              const SizedBox(height: 6),
-              Text(
-                category,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: isSelected
-                      ? const Color(0xff3B82F6)
-                      : const Color(0xff64748B),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }

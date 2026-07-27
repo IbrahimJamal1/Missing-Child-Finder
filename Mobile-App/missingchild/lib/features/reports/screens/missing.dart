@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:missingchild/features/reports/screens/accident.dart';
-import 'package:missingchild/features/reports/screens/missingadult.dart';
-import 'package:missingchild/features/reports/screens/missingchild.dart';
+import 'package:ai_safetrack/features/reports/screens/accident.dart';
+import 'package:ai_safetrack/features/reports/screens/missingadult.dart';
+import 'package:ai_safetrack/features/reports/screens/missingchild.dart';
 
 class Missing extends StatefulWidget {
   const Missing({super.key});

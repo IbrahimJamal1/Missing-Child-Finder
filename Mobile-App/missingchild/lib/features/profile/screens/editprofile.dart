@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:missingchild/core/services/uploadimage.dart';
+import 'package:ai_safetrack/core/services/uploadimage.dart';
 
 class Editprofile extends StatefulWidget {
   const Editprofile({super.key});
