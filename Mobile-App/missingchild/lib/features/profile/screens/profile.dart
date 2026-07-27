@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/core/helpfunc/bouns.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
@@ -10,8 +11,9 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
-      backgroundColor: const Color(0xffF8FAFC), // الخلفية الموحدة المريحة للتطبيق
+      backgroundColor: const Color(0xffF8FAFC),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -19,16 +21,15 @@ class _ProfileState extends State<Profile> {
         title: const Text(
           'Profile',
           style: TextStyle(
-            color: Color(0xff1E3A8A), // الأزرق الداكن الخاص بالهوية
+            color: Color(0xff1E3A8A),
             fontWeight: FontWeight.w800,
             fontSize: 20,
           ),
         ),
       ),
       body: CustomScrollView(
-        physics: const BouncingScrollPhysics(), // تأثير تمرير سلس ومريح
+        physics: const BouncingScrollPhysics(),
         slivers: [
-          // الجزء العلوي: بيانات الحساب والغلاف
           SliverToBoxAdapter(
             child: Column(
               children: [
@@ -36,7 +37,6 @@ class _ProfileState extends State<Profile> {
                   clipBehavior: Clip.none,
                   alignment: Alignment.center,
                   children: [
-                    // صورة الغلاف (Cover Image)
                     Container(
                       height: 160,
                       width: double.infinity,
@@ -47,8 +47,6 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                     ),
-
-                    // الصورة الشخصية المتداخلة المحدثة
                     Positioned(
                       bottom: -50,
                       child: Container(
@@ -62,29 +60,49 @@ class _ProfileState extends State<Profile> {
                             ),
                           ],
                         ),
-                        child: const CircleAvatar(
-                          radius: 64,
-                          backgroundColor: Colors.white, // الإطار الأبيض الخارجي
-                          child: CircleAvatar(
-                            radius: 59,
-                            backgroundColor: Color(0xffF1F5F9),
-                            backgroundImage: NetworkImage(
-                              "https://i.pravatar.cc/300",
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            SizedBox(
+                              width: 132, 
+                              height: 132,
+                              child: CircularProgressIndicator(
+                                value:
+                                    calculateBonus(),// You can set the progress value here (0.0 to 1.0) 
+                                strokeWidth: 5, 
+                                backgroundColor: const Color(
+                                  0xFFE2E8F0,
+                                ), 
+                                valueColor: const AlwaysStoppedAnimation<Color>(
+                                  Color(
+                                    0xFF1E3A8A,
+                                  ), 
+                                ),
+                              ),
                             ),
-                          ),
+
+                            const CircleAvatar(
+                              radius: 60,
+                              backgroundColor: Colors.white,
+                              child: CircleAvatar(
+                                radius: 56,
+                                backgroundColor: Color(0xffF1F5F9),
+                                backgroundImage: NetworkImage(
+                                  "https://i.pravatar.cc/300",
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ],
                 ),
-
-                const SizedBox(height: 64), // مسافة كافية لبروز الصورة الشخصية
-
-                // الاسم والبريد الإلكتروني
+                const SizedBox(height: 64),
                 const Text(
                   "Ibrahim Gamal",
                   style: TextStyle(
-                    fontSize: 24, 
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Color(0xff1E293B),
                   ),
@@ -98,10 +116,7 @@ class _ProfileState extends State<Profile> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-
                 const SizedBox(height: 20),
-
-                
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: OutlinedButton.icon(
@@ -115,18 +130,21 @@ class _ProfileState extends State<Profile> {
                     ),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: const Color(0xff3B82F6),
-                      side: const BorderSide(color: Color(0xff3B82F6), width: 1.5),
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      side: const BorderSide(
+                        color: Color(0xff3B82F6),
+                        width: 1.5,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 12,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 32),
-
-                // عنوان قسم المنشورات الشخصية
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Align(
@@ -142,110 +160,101 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 12),
               ],
             ),
           ),
-
-          
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             sliver: SliverGrid(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return Card(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                return Card(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.02),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
                     ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.02),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // صورة البوست
-                          Expanded(
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(16),
-                              ),
-                              child: Image.network(
-                                "https://picsum.photos/300?random=$index",
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(16),
+                            ),
+                            child: Image.network(
+                              "https://picsum.photos/300?random=$index",
+                              width: double.infinity,
+                              fit: BoxFit.cover,
                             ),
                           ),
-
-                          // تفاصيل ونصوص البوست
-                          Padding(
-                            padding: const EdgeInsets.all(12),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  index.isEven ? "Missing Child" : "Accident Report",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xff334155),
-                                    fontSize: 14,
-                                  ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                index.isEven
+                                    ? "Missing Child"
+                                    : "Accident Report",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xff334155),
+                                  fontSize: 14,
                                 ),
-                                const SizedBox(height: 4),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.location_on_rounded,
-                                      color: Color(0xffEF4444),
-                                      size: 14,
-                                    ),
-                                    const SizedBox(width: 4),
-                                    const Expanded(
-                                      child: Text(
-                                        "Quesna, Menoufia",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: Color(0xff94A3B8),
-                                          fontSize: 12,
-                                        ),
+                              ),
+                              const SizedBox(height: 4),
+                              Row(
+                                children: const [
+                                  Icon(
+                                    Icons.location_on_rounded,
+                                    color: Color(0xffEF4444),
+                                    size: 14,
+                                  ),
+                                  SizedBox(width: 4),
+                                  Expanded(
+                                    child: Text(
+                                      "Quesna, Menoufia",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: Color(0xff94A3B8),
+                                        fontSize: 12,
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  );
-                },
-                childCount: 2, // تم ضبطه على رقم تجريبي منسق لجمالية الصفحة
-              ),
+                  ),
+                );
+              }, childCount: 2),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 14,
                 crossAxisSpacing: 14,
-                childAspectRatio: 0.82, // تم تعديل النسبة لتعطي مساحة متناسقة ومريحة للصورة مع النصوص
+                childAspectRatio: 0.82,
               ),
             ),
           ),
-          
-          // مسافة سفلية فارغة إضافية لراحة العين عند التمرير لآخر الصفحة
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
         ],
       ),

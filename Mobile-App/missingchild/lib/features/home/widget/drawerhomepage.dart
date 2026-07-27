@@ -1,22 +1,29 @@
+import 'package:ai_safetrack/features/home/widget/builddraweritem.dart';
 import 'package:flutter/material.dart';
-import 'package:ai_safetrack/features/home/screen/home.dart';
 
-Widget bulidDrawerhome(context) {
+Widget buildHomeDrawer(BuildContext context) {
+  const primaryColor = Color(0xFF1E3A8A);
+  const backgroundColor = Color(0xFFF8FAFC);
+  const dividerColor = Color(0xFFE2E8F0);
+  const logoutBgColor = Color(0xFFFEF2F2);
+  const logoutTextColor = Color(0xFFEF4444);
+
   return Drawer(
-    child: Container(
-      color: const Color(0xffF8FAFC),
+    child: Material(
+      color: backgroundColor,
       child: Column(
         children: [
           UserAccountsDrawerHeader(
+            margin: EdgeInsets.zero,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xff1E3A8A), Color(0xff0D47A1)],
+                colors: [primaryColor, Color(0xFF0D47A1)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
+                bottomLeft: Radius.circular(24),
+                bottomRight: Radius.circular(24),
               ),
             ),
             currentAccountPicture: Container(
@@ -26,11 +33,11 @@ Widget bulidDrawerhome(context) {
               ),
               padding: const EdgeInsets.all(2),
               child: const CircleAvatar(
-                backgroundColor: Color(0xffEFF6FF),
+                backgroundColor: Color(0xFFEFF6FF),
                 child: Icon(
                   Icons.person_rounded,
-                  size: 40,
-                  color: Color(0xff1E3A8A),
+                  size: 42,
+                  color: primaryColor,
                 ),
               ),
             ),
@@ -44,91 +51,61 @@ Widget bulidDrawerhome(context) {
             ),
             accountEmail: const Text(
               "ibrahimgamal932@gmail.com",
-              style: TextStyle(color: Color(0xffE2E8F0), fontSize: 14),
+              style: TextStyle(
+                color: Color(0xFFCBD5E1),
+                fontSize: 13,
+              ),
             ),
           ),
-
+          const SizedBox(height: 12),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               children: [
-                drawerItem(
-                  icon: Icons.public,
+                buildDrawerItem(
+                  icon: Icons.public_rounded,
                   title: "Publish",
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.pushNamed(context, 'publish');
                   },
                 ),
-
-                drawerItem(
+                buildDrawerItem(
                   icon: Icons.person_outline_rounded,
                   title: "Profile",
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.pushNamed(context, "profile");
+                    Navigator.pushNamed(context, 'profile');
                   },
                 ),
-                const Divider(
-                  height: 1,
-                  indent: 16,
-                  endIndent: 16,
-                  color: Color(0xffE2E8F0),
-                ),
-
-                drawerItem(
+                const CustomDivider(color: dividerColor),
+                buildDrawerItem(
                   icon: Icons.notifications_none_rounded,
                   title: "Notifications",
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.pushNamed(context, "notification");
+                    Navigator.pushNamed(context, 'notification');
                   },
                 ),
-                const Divider(
-                  height: 1,
-                  indent: 16,
-                  endIndent: 16,
-                  color: Color(0xffE2E8F0),
-                ),
-
-                drawerItem(
+                const CustomDivider(color: dividerColor),
+                buildDrawerItem(
                   icon: Icons.person_search_rounded,
-                  title: "Missing ",
+                  title: "Missing",
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.pushNamed(context, 'missing');
                   },
                 ),
-                const Divider(
-                  height: 1,
-                  indent: 16,
-                  endIndent: 16,
-                  color: Color(0xffE2E8F0),
-                ),
-
-                drawerItem(
+                buildDrawerItem(
                   icon: Icons.check_circle_outline_rounded,
-                  title: "Found ",
+                  title: "Found",
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.pushNamed(context, 'home');
                   },
                 ),
-                const Divider(
-                  height: 1,
-                  indent: 16,
-                  endIndent: 16,
-                  color: Color(0xffE2E8F0),
-                ),
-
-                const Divider(
-                  height: 1,
-                  indent: 16,
-                  endIndent: 16,
-                  color: Color(0xffE2E8F0),
-                ),
-
-                drawerItem(
+                const CustomDivider(color: dividerColor),
+                buildDrawerItem(
                   icon: Icons.info_outline_rounded,
                   title: "About Us",
                   onTap: () {
@@ -136,52 +113,47 @@ Widget bulidDrawerhome(context) {
                     Navigator.pushNamed(context, 'about');
                   },
                 ),
-                const Divider(
-                  height: 1,
-                  indent: 16,
-                  endIndent: 16,
-                  color: Color(0xffE2E8F0),
-                ),
-
-                drawerItem(
+                buildDrawerItem(
                   icon: Icons.star_outline_rounded,
                   title: "Rate App",
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.pushNamed(context, "rate");
+                    Navigator.pushNamed(context, 'rate');
                   },
                 ),
-
-                drawerItem(
-                  icon: Icons.feedback,
-                  title: "FeedBack",
+                buildDrawerItem(
+                  icon: Icons.feedback_outlined,
+                  title: "Feedback",
                   onTap: () {
-                    Navigator.pushNamed(context, "feedback");
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, 'feedback');
                   },
                 ),
               ],
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.all(16),
             child: SizedBox(
               width: double.infinity,
-              height: 50,
+              height: 48,
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xffFEF2F2),
-                  foregroundColor: const Color(0xffEF4444),
+                  backgroundColor: logoutBgColor,
+                  foregroundColor: logoutTextColor,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                 ),
                 onPressed: () {},
                 icon: const Icon(Icons.logout_rounded, size: 20),
                 label: const Text(
                   "Logout",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

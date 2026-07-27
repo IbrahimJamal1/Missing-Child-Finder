@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/features/reports/widget/showDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ai_safetrack/core/services/callphone.dart';
@@ -25,7 +26,7 @@ class ReportCard extends StatelessWidget {
     required this.reporterName,
     required this.reporterImage,
     required this.reportDate,
-    
+
     required this.image,
     required this.childName,
     required this.status,
@@ -96,9 +97,11 @@ class ReportCard extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
-                    onPressed: onCall ?? () {
-                      makePhoneCall(phone);
-                    },
+                    onPressed:
+                        onCall ??
+                        () {
+                          makePhoneCall(phone);
+                        },
                     icon: const Icon(Icons.phone, color: Colors.blue),
                   ),
                 ),
@@ -230,100 +233,115 @@ class ReportCard extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 20),
-
                 Row(
                   children: [
+                    // 1. Share Button
                     Expanded(
                       child: SizedBox(
-                        height: 50,
-
+                        height: 48,
                         child: ElevatedButton.icon(
                           onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: const Text("Share"),
-                                  content: const Text(
-                                    "Are you sure you want to share?",
-                                  ),
-
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text("Cancel"),
-                                    ),
-
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-
-                                        // هنا تحط كود المشاركة
-                                      },
-                                      child: const Text("Share"),
-                                    ),
-                                  ],
-                                );
+                            showShareDialog(
+                              context,
+                              onShare: () {
+                                // Implement your share logic here
                               },
                             );
                           },
-                          icon: const Icon(Icons.share),
-
-                          label: const Text("Share"),
-
+                          icon: const Icon(Icons.share_rounded, size: 20),
+                          label: const Text(
+                            "Share",
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-
+                            backgroundColor: const Color(
+                              0xFF1E3A8A,
+                            ), 
                             foregroundColor: Colors.white,
-
                             elevation: 0,
-
+                            padding: EdgeInsets
+                                .zero, 
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(12),
                             ),
                           ),
                         ),
                       ),
                     ),
+                    const SizedBox(width: 8),
 
-                    const SizedBox(width: 12),
-
+                    // 2. QR Code Button
                     Expanded(
                       child: SizedBox(
-                        height: 50,
-
+                        height: 48,
                         child: ElevatedButton.icon(
                           onPressed: () async {
+                            final address = await getAddressFromLatLng(
+                              location.latitude,
+                              location.longitude,
+                            );
+
+                            if (!context.mounted) return;
+
                             showQrCode(
                               context,
                               childId: reporterName,
                               name: childName,
-                              phone:phone ,
+                              phone: phone,
                               age: age,
                               status: status,
                               description: description,
-                              location: await getAddressFromLatLng(
-                                location.latitude,
-                                location.longitude,
-                              ),
+                              location: address,
                             );
                           },
-
-                          icon: const Icon(Icons.qr_code),
-
-                          label: const Text("QR Code"),
-
+                          icon: const Icon(Icons.qr_code_rounded, size: 20),
+                          label: const Text(
+                            "QR",
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.orange,
-
+                            backgroundColor: const Color(
+                              0xFFF97316,
+                            ),
                             foregroundColor: Colors.white,
-
                             elevation: 0,
-
+                            padding: EdgeInsets.zero,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+
+                    // 3. Comment Button
+                    Expanded(
+                      child: SizedBox(
+                        height: 48,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            
+                          },
+                          icon: const Icon(
+                            Icons.chat_bubble_outline_rounded,
+                            size: 20,
+                          ),
+                          label: const Text(
+                            "Comment",
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(
+                              0xFFEFF6FF,
+                            ), 
+                            foregroundColor: const Color(
+                              0xFF1E3A8A,
+                            ), 
+                            elevation: 0,
+                            padding: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
                             ),
                           ),
                         ),
@@ -331,6 +349,7 @@ class ReportCard extends StatelessWidget {
                     ),
                   ],
                 ),
+              
               ],
             ),
           ),
@@ -339,7 +358,6 @@ class ReportCard extends StatelessWidget {
     );
   }
 }
-
 
 class InfoCard extends StatelessWidget {
   final String title;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ai_safetrack/core/services/currentlocation.dart';
-import 'package:ai_safetrack/core/widget/search.dart';
+
 
 class Showmap extends StatefulWidget {
   const Showmap({super.key});
