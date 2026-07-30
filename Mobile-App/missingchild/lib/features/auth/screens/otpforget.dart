@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 
 class Otpforgetpass extends StatefulWidget {
@@ -11,8 +12,7 @@ class Otpforgetpass extends StatefulWidget {
 
 class _OtpforgetpassState extends State<Otpforgetpass> {
   String otp = "";
-  
-  // Timer state for Resend functionality
+
   Timer? _timer;
   int _secondsRemaining = 30;
   bool _canResend = false;
@@ -53,12 +53,8 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
           backgroundColor: Colors.green,
         ),
       );
-      // TODO: Call your backend API to verify OTP, then navigate to ResetPasswordScreen
-
-
 
       Navigator.pushNamed(context, 'updatepass');
-
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -73,31 +69,28 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    // Default pin styling
     final defaultPinTheme = PinTheme(
-      width: 48,
-      height: 56,
-      textStyle: const TextStyle(
-        fontSize: 20,
+      width: 48.w,
+      height: 56.h,
+      textStyle: TextStyle(
+        fontSize: 20.sp,
         fontWeight: FontWeight.bold,
         color: Colors.black87,
       ),
       decoration: BoxDecoration(
         color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         border: Border.all(color: Colors.grey.shade300),
       ),
     );
 
-    // Active state when box is highlighted
     final focusedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration!.copyWith(
         color: Colors.white,
-        border: Border.all(color: theme.primaryColor, width: 2),
+        border: Border.all(color: theme.primaryColor, width: 2.w),
       ),
     );
 
-    // Submitted state when completed
     final submittedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration!.copyWith(
         color: theme.primaryColor.withOpacity(0.05),
@@ -111,59 +104,50 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black87),
+          icon: Icon(Icons.arrow_back_ios_new, color: Colors.black87, size: 20.r),
           onPressed: () => Navigator.maybePop(context),
         ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 12),
-
-              // Security / Password Reset Visual Icon
+              SizedBox(height: 12.h),
               Container(
-                height: 84,
-                width: 84,
+                height: 84.r,
+                width: 84.r,
                 decoration: BoxDecoration(
                   color: Colors.amber.shade50,
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
                   Icons.lock_reset_rounded,
-                  size: 42,
+                  size: 42.r,
                   color: Colors.amber.shade800,
                 ),
               ),
-
-              const SizedBox(height: 28),
-
-              const Text(
+              SizedBox(height: 28.h),
+              Text(
                 "Reset Password",
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 24.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
                 ),
               ),
-
-              const SizedBox(height: 10),
-
+              SizedBox(height: 10.h),
               Text(
                 "We sent a 5-digit recovery code to\nyour registered phone or email.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   color: Colors.grey.shade600,
                   height: 1.5,
                 ),
               ),
-
-              const SizedBox(height: 36),
-
-              // Pinput Box Component
+              SizedBox(height: 36.h),
               Pinput(
                 length: 5,
                 defaultPinTheme: defaultPinTheme,
@@ -177,52 +161,51 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
                   _verifyAndNavigate();
                 },
               ),
-
-              const SizedBox(height: 36),
-
-              // Primary Action Button
+              SizedBox(height: 36.h),
               SizedBox(
                 width: double.infinity,
-                height: 54,
+                height: 54.h,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
                     backgroundColor: theme.primaryColor,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
+                      borderRadius: BorderRadius.circular(14.r),
                     ),
                   ),
                   onPressed: _verifyAndNavigate,
-                  child: const Text(
+                  child: Text(
                     "Continue",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
                 ),
               ),
-
-              const SizedBox(height: 24),
-
-              // Resend Option with Dynamic Timer
+              SizedBox(height: 24.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Didn't receive the code? ",
-                    style: TextStyle(color: Colors.grey.shade600),
+                    style: TextStyle(
+                      color: Colors.grey.shade600,
+                      fontSize: 14.sp,
+                    ),
                   ),
                   _canResend
                       ? TextButton(
                           onPressed: () {
                             _startTimer();
-                            // TODO: Add resend API logic here
                           },
-                          child: const Text(
+                          child: Text(
                             "Resend Code",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14.sp,
+                            ),
                           ),
                         )
                       : Text(
@@ -230,6 +213,7 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
                           style: TextStyle(
                             color: theme.primaryColor,
                             fontWeight: FontWeight.bold,
+                            fontSize: 14.sp,
                           ),
                         ),
                 ],

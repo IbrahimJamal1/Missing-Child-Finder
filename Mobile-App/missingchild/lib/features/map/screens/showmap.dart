@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ai_safetrack/core/services/currentlocation.dart';
-
 
 class Showmap extends StatefulWidget {
   const Showmap({super.key});
@@ -69,48 +69,48 @@ class _ShowmapState extends State<Showmap> {
               child: CircularProgressIndicator(color: Color(0xff3B82F6)),
             )
           : mapLocation == null
-          ? const Center(
-              child: Text(
-                "Cannot retrieve location data",
-                style: TextStyle(color: Color(0xff64748B), fontSize: 16),
-              ),
-            )
-          : GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: mapLocation!,
-                zoom: 16,
-              ),
-              myLocationEnabled: true,
-              myLocationButtonEnabled: false,
-              zoomControlsEnabled: false,
-              onMapCreated: (controller) {
-                mapController = controller;
-              },
-              markers: {
-                Marker(
-                  markerId: const MarkerId("location"),
-                  position: mapLocation!,
-                  infoWindow: InfoWindow(
-                    title: selectedLocation != null
-                        ? "Target Location"
-                        : "My Current Location",
+              ? Center(
+                  child: Text(
+                    "Cannot retrieve location data",
+                    style: TextStyle(
+                      color: const Color(0xff64748B),
+                      fontSize: 16.sp,
+                    ),
                   ),
+                )
+              : GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: mapLocation!,
+                    zoom: 16,
+                  ),
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: false,
+                  zoomControlsEnabled: false,
+                  onMapCreated: (controller) {
+                    mapController = controller;
+                  },
+                  markers: {
+                    Marker(
+                      markerId: const MarkerId("location"),
+                      position: mapLocation!,
+                      infoWindow: InfoWindow(
+                        title: selectedLocation != null
+                            ? "Target Location"
+                            : "My Current Location",
+                      ),
+                    ),
+                  },
+                  circles: {
+                    Circle(
+                      circleId: const CircleId("radius"),
+                      center: mapLocation!,
+                      radius: 70,
+                      fillColor: const Color(0xff3B82F6).withOpacity(0.15),
+                      strokeColor: const Color(0xff3B82F6),
+                      strokeWidth: 1,
+                    ),
+                  },
                 ),
-              },
-              circles: {
-                Circle(
-                  circleId: const CircleId("radius"),
-                  center: mapLocation!,
-                  radius: 70,
-                  fillColor: const Color(
-                    0xff3B82F6,
-                  ).withOpacity(0.15), // أزرق شفاف ناعم
-                  strokeColor: const Color(0xff3B82F6),
-                  strokeWidth: 1,
-                ),
-              },
-            ),
-
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -120,13 +120,20 @@ class _ShowmapState extends State<Showmap> {
         },
         backgroundColor: const Color(0xff1E3A8A),
         elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        icon: const Icon(Icons.check_circle_rounded, color: Colors.white),
-        label: const Text(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        icon: Icon(
+          Icons.check_circle_rounded,
+          color: Colors.white,
+          size: 20.r,
+        ),
+        label: Text(
           "Confirm Location",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
+            fontSize: 14.sp,
             letterSpacing: 0.5,
           ),
         ),

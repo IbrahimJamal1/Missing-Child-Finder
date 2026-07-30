@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Commentpage extends StatefulWidget {
   const Commentpage({super.key});
@@ -10,7 +11,7 @@ class Commentpage extends StatefulWidget {
 class _CommentpageState extends State<Commentpage> {
   final TextEditingController commentController = TextEditingController();
 
-  final List<String> comment= [
+  final List<String> comment = [
     "Great application 👏",
     "Hope this child is found soon.",
     "Thank you for your efforts ❤️",
@@ -26,55 +27,66 @@ class _CommentpageState extends State<Commentpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Comments"),
+        title: Text(
+          "Comments",
+          style: TextStyle(fontSize: 20.sp),
+        ),
       ),
       body: Column(
         children: [
-          /// Old Comments
           Expanded(
             child: ListView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16.r),
               itemCount: comment.length,
               itemBuilder: (context, index) {
                 return Card(
-                  margin: const EdgeInsets.only(bottom: 10),
+                  margin: EdgeInsets.only(bottom: 10.h),
                   child: ListTile(
-                    leading: const CircleAvatar(
-                      child: Icon(Icons.person),
+                    leading: CircleAvatar(
+                      radius: 20.r,
+                      child: Icon(Icons.person, size: 20.r),
                     ),
-                    title: Text("Name Person"),
-                    subtitle: Text(comment[index]),
-                    trailing: const Text("12:00 PM"),
+                    title: Text(
+                      "Name Person",
+                      style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      comment[index],
+                      style: TextStyle(fontSize: 13.sp),
+                    ),
+                    trailing: Text(
+                      "12:00 PM",
+                      style: TextStyle(fontSize: 11.sp),
+                    ),
                   ),
                 );
               },
             ),
           ),
-
-          /// Input + Send Button
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding: EdgeInsets.all(10.r),
             child: Row(
               children: [
                 Expanded(
                   child: TextField(
                     controller: commentController,
+                    style: TextStyle(fontSize: 14.sp),
                     decoration: InputDecoration(
                       hintText: "Write a comment...",
+                      hintStyle: TextStyle(fontSize: 14.sp),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25),
+                        borderRadius: BorderRadius.circular(25.r),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10.w),
                 CircleAvatar(
-                  radius: 25,
+                  radius: 25.r,
                   child: IconButton(
-                    onPressed: (){
-
-                    },
-                    icon: const Icon(Icons.send),
+                    onPressed: () {},
+                    icon: Icon(Icons.send, size: 20.r),
                   ),
                 ),
               ],

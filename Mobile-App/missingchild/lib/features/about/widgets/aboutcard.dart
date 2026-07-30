@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget buildAboutCard({
   required String title,
@@ -8,15 +9,15 @@ Widget buildAboutCard({
 }) {
   return Container(
     width: double.infinity,
-    padding: const EdgeInsets.all(20),
+    padding: EdgeInsets.all(20.r),
     decoration: BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(24),
+      borderRadius: BorderRadius.circular(24.r),
       boxShadow: [
         BoxShadow(
           color: Colors.black.withOpacity(0.02),
-          blurRadius: 12,
-          offset: const Offset(0, 4),
+          blurRadius: 12.r,
+          offset: Offset(0, 4.h),
         ),
       ],
     ),
@@ -25,24 +26,24 @@ Widget buildAboutCard({
       children: [
         Row(
           children: [
-            Icon(icon, color: iconColor, size: 22),
-            const SizedBox(width: 8),
+            Icon(icon, color: iconColor, size: 22.r),
+            SizedBox(width: 8.w),
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 16,
+              style: TextStyle(
+                fontSize: 16.sp,
                 fontWeight: FontWeight.bold,
-                color: Color(0xff1E293B),
+                color: const Color(0xff1E293B),
               ),
             ),
           ],
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         Text(
           description,
-          style: const TextStyle(
-            color: Color(0xff475569),
-            fontSize: 14,
+          style: TextStyle(
+            color: const Color(0xff475569),
+            fontSize: 14.sp,
             height: 1.5,
           ),
         ),

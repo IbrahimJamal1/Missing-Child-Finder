@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ai_safetrack/features/feedback/widget/buildactioncard.dart';
 import 'package:ai_safetrack/features/feedback/widget/buildcardcategory.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FeedbackPage extends StatefulWidget {
   const FeedbackPage({super.key});
@@ -29,67 +30,60 @@ class _FeedbackPageState extends State<FeedbackPage> {
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           "Send Feedback",
           style: TextStyle(
-            color: Color(0xff0F172A),
+            color: const Color(0xff0F172A),
             fontWeight: FontWeight.w700,
-            fontSize: 18,
+            fontSize: 18.sp,
           ),
         ),
         iconTheme: const IconThemeData(color: Color(0xff0F172A)),
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
         child: Form(
           key: _feedbackKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header Section
-              const Text(
+              Text(
                 "We value your opinion",
                 style: TextStyle(
-                  fontSize: 22,
+                  fontSize: 22.sp,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff0F172A),
+                  color: const Color(0xff0F172A),
                   letterSpacing: -0.5,
                 ),
               ),
-              const SizedBox(height: 8),
-              const Text(
+              SizedBox(height: 8.h),
+              Text(
                 "Tell us how we can improve your experience or report any issues you faced.",
                 style: TextStyle(
-                  color: Color(0xff64748B),
-                  fontSize: 14,
+                  color: const Color(0xff64748B),
+                  fontSize: 14.sp,
                   height: 1.5,
                 ),
               ),
-
-              const SizedBox(height: 28),
-
-              // Category Selector
-              const Text(
+              SizedBox(height: 28.h),
+              Text(
                 "Select Category",
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xff334155),
+                  color: const Color(0xff334155),
                 ),
               ),
-              const SizedBox(height: 12),
-              
-              // 2x2 Grid to ensure responsive fit across all screen sizes
+              SizedBox(height: 12.h),
               GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: 2,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
+                crossAxisSpacing: 12.w,
+                mainAxisSpacing: 12.h,
                 childAspectRatio: 2.2,
                 children: [
-
                   buildCategoryCard(
                     category: "Suggesttion",
                     icon: Icons.lightbulb_outline_rounded,
@@ -100,7 +94,6 @@ class _FeedbackPageState extends State<FeedbackPage> {
                       });
                     },
                   ),
-
                   buildCategoryCard(
                     category: "Bug Report",
                     icon: Icons.bug_report_outlined,
@@ -111,8 +104,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                       });
                     },
                   ),
-
-                   buildActionCard(
+                  buildActionCard(
                     "Rate Us",
                     Icons.star_outline_rounded,
                     onTap: () => Navigator.pushNamed(context, 'rate'),
@@ -129,26 +121,22 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   ),
                 ],
               ),
-
-              const SizedBox(height: 28),
-
-              // Message Input Header
-              const Text(
+              SizedBox(height: 28.h),
+              Text(
                 "Your Message",
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xff334155),
+                  color: const Color(0xff334155),
                 ),
               ),
-              const SizedBox(height: 12),
-              
+              SizedBox(height: 12.h),
               TextFormField(
                 controller: _feedbackController,
                 maxLines: 5,
                 maxLength: 500,
                 textAlignVertical: TextAlignVertical.top,
-                style: const TextStyle(fontSize: 14, color: Color(0xff0F172A)),
+                style: TextStyle(fontSize: 14.sp, color: const Color(0xff0F172A)),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return 'Please write your message before sending';
@@ -160,32 +148,32 @@ class _FeedbackPageState extends State<FeedbackPage> {
                 },
                 decoration: InputDecoration(
                   hintText: "Write your feedback here...",
-                  hintStyle: const TextStyle(
-                    color: Color(0xff94A3B8),
-                    fontSize: 14,
+                  hintStyle: TextStyle(
+                    color: const Color(0xff94A3B8),
+                    fontSize: 14.sp,
                   ),
                   filled: true,
                   fillColor: Colors.white,
                   alignLabelWithHint: true,
-                  counterStyle: const TextStyle(color: Color(0xff94A3B8), fontSize: 12),
-                  contentPadding: const EdgeInsets.all(16),
+                  counterStyle: TextStyle(color: const Color(0xff94A3B8), fontSize: 12.sp),
+                  contentPadding: EdgeInsets.all(16.r),
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(16.r),
                     borderSide: const BorderSide(color: Color(0xffE2E8F0)),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(16.r),
                     borderSide: const BorderSide(
                       color: Color(0xff2563EB),
                       width: 1.5,
                     ),
                   ),
                   errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(16.r),
                     borderSide: const BorderSide(color: Color(0xffEF4444)),
                   ),
                   focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(16.r),
                     borderSide: const BorderSide(
                       color: Color(0xffEF4444),
                       width: 1.5,
@@ -193,30 +181,23 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   ),
                 ),
               ),
-
-              const SizedBox(height: 24),
-
-              
+              SizedBox(height: 24.h),
               SizedBox(
                 width: double.infinity,
-                height: 52,
+                height: 52.h,
                 child: ElevatedButton.icon(
                   onPressed: () {
                     if (_feedbackKey.currentState!.validate()) {
-
-                      //backend logic
-
-
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: const Row(
+                          content: Row(
                             children: [
-                              Icon(Icons.check_circle_outline, color: Colors.white),
-                              SizedBox(width: 10),
+                              Icon(Icons.check_circle_outline, color: Colors.white, size: 20.r),
+                              SizedBox(width: 10.w),
                               Expanded(
                                 child: Text(
                                   "Feedback Sent Successfully! Thank you.",
-                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp),
                                 ),
                               ),
                             ],
@@ -224,7 +205,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                           backgroundColor: const Color(0xff10B981),
                           behavior: SnackBarBehavior.floating,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(12.r),
                           ),
                         ),
                       );
@@ -235,18 +216,18 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     backgroundColor: const Color(0xff1E3A8A),
                     elevation: 0,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
+                      borderRadius: BorderRadius.circular(14.r),
                     ),
                   ),
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.send_rounded,
                     color: Colors.white,
-                    size: 18,
+                    size: 18.r,
                   ),
-                  label: const Text(
+                  label: Text(
                     "Submit Feedback",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -259,5 +240,4 @@ class _FeedbackPageState extends State<FeedbackPage> {
       ),
     );
   }
-
 }

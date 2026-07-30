@@ -1,5 +1,6 @@
 import 'package:ai_safetrack/features/auth/widgets/header.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -25,36 +26,29 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF4F7FC),
-
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
             key: loginkey,
             child: Column(
               children: [
-                //================ HEADER ==================
                 buildHeader(),
-
-                const SizedBox(height: 30),
-
+                SizedBox(height: 30.h),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
                   child: Container(
-                    padding: const EdgeInsets.all(20),
-
+                    padding: EdgeInsets.all(20.r),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(25.r),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.shade300,
-                          blurRadius: 20,
-                          offset: const Offset(0, 10),
+                          blurRadius: 20.r,
+                          offset: Offset(0, 10.h),
                         ),
                       ],
                     ),
-
                     child: Column(
                       children: [
                         TextFormField(
@@ -65,53 +59,43 @@ class _LoginState extends State<Login> {
                             }
                             return null;
                           },
-
                           decoration: InputDecoration(
                             hintText: "Email Or Phone Number",
-
-                            prefixIcon: const Icon(
+                            hintStyle: TextStyle(fontSize: 14.sp),
+                            prefixIcon: Icon(
                               Icons.email_outlined,
-                              color: Color(0xff2563EB),
+                              color: const Color(0xff2563EB),
+                              size: 22.r,
                             ),
-
                             filled: true,
-
                             fillColor: Colors.grey.shade100,
-
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
+                              borderRadius: BorderRadius.circular(15.r),
                               borderSide: BorderSide.none,
                             ),
                           ),
                         ),
-
-                        const SizedBox(height: 20),
-
+                        SizedBox(height: 20.h),
                         TextFormField(
                           controller: password,
-
                           obscureText: hidePassword,
-
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "Enter password";
                             }
-
                             if (value.length < 6) {
                               return "Minimum 6 characters";
                             }
-
                             return null;
                           },
-
                           decoration: InputDecoration(
                             hintText: "Password",
-
-                            prefixIcon: const Icon(
+                            hintStyle: TextStyle(fontSize: 14.sp),
+                            prefixIcon: Icon(
                               Icons.lock_outline,
-                              color: Color(0xff2563EB),
+                              color: const Color(0xff2563EB),
+                              size: 22.r,
                             ),
-
                             suffixIcon: IconButton(
                               onPressed: () {
                                 setState(() {
@@ -122,93 +106,82 @@ class _LoginState extends State<Login> {
                                 hidePassword
                                     ? Icons.visibility
                                     : Icons.visibility_off,
+                                size: 22.r,
                               ),
                             ),
-
                             filled: true,
-
                             fillColor: Colors.grey.shade100,
-
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
+                              borderRadius: BorderRadius.circular(15.r),
                               borderSide: BorderSide.none,
                             ),
                           ),
                         ),
-
-                        const SizedBox(height: 15),
-
+                        SizedBox(height: 15.h),
                         Align(
                           alignment: Alignment.centerRight,
                           child: TextButton(
                             onPressed: () {
                               Navigator.pushNamed(context, 'reset');
                             },
-                            child: const Text("Forgot Password?"),
+                            child: Text(
+                              "Forgot Password?",
+                              style: TextStyle(fontSize: 14.sp),
+                            ),
                           ),
                         ),
-
-                        const SizedBox(height: 10),
-
+                        SizedBox(height: 10.h),
                         SizedBox(
                           width: double.infinity,
-                          height: 55,
-
+                          height: 55.h,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xff2563EB),
-
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
+                                borderRadius: BorderRadius.circular(15.r),
                               ),
                             ),
-
                             onPressed: () {
                               Navigator.pushNamed(context, "home");
                             },
-
-                            child: const Text(
+                            child: Text(
                               "SIGN IN",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18,
+                                fontSize: 18.sp,
                                 letterSpacing: 2,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                         ),
-
-                        const SizedBox(height: 20),
-
+                        SizedBox(height: 20.h),
                         Row(
-                          children: const [
-                            Expanded(child: Divider()),
+                          children: [
+                            const Expanded(child: Divider()),
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Text("OR"),
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
+                              child: Text(
+                                "OR",
+                                style: TextStyle(fontSize: 14.sp),
+                              ),
                             ),
-                            Expanded(child: Divider()),
+                            const Expanded(child: Divider()),
                           ],
                         ),
-
-                        const SizedBox(height: 20),
-
+                        SizedBox(height: 20.h),
                         SizedBox(
                           width: double.infinity,
-                          height: 55,
-
+                          height: 55.h,
                           child: OutlinedButton.icon(
                             onPressed: () {},
-
                             label: Image.asset(
                               "images/google-logo-icon-png-svg.png",
-                              height: 30,
+                              height: 30.h,
                             ),
-
                             style: OutlinedButton.styleFrom(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
+                                borderRadius: BorderRadius.circular(15.r),
                               ),
                             ),
                           ),
@@ -217,26 +190,29 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
-
-                const SizedBox(height: 30),
-                
+                SizedBox(height: 30.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Don't have an account?"),
+                    Text(
+                      "Don't have an account?",
+                      style: TextStyle(fontSize: 14.sp),
+                    ),
                     TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, "register");
                       },
-                      child: const Text(
+                      child: Text(
                         "Sign Up",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14.sp,
+                        ),
                       ),
                     ),
                   ],
                 ),
-
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
               ],
             ),
           ),

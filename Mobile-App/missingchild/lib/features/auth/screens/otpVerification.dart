@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 
 class Otpverification extends StatefulWidget {
@@ -15,30 +16,29 @@ class _OtpverificationState extends State<Otpverification> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    // Default themes for Pinput states
     final defaultPinTheme = PinTheme(
-      width: 56,
-      height: 60,
-      textStyle: const TextStyle(
-        fontSize: 22,
+      width: 56.w,
+      height: 60.h,
+      textStyle: TextStyle(
+        fontSize: 22.sp,
         fontWeight: FontWeight.bold,
       ),
       decoration: BoxDecoration(
         color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         border: Border.all(color: Colors.grey.shade300),
       ),
     );
 
     final focusedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration!.copyWith(
-        border: Border.all(color: theme.primaryColor, width: 2),
+        border: Border.all(color: theme.primaryColor, width: 2.w),
         color: Colors.white,
         boxShadow: [
           BoxShadow(
             color: theme.primaryColor.withOpacity(0.15),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
+            blurRadius: 8.r,
+            offset: Offset(0, 4.h),
           ),
         ],
       ),
@@ -59,55 +59,46 @@ class _OtpverificationState extends State<Otpverification> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 20),
-
-              // Visual Icon / Illustration placeholder
+              SizedBox(height: 20.h),
               Container(
-                width: 80,
-                height: 80,
+                width: 80.r,
+                height: 80.r,
                 decoration: BoxDecoration(
                   color: theme.primaryColor.withOpacity(0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
                   Icons.mark_email_read_rounded,
-                  size: 40,
+                  size: 40.r,
                   color: theme.primaryColor,
                 ),
               ),
-
-              const SizedBox(height: 32),
-
-              const Text(
+              SizedBox(height: 32.h),
+              Text(
                 "Enter Verification Code",
                 style: TextStyle(
-                  fontSize: 22,
+                  fontSize: 22.sp,
                   fontWeight: FontWeight.bold,
                   letterSpacing: -0.5,
                 ),
               ),
-
-              const SizedBox(height: 10),
-
+              SizedBox(height: 10.h),
               Text(
                 "Please enter the 5-digit code sent to your phone.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   color: Colors.grey.shade600,
                   height: 1.4,
                 ),
               ),
-
-              const SizedBox(height: 36),
-
-              // Modern Pinput Widget
+              SizedBox(height: 36.h),
               Pinput(
-                length: 5, // Updated to match the text (5-digit)
+                length: 5,
                 defaultPinTheme: defaultPinTheme,
                 focusedPinTheme: focusedPinTheme,
                 submittedPinTheme: submittedPinTheme,
@@ -117,58 +108,46 @@ class _OtpverificationState extends State<Otpverification> {
                 },
                 onCompleted: (pin) {
                   otp = pin;
-                  // Auto-submit when complete (optional):
-                  // _verifyOtp();
                 },
               ),
-
-              const SizedBox(height: 36),
-
-              // Primary Action Button
+              SizedBox(height: 36.h),
               SizedBox(
                 width: double.infinity,
-                height: 52,
+                height: 52.h,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                     ),
                     elevation: 0,
                   ),
                   onPressed: () {
                     if (otp.length == 5) {
-                      print("Verifying OTP: $otp");
-                      // verifyOtp(email, otp);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Please enter full 5-digit code")),
                       );
                     }
                   },
-                  child: const Text(
+                  child: Text(
                     "Verify",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
-
-              const SizedBox(height: 24),
-
-              // Resend Option
+              SizedBox(height: 24.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Didn't receive the code? ",
-                    style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
+                    style: TextStyle(color: Colors.grey.shade600, fontSize: 14.sp),
                   ),
                   TextButton(
-                    onPressed: () {
-                      // resend otp logic
-                    },
-                    child: const Text(
+                    onPressed: () {},
+                    child: Text(
                       "Resend Code",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
                     ),
                   ),
                 ],

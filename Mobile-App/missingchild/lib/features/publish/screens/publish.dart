@@ -1,5 +1,6 @@
 import 'package:ai_safetrack/features/publish/widgets/headerreport.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ai_safetrack/core/services/gataddressloca.dart';
 import 'package:ai_safetrack/core/services/uploadimage.dart';
@@ -47,7 +48,7 @@ class _PublishState extends State<Publish> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          children: const [
+                          children: [
                             CircleAvatar(
                               radius: 18,
                               backgroundColor: Color.fromARGB(
@@ -61,7 +62,7 @@ class _PublishState extends State<Publish> {
                                 color: Color(0xff1565C0),
                               ),
                             ),
-                            SizedBox(width: 12),
+                            SizedBox(width: 12.w),
                             Text(
                               "Personal Information",
                               style: TextStyle(
@@ -72,7 +73,7 @@ class _PublishState extends State<Publish> {
                           ],
                         ),
 
-                        const SizedBox(height: 25),
+                         SizedBox(height: 25.h),
 
                         /// Name
                         TextFormField(
@@ -139,14 +140,14 @@ class _PublishState extends State<Publish> {
                   setState(() {});
                 },
                 child: Container(
-                  width: double.infinity,
-                  height: 160,
+                  width: double.infinity.w,
+                  height: 160.h,
 
                   decoration: BoxDecoration(
                     color: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Colors.grey.shade300, width: 1.5),
-                  ),
+                  ),  
                   child: imagechild == null
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -174,8 +175,8 @@ class _PublishState extends State<Publish> {
                           borderRadius: BorderRadius.circular(18),
                           child: Image.file(
                             imagechild!,
-                            width: double.infinity,
-                            height: 200,
+                            width: double.infinity.w,
+                            height: 200.h,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -192,10 +193,10 @@ class _PublishState extends State<Publish> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Row(
+                       Row(
                         children: [
                           Icon(Icons.location_on, color: Colors.blue),
-                          SizedBox(width: 10),
+                          SizedBox(width: 10.w),
                           Text(
                             "Location",
                             style: TextStyle(
@@ -249,7 +250,7 @@ class _PublishState extends State<Publish> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 15),
+                       SizedBox(height: 15.h),
                     ],
                   ),
                 ),
@@ -265,10 +266,10 @@ class _PublishState extends State<Publish> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Row(
+                       Row(
                         children: [
                           Icon(Icons.description, color: Colors.blue),
-                          SizedBox(width: 10),
+                          SizedBox(width: 10.w),
                           Text(
                             "Description",
                             style: TextStyle(
@@ -279,7 +280,7 @@ class _PublishState extends State<Publish> {
                         ],
                       ),
 
-                      const SizedBox(height: 20),
+                       SizedBox(height: 20.h),
 
                       TextFormField(
                         controller: descrip,
@@ -291,7 +292,7 @@ class _PublishState extends State<Publish> {
                           hintText:
                               "Describe the child's appearance, clothes, last seen location, or any helpful details...",
                           alignLabelWithHint: true,
-                          prefixIcon: const Padding(
+                          prefixIcon:  Padding(
                             padding: EdgeInsets.only(bottom: 70),
                             child: Icon(Icons.description_outlined),
                           ),
@@ -329,10 +330,10 @@ class _PublishState extends State<Publish> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Row(
+                       Row(
                         children: [
                           Icon(Icons.report, color: Colors.blue),
-                          SizedBox(width: 10),
+                          SizedBox(width: 10.w),
                           Text(
                             "Report Details",
                             style: TextStyle(
@@ -351,7 +352,7 @@ class _PublishState extends State<Publish> {
                         ),
                       ),
 
-                      const SizedBox(height: 15),
+                       SizedBox(height: 15.h),
 
                       SegmentedButton<String>(
                         segments: const [
@@ -389,7 +390,7 @@ class _PublishState extends State<Publish> {
                         ),
                       ),
 
-                      const SizedBox(height: 15),
+                       SizedBox(height: 15.h),
 
                       SegmentedButton<String>(
                         segments: const [
@@ -416,13 +417,13 @@ class _PublishState extends State<Publish> {
                 ),
               ),
 
-              const SizedBox(height: 20),
+               SizedBox(height: 20.h),
 
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 35),
                 child: SizedBox(
-                  width: double.infinity,
-                  height: 58,
+                  width: double.infinity.w,
+                  height: 58.h,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(

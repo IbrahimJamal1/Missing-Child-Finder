@@ -1,5 +1,6 @@
 import 'package:ai_safetrack/features/home/widget/drawerhomepage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ai_safetrack/core/widget/search.dart';
 import 'package:ai_safetrack/features/reports/screens/found.dart';
 
@@ -12,6 +13,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int rating = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,42 +21,41 @@ class _HomeState extends State<Home> {
         elevation: 0,
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           "AI-MIDS",
           style: TextStyle(
-            color: Color(0xff1565C0),
+            color: const Color(0xff1565C0),
             fontWeight: FontWeight.bold,
-            fontSize: 22,
+            fontSize: 22.sp,
           ),
         ),
-        iconTheme: const IconThemeData(color: Color(0xff1565C0)),
+        iconTheme: IconThemeData(
+          color: const Color(0xff1565C0),
+          size: 24.r,
+        ),
         actions: [
           IconButton(
             onPressed: () {
               showSearch(context: context, delegate: MySearchDelegate());
             },
-            icon: const Icon(Icons.search),
+            icon: Icon(Icons.search, size: 24.r),
           ),
-
           IconButton(
             onPressed: () {
               Navigator.pushNamed(context, 'notification');
             },
-            icon: const Icon(Icons.notifications_none),
+            icon: Icon(Icons.notifications_none, size: 24.r),
           ),
-
           IconButton(
             onPressed: () {
               Navigator.pushNamed(context, 'publish');
             },
-            icon: const Icon(Icons.add_circle_outline_rounded),
+            icon: Icon(Icons.add_circle_outline_rounded, size: 24.r),
           ),
         ],
       ),
-
       drawer: buildHomeDrawer(context),
-
-      body: Found(),
+      body: const Found(),
     );
   }
 }

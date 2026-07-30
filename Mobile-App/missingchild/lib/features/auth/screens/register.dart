@@ -1,6 +1,7 @@
 import 'package:ai_safetrack/core/services/uploadimage.dart';
 import 'package:ai_safetrack/features/auth/widgets/customfiled.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -19,6 +20,7 @@ class _RegisterState extends State<Register> {
   DateTime currenttime = DateTime.now();
 
   bool _isPasswordHidden = true;
+
   @override
   void dispose() {
     username.dispose();
@@ -47,43 +49,41 @@ class _RegisterState extends State<Register> {
         child: SafeArea(
           child: Center(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
               child: Card(
                 elevation: 16,
                 shadowColor: Colors.black26,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(28),
+                  borderRadius: BorderRadius.circular(28.r),
                 ),
                 color: Colors.white,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 32,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 24.w,
+                    vertical: 32.h,
                   ),
                   child: Form(
                     key: registerkey,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        // Title Section
-                        const Text(
+                        Text(
                           "Create Account",
                           style: TextStyle(
-                            fontSize: 28,
-                            color: Color(0xFF0F172A),
+                            fontSize: 28.sp,
+                            color: const Color(0xFF0F172A),
                             letterSpacing: -0.5,
                           ),
                         ),
-                        const SizedBox(height: 6),
+                        SizedBox(height: 6.h),
                         Text(
                           "Fill in your details to get started",
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             color: Colors.grey.shade600,
                           ),
                         ),
-                        const SizedBox(height: 28),
-
+                        SizedBox(height: 28.h),
                         GestureDetector(
                           onTap: () async {
                             await pickImage("profile");
@@ -93,57 +93,54 @@ class _RegisterState extends State<Register> {
                             alignment: Alignment.bottomRight,
                             children: [
                               Container(
-                                width: 100,
-                                height: 100,
+                                width: 100.r,
+                                height: 100.r,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Colors.blue.shade50,
                                   border: Border.all(
                                     color: const Color(0xFF3B82F6),
-                                    width: 3,
+                                    width: 3.w,
                                   ),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.blue.withOpacity(0.15),
-                                      blurRadius: 10,
-                                      offset: const Offset(0, 4),
+                                      blurRadius: 10.r,
+                                      offset: Offset(0, 4.h),
                                     ),
                                   ],
                                 ),
                                 child: profileImage == null
-                                    ? const Icon(
+                                    ? Icon(
                                         Icons.person_outline_rounded,
-                                        size: 48,
-                                        color: Color(0xFF3B82F6),
+                                        size: 48.r,
+                                        color: const Color(0xFF3B82F6),
                                       )
                                     : ClipOval(
                                         child: Image.file(
                                           profileImage!,
                                           fit: BoxFit.cover,
-                                          width: 100,
-                                          height: 100,
+                                          width: 100.r,
+                                          height: 100.r,
                                         ),
                                       ),
                               ),
                               Container(
-                                padding: const EdgeInsets.all(6),
+                                padding: EdgeInsets.all(6.r),
                                 decoration: const BoxDecoration(
                                   color: Color(0xFF2563EB),
                                   shape: BoxShape.circle,
                                 ),
-                                child: const Icon(
+                                child: Icon(
                                   Icons.camera_alt_rounded,
-                                  size: 16,
+                                  size: 16.r,
                                   color: Colors.white,
                                 ),
                               ),
                             ],
                           ),
                         ),
-
-                        const SizedBox(height: 28),
-
-                        // Input Fields
+                        SizedBox(height: 28.h),
                         buildCustomField(
                           icon: Icons.person_outline_rounded,
                           label: "Full Name",
@@ -155,7 +152,6 @@ class _RegisterState extends State<Register> {
                             return null;
                           },
                         ),
-
                         buildCustomField(
                           icon: Icons.phone_outlined,
                           label: "Phone Number",
@@ -171,7 +167,6 @@ class _RegisterState extends State<Register> {
                             return null;
                           },
                         ),
-
                         buildCustomField(
                           icon: Icons.email_outlined,
                           label: "Email Address",
@@ -187,7 +182,6 @@ class _RegisterState extends State<Register> {
                             return null;
                           },
                         ),
-
                         buildCustomField(
                           icon: Icons.lock_outline_rounded,
                           label: "Password",
@@ -199,6 +193,7 @@ class _RegisterState extends State<Register> {
                                   ? Icons.visibility_off_outlined
                                   : Icons.visibility_outlined,
                               color: Colors.grey.shade600,
+                              size: 20.r,
                             ),
                             onPressed: () {
                               setState(() {
@@ -213,9 +208,7 @@ class _RegisterState extends State<Register> {
                             return null;
                           },
                         ),
-
-                        const SizedBox(height: 8),
-
+                        SizedBox(height: 8.h),
                         OutlinedButton.icon(
                           onPressed: () async {
                             await pickImage("id");
@@ -225,6 +218,7 @@ class _RegisterState extends State<Register> {
                             idImage != null
                                 ? Icons.check_circle_rounded
                                 : Icons.badge_outlined,
+                            size: 20.r,
                             color: idImage != null
                                 ? Colors.green
                                 : const Color(0xFF1E293B),
@@ -232,7 +226,7 @@ class _RegisterState extends State<Register> {
                           label: Text(
                             idImage != null ? "ID UPLOADED" : "UPLOAD ID",
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 0.5,
                               color: idImage != null
@@ -241,24 +235,22 @@ class _RegisterState extends State<Register> {
                             ),
                           ),
                           style: OutlinedButton.styleFrom(
-                            minimumSize: const Size(double.infinity, 52),
+                            minimumSize: Size(double.infinity, 52.h),
                             side: BorderSide(
                               color: idImage != null
                                   ? Colors.green
                                   : Colors.grey.shade300,
-                              width: 1.5,
+                              width: 1.5.w,
                             ),
                             backgroundColor: idImage != null
                                 ? Colors.green.shade50
                                 : Colors.grey.shade50,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(16.r),
                             ),
                           ),
                         ),
-
-                        SizedBox(height: 24),
-
+                        SizedBox(height: 24.h),
                         OutlinedButton.icon(
                           onPressed: () async {
                             await uploadLiveImage();
@@ -268,6 +260,7 @@ class _RegisterState extends State<Register> {
                             liveImage != null
                                 ? Icons.photo_camera_rounded
                                 : Icons.camera_alt_outlined,
+                            size: 20.r,
                             color: liveImage != null
                                 ? Colors.green
                                 : const Color(0xFF1E293B),
@@ -277,7 +270,7 @@ class _RegisterState extends State<Register> {
                                 ? "Live Photo UPLOADED"
                                 : "UPLOAD Live Photo",
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 0.5,
                               color: liveImage != null
@@ -286,30 +279,25 @@ class _RegisterState extends State<Register> {
                             ),
                           ),
                           style: OutlinedButton.styleFrom(
-                            minimumSize: const Size(double.infinity, 52),
+                            minimumSize: Size(double.infinity, 52.h),
                             side: BorderSide(
                               color: liveImage != null
                                   ? Colors.green
                                   : Colors.grey.shade300,
-                              width: 1.5,
+                              width: 1.5.w,
                             ),
                             backgroundColor: liveImage != null
                                 ? Colors.green.shade50
                                 : Colors.grey.shade50,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(16.r),
                             ),
                           ),
                         ),
-
-                        const SizedBox(height: 24),
-
-                        // Submit Button
+                        SizedBox(height: 24.h),
                         ElevatedButton(
                           onPressed: () {
-                            if (registerkey.currentState!.validate()||true) {
-                              
-                              
+                            if (registerkey.currentState!.validate() || true) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text(
@@ -323,29 +311,27 @@ class _RegisterState extends State<Register> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(double.infinity, 54),
+                            minimumSize: Size(double.infinity, 54.h),
                             backgroundColor: const Color(0xFF2563EB),
                             foregroundColor: Colors.white,
                             elevation: 4,
                             shadowColor: const Color(
                               0xFF2563EB,
-                            ).withValues(alpha: 0.4),
+                            ).withOpacity(0.4),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(16.r),
                             ),
                           ),
-                          child: const Text(
+                          child: Text(
                             "SIGN UP",
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 1.2,
                             ),
                           ),
                         ),
-
-                        const SizedBox(height: 16),
-
+                        SizedBox(height: 16.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -353,19 +339,19 @@ class _RegisterState extends State<Register> {
                               "Already have an account? ",
                               style: TextStyle(
                                 color: Colors.grey.shade600,
-                                fontSize: 14,
+                                fontSize: 14.sp,
                               ),
                             ),
                             GestureDetector(
                               onTap: () {
                                 Navigator.pushNamed(context, "login");
                               },
-                              child: const Text(
+                              child: Text(
                                 "Sign In",
                                 style: TextStyle(
-                                  color: Color(0xFF2563EB),
+                                  color: const Color(0xFF2563EB),
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 14,
+                                  fontSize: 14.sp,
                                 ),
                               ),
                             ),

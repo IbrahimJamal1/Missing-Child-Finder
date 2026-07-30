@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UpdatePasswordScreen extends StatefulWidget {
   const UpdatePasswordScreen({super.key});
@@ -25,18 +26,18 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
   }
 
   void updatePassword() {
-    if (_formKey.currentState!.validate()||true) {
-      // TODO: Call API
-
-
+    if (_formKey.currentState!.validate() || true) {
       Navigator.popUntil(context, ModalRoute.withName('login'));
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Row(
             children: [
-              Icon(Icons.check_circle, color: Colors.white),
-              SizedBox(width: 8),
-              Text("Password updated successfully"),
+              Icon(Icons.check_circle, color: Colors.white, size: 20.r),
+              SizedBox(width: 8.w),
+              Text(
+                "Password updated successfully",
+                style: TextStyle(fontSize: 14.sp),
+              ),
             ],
           ),
           backgroundColor: Colors.green,
@@ -55,30 +56,30 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
     return InputDecoration(
       labelText: labelText,
       hintText: hintText,
-      hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14),
-      prefixIcon: Icon(prefixIcon, color: Colors.grey.shade600),
+      hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14.sp),
+      prefixIcon: Icon(prefixIcon, color: Colors.grey.shade600, size: 22.r),
       suffixIcon: suffixIcon,
       filled: true,
       fillColor: Colors.grey.shade50,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(14.r),
         borderSide: BorderSide(color: Colors.grey.shade300),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(14.r),
         borderSide: BorderSide(color: Colors.grey.shade300),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(14.r),
         borderSide: const BorderSide(color: Colors.blueAccent, width: 1.5),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(14.r),
         borderSide: const BorderSide(color: Colors.redAccent),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(14.r),
         borderSide: const BorderSide(color: Colors.redAccent, width: 1.5),
       ),
     );
@@ -92,61 +93,52 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black87),
+          icon: Icon(Icons.arrow_back_ios_new, color: Colors.black87, size: 20.r),
           onPressed: () => Navigator.maybePop(context),
         ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 12),
-
-                // Visual Icon Header
+                SizedBox(height: 12.h),
                 Container(
-                  height: 84,
-                  width: 84,
+                  height: 84.r,
+                  width: 84.r,
                   decoration: BoxDecoration(
                     color: Colors.blue.shade50,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.security_rounded,
-                    size: 42,
+                    size: 42.r,
                     color: Colors.blueAccent,
                   ),
                 ),
-
-                const SizedBox(height: 28),
-
-                const Text(
+                SizedBox(height: 28.h),
+                Text(
                   "Create New Password",
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 24.sp,
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
                   ),
                 ),
-
-                const SizedBox(height: 10),
-
+                SizedBox(height: 10.h),
                 Text(
                   "Your new password must be different from\npreviously used passwords.",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     color: Colors.grey.shade600,
                     height: 1.5,
                   ),
                 ),
-
-                const SizedBox(height: 36),
-
-                // New Password Input
+                SizedBox(height: 36.h),
                 TextFormField(
                   controller: passwordController,
                   obscureText: obscurePassword,
@@ -160,6 +152,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                             ? Icons.visibility_off_outlined
                             : Icons.visibility_outlined,
                         color: Colors.grey.shade600,
+                        size: 22.r,
                       ),
                       onPressed: () {
                         setState(() {
@@ -178,10 +171,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                     return null;
                   },
                 ),
-
-                const SizedBox(height: 20),
-
-                // Confirm Password Input
+                SizedBox(height: 20.h),
                 TextFormField(
                   controller: confirmPasswordController,
                   obscureText: obscureConfirmPassword,
@@ -195,6 +185,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                             ? Icons.visibility_off_outlined
                             : Icons.visibility_outlined,
                         color: Colors.grey.shade600,
+                        size: 22.r,
                       ),
                       onPressed: () {
                         setState(() {
@@ -213,26 +204,23 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                     return null;
                   },
                 ),
-
-                const SizedBox(height: 36),
-
-                // Submit Button
+                SizedBox(height: 36.h),
                 SizedBox(
                   width: double.infinity,
-                  height: 54,
+                  height: 54.h,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       backgroundColor: Colors.blueAccent,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
+                        borderRadius: BorderRadius.circular(14.r),
                       ),
                     ),
                     onPressed: updatePassword,
-                    child: const Text(
+                    child: Text(
                       "Reset Password",
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),

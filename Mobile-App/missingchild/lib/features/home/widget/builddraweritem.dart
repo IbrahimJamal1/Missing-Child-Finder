@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget buildDrawerItem({
   required IconData icon,
@@ -10,16 +10,16 @@ Widget buildDrawerItem({
     color: Colors.transparent,
     child: ListTile(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(10.r),
       ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-      leading: Icon(icon, color: const Color(0xFF475569), size: 22),
+      contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 2.h),
+      leading: Icon(icon, color: const Color(0xFF475569), size: 22.r),
       title: Text(
         title,
-        style: const TextStyle(
-          fontSize: 15,
+        style: TextStyle(
+          fontSize: 15.sp,
           fontWeight: FontWeight.w500,
-          color: Color(0xFF1E293B),
+          color: const Color(0xFF1E293B),
         ),
       ),
       onTap: onTap,
@@ -34,10 +34,10 @@ class CustomDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Divider(
-      height: 16,
-      thickness: 1,
-      indent: 8,
-      endIndent: 8,
+      height: 16.h,
+      thickness: 1.h,
+      indent: 8.w,
+      endIndent: 8.w,
       color: color,
     );
   }

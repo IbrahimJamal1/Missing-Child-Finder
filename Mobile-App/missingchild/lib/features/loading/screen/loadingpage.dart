@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -24,7 +25,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           "Publish verified emergency reports immediately to reach nearby community members.",
     },
     {
-      
       "image": "images/onboarding1.png",
       "title": "Safe & Reliable",
       "desc":
@@ -76,48 +76,44 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 22),
+            padding: EdgeInsets.symmetric(horizontal: 22.w),
             child: Column(
               children: [
-                const SizedBox(height: 10),
-
-                /// Skip
+                SizedBox(height: 10.h),
                 Align(
                   alignment: Alignment.topRight,
                   child: TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, "login");
                     },
-                    child: const Text(
+                    child: Text(
                       "Skip",
                       style: TextStyle(
-                        color: Color(0xff2563EB),
+                        color: const Color(0xff2563EB),
                         fontWeight: FontWeight.bold,
+                        fontSize: 14.sp,
                       ),
                     ),
                   ),
                 ),
-
-                const SizedBox(height: 10),
-
-                const Text(
+                SizedBox(height: 10.h),
+                Text(
                   "Missing Child Finder",
                   style: TextStyle(
-                    fontSize: 28,
+                    fontSize: 28.sp,
                     fontWeight: FontWeight.w900,
-                    color: Color(0xff0F172A),
+                    color: const Color(0xff0F172A),
                   ),
                 ),
-
-                const SizedBox(height: 8),
-
-                const Text(
+                SizedBox(height: 8.h),
+                Text(
                   "Together we bring children home",
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14.sp,
+                  ),
                 ),
-
-                const SizedBox(height: 30),
-
+                SizedBox(height: 30.h),
                 Expanded(
                   child: PageView.builder(
                     controller: _controller,
@@ -134,20 +130,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             flex: 6,
                             child: Container(
                               width: double.infinity,
-                              margin: const EdgeInsets.symmetric(horizontal: 5),
+                              margin: EdgeInsets.symmetric(horizontal: 5.w),
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(30),
+                                borderRadius: BorderRadius.circular(30.r),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black.withOpacity(.08),
-                                    blurRadius: 25,
-                                    offset: const Offset(0, 10),
+                                    blurRadius: 25.r,
+                                    offset: Offset(0, 10.h),
                                   ),
                                 ],
                               ),
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(30),
+                                borderRadius: BorderRadius.circular(30.r),
                                 child: Image.asset(
                                   pages[index]["image"]!,
                                   fit: BoxFit.cover,
@@ -155,25 +151,25 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 30),
+                          SizedBox(height: 30.h),
                           Text(
                             pages[index]["title"]!,
-                            style: const TextStyle(
-                              fontSize: 24,
+                            style: TextStyle(
+                              fontSize: 24.sp,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xff0F172A),
+                              color: const Color(0xff0F172A),
                             ),
                           ),
-                          const SizedBox(height: 15),
+                          SizedBox(height: 15.h),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            padding: EdgeInsets.symmetric(horizontal: 15.w),
                             child: Text(
                               pages[index]["desc"]!,
                               textAlign: TextAlign.center,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.grey,
                                 height: 1.6,
-                                fontSize: 15,
+                                fontSize: 15.sp,
                               ),
                             ),
                           ),
@@ -182,33 +178,29 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     },
                   ),
                 ),
-
-                const SizedBox(height: 20),
-
+                SizedBox(height: 20.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
                     pages.length,
                     (index) => AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      width: currentPage == index ? 28 : 10,
-                      height: 10,
+                      margin: EdgeInsets.symmetric(horizontal: 4.w),
+                      width: currentPage == index ? 28.w : 10.w,
+                      height: 10.h,
                       decoration: BoxDecoration(
                         color: currentPage == index
                             ? const Color(0xff2563EB)
                             : Colors.grey.shade300,
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(30.r),
                       ),
                     ),
                   ),
                 ),
-
-                const SizedBox(height: 30),
-                //publish button
+                SizedBox(height: 30.h),
                 SizedBox(
                   width: double.infinity,
-                  height: 56,
+                  height: 56.h,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, 'publish');
@@ -216,63 +208,64 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xffDC2626),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18),
+                        borderRadius: BorderRadius.circular(18.r),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       "Publish Report",
                       style: TextStyle(
-                        fontSize: 17,
+                        fontSize: 17.sp,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
-
-                const SizedBox(height: 14),
-
+                SizedBox(height: 14.h),
                 Row(
                   children: [
-                    //login button
                     Expanded(
                       child: OutlinedButton(
                         onPressed: () {
                           Navigator.pushNamed(context, "login");
                         },
                         style: OutlinedButton.styleFrom(
-                          minimumSize: const Size(double.infinity, 54),
+                          minimumSize: Size(double.infinity, 54.h),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(16.r),
                           ),
                         ),
-                        child: const Text("Log In"),
+                        child: Text(
+                          "Log In",
+                          style: TextStyle(fontSize: 15.sp),
+                        ),
                       ),
                     ),
-                    const SizedBox(width: 14),
-                    //register button
+                    SizedBox(width: 14.w),
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.pushNamed(context, 'register');
                         },
                         style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(double.infinity, 54),
+                          minimumSize: Size(double.infinity, 54.h),
                           backgroundColor: const Color(0xff2563EB),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(16.r),
                           ),
                         ),
-                        child: const Text(
+                        child: Text(
                           "Register",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15.sp,
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
-
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
               ],
             ),
           ),

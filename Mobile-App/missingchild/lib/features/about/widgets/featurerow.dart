@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget buildFeatureRow(IconData icon, String title, String subtitle) {
   return Padding(
-    padding: const EdgeInsets.only(bottom: 16),
+    padding: EdgeInsets.only(bottom: 16.h),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CircleAvatar(
-          radius: 18,
+          radius: 18.r,
           backgroundColor: const Color(0xffF1F5F9),
-          child: Icon(icon, color: const Color(0xff475569), size: 18),
+          child: Icon(icon, color: const Color(0xff475569), size: 18.r),
         ),
-        const SizedBox(width: 12),
+        SizedBox(width: 12.w),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff334155),
-                  fontSize: 14,
+                  color: const Color(0xff334155),
+                  fontSize: 14.sp,
                 ),
               ),
-              const SizedBox(height: 2),
+              SizedBox(height: 2.h),
               Text(
                 subtitle,
-                style: const TextStyle(
-                  color: Color(0xff64748B),
-                  fontSize: 12,
+                style: TextStyle(
+                  color: const Color(0xff64748B),
+                  fontSize: 12.sp,
                   height: 1.3,
                 ),
               ),

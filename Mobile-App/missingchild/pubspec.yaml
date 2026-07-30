@@ -47,6 +47,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   flutter_native_splash: ^2.4.8
   pinput: ^6.0.2
+  flutter_screenutil: ^5.9.3
   
 
 dev_dependencies:
@@ -102,17 +103,4 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
 
-flutter_native_splash:
-  color: "#FFFFFF"
-  background_image: images/logo.png
-
-  android: true
-  ios: true
-
-  # إعدادات أندرويد 12 وما فوق
-  android_12:
-    color: "#FFFFFF"
-    background_image: images/logo.png
-
-  fullscreen: true
     

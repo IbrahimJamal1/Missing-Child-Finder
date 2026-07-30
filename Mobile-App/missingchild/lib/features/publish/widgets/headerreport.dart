@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget header_report() {
   return Container(
-    width: double.infinity,
+    width: double.infinity.w,
     padding: const EdgeInsets.only(top: 40, bottom: 35),
     decoration: const BoxDecoration(
       gradient: LinearGradient(

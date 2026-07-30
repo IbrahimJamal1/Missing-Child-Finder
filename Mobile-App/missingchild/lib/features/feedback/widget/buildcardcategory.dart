@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget buildCategoryCard({
   required String category,
@@ -15,22 +16,22 @@ Widget buildCategoryCard({
       color: Colors.transparent,
       child: InkWell(
         onTap: () => onSelect(category),
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(14.r),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
           decoration: BoxDecoration(
             color: isSelected ? const Color(0xffEFF6FF) : Colors.white,
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(14.r),
             border: Border.all(
               color: isSelected ? const Color(0xff2563EB) : const Color(0xffE2E8F0),
-              width: isSelected ? 1.5 : 1,
+              width: isSelected ? 1.5.w : 1.w,
             ),
             boxShadow: isSelected
                 ? [
                     BoxShadow(
                       color: const Color(0xff2563EB).withAlpha(20),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
+                      blurRadius: 8.r,
+                      offset: Offset(0, 2.h),
                     )
                   ]
                 : null,
@@ -41,15 +42,15 @@ Widget buildCategoryCard({
               Icon(
                 icon,
                 color: isSelected ? const Color(0xff2563EB) : const Color(0xff64748B),
-                size: 20,
+                size: 20.r,
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: 8.w),
               Flexible(
                 child: Text(
                   category,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    fontSize: 13,
+                    fontSize: 13.sp,
                     fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
                     color: isSelected ? const Color(0xff2563EB) : const Color(0xff64748B),
                   ),

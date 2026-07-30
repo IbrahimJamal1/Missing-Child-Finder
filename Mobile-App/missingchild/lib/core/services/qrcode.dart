@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 void showQrCode(
@@ -30,7 +31,7 @@ void showQrCode(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24), // حواف دائرية متناسقة
         ),
-        title: const Text(
+        title:  Text(
           "Child QR Code",
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -41,26 +42,26 @@ void showQrCode(
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
+             Text(
               "Scan this code to get full child details instantly.",
               textAlign: TextAlign.center,
-              style: TextStyle(color: Color(0xff64748B), fontSize: 13),
+              style: TextStyle(color: Color(0xff64748B), fontSize: 13.sp),
             ),
-            const SizedBox(height: 20),
+             SizedBox(height: 20.h),
 
             SizedBox(
-              width: 220,
-              height: 220,
+              width: 220.w,
+              height: 220.h,
               child: QrImageView(
                 data: qrData,
                 version: QrVersions.auto,
                 size: 220,
                 gapless: false,
-                eyeStyle: const QrEyeStyle(
+                eyeStyle:  QrEyeStyle(
                   eyeShape: QrEyeShape.square,
                   color: Color(0xff1E3A8A),
                 ),
-                dataModuleStyle: const QrDataModuleStyle(
+                dataModuleStyle:  QrDataModuleStyle(
                   dataModuleShape: QrDataModuleShape.square,
                   color: Color(0xff1E3A8A),
                 ),
@@ -73,14 +74,14 @@ void showQrCode(
           TextButton(
             onPressed: () => Navigator.pop(context),
             style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              padding:  EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             ),
-            child: const Text(
+            child:  Text(
               "Close",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Color(0xffEF4444),
-                fontSize: 16,
+                fontSize: 16.sp,
               ),
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RatePage extends StatefulWidget {
   const RatePage({super.key});
@@ -35,30 +36,30 @@ class _RatePageState extends State<RatePage> {
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           "Rate App",
           style: TextStyle(
-            color: Color(0xff1E3A8A),
+            color: const Color(0xff1E3A8A),
             fontWeight: FontWeight.w800,
-            fontSize: 20,
+            fontSize: 20.sp,
           ),
         ),
         iconTheme: const IconThemeData(color: Color(0xff1E3A8A)),
       ),
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(24),
+            padding: EdgeInsets.all(24.r),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(28),
+              borderRadius: BorderRadius.circular(28.r),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.03),
-                  blurRadius: 20,
-                  offset: const Offset(0, 10),
+                  blurRadius: 20.r,
+                  offset: Offset(0, 10.h),
                 ),
               ],
             ),
@@ -66,43 +67,37 @@ class _RatePageState extends State<RatePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  padding: const EdgeInsets.all(20),
+                  padding: EdgeInsets.all(20.r),
                   decoration: const BoxDecoration(
                     color: Color(0xffFEF3C7),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.star_rounded,
-                    color: Color(0xffD97706),
-                    size: 50,
+                    color: const Color(0xffD97706),
+                    size: 50.r,
                   ),
                 ),
-
-                const SizedBox(height: 24),
-
-                const Text(
+                SizedBox(height: 24.h),
+                Text(
                   "Enjoying AI-MIDS?",
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 22.sp,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xff1E293B),
+                    color: const Color(0xff1E293B),
                   ),
                 ),
-
-                const SizedBox(height: 12),
-
+                SizedBox(height: 12.h),
                 Text(
                   _getRatingFeedback(),
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Color(0xff64748B),
-                    fontSize: 14,
+                  style: TextStyle(
+                    color: const Color(0xff64748B),
+                    fontSize: 14.sp,
                     height: 1.5,
                   ),
                 ),
-
-                const SizedBox(height: 32),
-
+                SizedBox(height: 32.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(5, (index) {
@@ -115,7 +110,7 @@ class _RatePageState extends State<RatePage> {
                           _selectedStars = starValue;
                         });
                       },
-                      iconSize: 35,
+                      iconSize: 35.r,
                       icon: Icon(
                         isSelected
                             ? Icons.star_rounded
@@ -124,31 +119,27 @@ class _RatePageState extends State<RatePage> {
                             ? const Color(0xffF59E0B)
                             : const Color(0xffCBD5E1),
                       ),
-                      splashRadius: 20,
+                      splashRadius: 20.r,
                     );
                   }),
                 ),
-
-                const SizedBox(height: 36),
-
+                SizedBox(height: 36.h),
                 Row(
                   children: [
                     Expanded(
                       child: SizedBox(
-                        height: 50,
+                        height: 50.h,
                         child: ElevatedButton(
                           onPressed: _selectedStars == 0
                               ? null
                               : () {
-
-                                  //back end logic
-
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
+                                    SnackBar(
                                       content: Text(
                                         "Thank you for your rating!",
+                                        style: TextStyle(fontSize: 14.sp),
                                       ),
-                                      backgroundColor: Color(0xff10B981),
+                                      backgroundColor: const Color(0xff10B981),
                                       behavior: SnackBarBehavior.floating,
                                     ),
                                   );
@@ -159,13 +150,13 @@ class _RatePageState extends State<RatePage> {
                             disabledBackgroundColor: const Color(0xffE2E8F0),
                             elevation: 0,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(14.r),
                             ),
                           ),
                           child: Text(
                             "Submit",
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.bold,
                               color: _selectedStars == 0
                                   ? const Color(0xff94A3B8)
@@ -175,26 +166,26 @@ class _RatePageState extends State<RatePage> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 12),
+                    SizedBox(width: 12.w),
                     Expanded(
                       child: SizedBox(
-                        height: 50,
+                        height: 50.h,
                         child: OutlinedButton(
                           onPressed: () => Navigator.pop(context),
                           style: OutlinedButton.styleFrom(
-                            side: const BorderSide(
-                              color: Color(0xffE2E8F0),
-                              width: 1.5,
+                            side: BorderSide(
+                              color: const Color(0xffE2E8F0),
+                              width: 1.5.w,
                             ),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(14.r),
                             ),
                           ),
-                          child: const Text(
+                          child: Text(
                             "Maybe Later",
                             style: TextStyle(
-                              color: Color(0xff64748B),
-                              fontSize: 15,
+                              color: const Color(0xff64748B),
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
