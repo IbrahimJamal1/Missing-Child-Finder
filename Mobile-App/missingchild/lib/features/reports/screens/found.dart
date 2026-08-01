@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ai_safetrack/features/reports/screens/foundadult.dart';
 import 'package:ai_safetrack/features/reports/screens/foundchild.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Found extends StatefulWidget {
   const Found({super.key});
@@ -12,18 +13,13 @@ class Found extends StatefulWidget {
 class _FoundState extends State<Found> {
   int selectIndex = 0;
 
-  // تحديد نوع العناصر لتجنب أخطاء النوع (Type Safety)
-  final List<Widget> foundType = const [
-    FoundChild(),
-    Foundadult(),
-  ];
+  final List<Widget> foundType = const [FoundChild(), Foundadult()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF8FAFC),
 
-      // إضافة ظل خفيف وحواف أنيقة للـ NavigationBar
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: [
@@ -40,7 +36,7 @@ class _FoundState extends State<Found> {
             height: 65,
             elevation: 0,
             backgroundColor: Colors.white,
-            indicatorColor: const Color(0xffDBEAFE), // أزرق فاتح مريح للتحديد
+            indicatorColor: const Color(0xffDBEAFE), 
             selectedIndex: selectIndex,
             onDestinationSelected: (index) {
               setState(() {
@@ -49,13 +45,19 @@ class _FoundState extends State<Found> {
             },
             destinations: const [
               NavigationDestination(
-                icon: Icon(Icons.child_care_outlined, color: Color(0xff64748B)),
-                selectedIcon: Icon(Icons.child_care_rounded, color: Color(0xff2563EB)),
+                icon: FaIcon(FontAwesomeIcons.children),
+                selectedIcon: FaIcon(FontAwesomeIcons.children),
                 label: "Child",
               ),
               NavigationDestination(
-                icon: Icon(Icons.person_outline_rounded, color: Color(0xff64748B)),
-                selectedIcon: Icon(Icons.person_rounded, color: Color(0xff2563EB)),
+                icon: Icon(
+                  Icons.person_outline_rounded,
+                  color: Color(0xff64748B),
+                ),
+                selectedIcon: Icon(
+                  Icons.person_rounded,
+                  color: Color(0xff2563EB),
+                ),
                 label: "Adult",
               ),
             ],
@@ -63,10 +65,7 @@ class _FoundState extends State<Found> {
         ),
       ),
 
-      body: IndexedStack(
-        index: selectIndex,
-        children: foundType,
-      ),
+      body: IndexedStack(index: selectIndex, children: foundType),
     );
   }
 }

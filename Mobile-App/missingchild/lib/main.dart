@@ -36,6 +36,7 @@ void main() async {
     ),
   );
 }
+
 //1080 2340
 class MyApp extends StatefulWidget {
   const MyApp({super.key});

@@ -31,28 +31,24 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           "A secure network designed to protect child identity while maximizing search efficiency.",
     },
   ];
-  final PageController _controller = PageController();
-  int currentPage = 0;
+  int currentPage = 1000;
   late Timer timer;
+  late PageController _controller;
 
   @override
   void initState() {
     super.initState();
 
-    timer = Timer.periodic(const Duration(seconds: 3), (timer) {
-      if (currentPage < pages.length - 1) {
-        currentPage++;
-      } else {
-        currentPage = 0;
-      }
+    _controller = PageController(initialPage: currentPage);
+
+    timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+      currentPage++;
 
       _controller.animateToPage(
         currentPage,
         duration: const Duration(milliseconds: 500),
         curve: Curves.easeInOut,
       );
-
-      setState(() {});
     });
   }
 
@@ -100,7 +96,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 Text(
                   "Missing Child Finder",
                   style: TextStyle(
-                    fontSize: 28.sp,
+                    fontSize: 22.sp,
                     fontWeight: FontWeight.w900,
                     color: const Color(0xff0F172A),
                   ),
@@ -108,22 +104,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 SizedBox(height: 8.h),
                 Text(
                   "Together we bring children home",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14.sp,
-                  ),
+                  style: TextStyle(color: Colors.grey, fontSize: 13.sp),
                 ),
                 SizedBox(height: 30.h),
                 Expanded(
                   child: PageView.builder(
                     controller: _controller,
-                    itemCount: pages.length,
+                    itemCount: 100000,
                     onPageChanged: (value) {
                       setState(() {
                         currentPage = value;
                       });
                     },
                     itemBuilder: (context, index) {
+                      final realIndex = index % pages.length;
                       return Column(
                         children: [
                           Expanded(
@@ -145,17 +139,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(30.r),
                                 child: Image.asset(
-                                  pages[index]["image"]!,
+                                  pages[realIndex]["image"]!,
                                   fit: BoxFit.cover,
                                 ),
                               ),
                             ),
                           ),
-                          SizedBox(height: 30.h),
+                          SizedBox(height: 25.h),
                           Text(
-                            pages[index]["title"]!,
+                            pages[realIndex]["title"]!,
                             style: TextStyle(
-                              fontSize: 24.sp,
+                              fontSize: 21.sp,
                               fontWeight: FontWeight.bold,
                               color: const Color(0xff0F172A),
                             ),
@@ -164,7 +158,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 15.w),
                             child: Text(
-                              pages[index]["desc"]!,
+                              pages[realIndex]["desc"]!,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.grey,
@@ -186,10 +180,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     (index) => AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
                       margin: EdgeInsets.symmetric(horizontal: 4.w),
-                      width: currentPage == index ? 28.w : 10.w,
+                      width: currentPage % pages.length == index ? 28.w : 10.w,
                       height: 10.h,
                       decoration: BoxDecoration(
-                        color: currentPage == index
+                        color: currentPage % pages.length == index
                             ? const Color(0xff2563EB)
                             : Colors.grey.shade300,
                         borderRadius: BorderRadius.circular(30.r),

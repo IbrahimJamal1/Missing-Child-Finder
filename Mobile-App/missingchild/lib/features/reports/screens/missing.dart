@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ai_safetrack/features/reports/screens/accident.dart';
 import 'package:ai_safetrack/features/reports/screens/missingadult.dart';
 import 'package:ai_safetrack/features/reports/screens/missingchild.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Missing extends StatefulWidget {
   const Missing({super.key});
@@ -18,7 +19,6 @@ class _MissingState extends State<Missing> {
     MissingChild(),
     Accident(),
   ];
-
 
   String get _appBarTitle {
     switch (selectIndex) {
@@ -42,7 +42,7 @@ class _MissingState extends State<Missing> {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          _appBarTitle, 
+          _appBarTitle,
           style: const TextStyle(
             color: Color(0xff1E3A8A),
             fontWeight: FontWeight.w800,
@@ -53,7 +53,6 @@ class _MissingState extends State<Missing> {
         iconTheme: const IconThemeData(color: Color(0xff1E3A8A)),
       ),
 
-      
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: [
@@ -77,20 +76,32 @@ class _MissingState extends State<Missing> {
                 selectIndex = index;
               });
             },
-            destinations: const [
+            destinations: [
               NavigationDestination(
-                icon: Icon(Icons.person_outline_rounded, color: Color(0xff64748B)),
-                selectedIcon: Icon(Icons.person_rounded, color: Color(0xff2563EB)),
+                icon: Icon(
+                  Icons.person_outline_rounded,
+                  color: Color(0xff64748B),
+                ),
+                selectedIcon: Icon(
+                  Icons.person_rounded,
+                  color: Color(0xff2563EB),
+                ),
                 label: "Adult",
               ),
               NavigationDestination(
-                icon: Icon(Icons.child_care_outlined, color: Color(0xff64748B)),
-                selectedIcon: Icon(Icons.child_care_rounded, color: Color(0xff2563EB)),
                 label: "Child",
+                icon: FaIcon(FontAwesomeIcons.children),
+                selectedIcon: FaIcon(FontAwesomeIcons.children),
               ),
               NavigationDestination(
-                icon: Icon(Icons.car_crash_outlined, color: Color(0xff64748B)),
-                selectedIcon: Icon(Icons.car_crash_rounded, color: Color(0xff2563EB)),
+                icon: const Icon(
+                  Icons.car_crash_outlined,
+                  color: Color(0xff64748B),
+                ),
+                selectedIcon: const FaIcon(
+                  FontAwesomeIcons.carSide,
+                  color: Color(0xff2563EB),
+                ),
                 label: "Accident",
               ),
             ],
@@ -98,10 +109,7 @@ class _MissingState extends State<Missing> {
         ),
       ),
 
-      body: IndexedStack(
-        index: selectIndex,
-        children: bottomNavPages,
-      ),
+      body: IndexedStack(index: selectIndex, children: bottomNavPages),
     );
   }
 }

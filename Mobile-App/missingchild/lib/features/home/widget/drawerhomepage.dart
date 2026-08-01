@@ -10,7 +10,7 @@ Widget buildHomeDrawer(BuildContext context) {
   const logoutTextColor = Color(0xFFEF4444);
 
   return Drawer(
-    width: 200.w,
+    width: MediaQuery.of(context).size.width * .75,
     child: Material(
       color: backgroundColor,
       child: Column(

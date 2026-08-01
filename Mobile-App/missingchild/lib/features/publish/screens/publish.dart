@@ -1,4 +1,6 @@
 import 'package:ai_safetrack/features/publish/widgets/headerreport.dart';
+import 'package:ai_safetrack/features/publish/widgets/personinfo.dart';
+import 'package:ai_safetrack/features/publish/widgets/reportdetail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -13,16 +15,21 @@ class Publish extends StatefulWidget {
 }
 
 class _PublishState extends State<Publish> {
+  TextEditingController personname = TextEditingController();
+  TextEditingController personphone = TextEditingController();
+  TextEditingController personage = TextEditingController();
 
-  TextEditingController childname = TextEditingController();
-  TextEditingController childphone = TextEditingController();
-  TextEditingController childage = TextEditingController();
   TextEditingController descrip = TextEditingController();
   final TextEditingController locationController = TextEditingController();
   LatLng? location;
+
   String childStatus = "Missing"; //missing, found, accident
   String personType = "Child"; //child or adult
-  DateTime reportDate = DateTime.now();//time of report
+  DateTime reportDate = DateTime.now(); //time of report
+
+  TextEditingController mfSinceController =
+      TextEditingController(); //show text of missing since
+  DateTime? selectedDateTime; //store the selected date and time
 
   @override
   Widget build(BuildContext context) {
@@ -31,109 +38,10 @@ class _PublishState extends State<Publish> {
         child: Form(
           child: Column(
             children: [
-              
               header_report(),
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Card(
-                  elevation: 3,
-                  shadowColor: Colors.black12,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 18,
-                              backgroundColor: Color.fromARGB(
-                                255,
-                                208,
-                                231,
-                                248,
-                              ),
-                              child: Icon(
-                                Icons.person,
-                                color: Color(0xff1565C0),
-                              ),
-                            ),
-                            SizedBox(width: 12.w),
-                            Text(
-                              "Personal Information",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-
-                         SizedBox(height: 25.h),
-
-                        /// Name
-                        TextFormField(
-                          controller: childname,
-                          decoration: InputDecoration(
-                            labelText: "Full Name",
-                            hintText: "Enter child's name",
-                            prefixIcon: const Icon(Icons.person_outline),
-                            filled: true,
-                            fillColor: Colors.grey.shade100,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
-                        ),
-
-                        const SizedBox(height: 18),
-
-                        /// Age
-                        TextFormField(
-                          controller: childage,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            labelText: "Age",
-                            hintText: "Enter age",
-                            prefixIcon: const Icon(Icons.cake_outlined),
-                            filled: true,
-                            fillColor: Colors.grey.shade100,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
-                        ),
-
-                        const SizedBox(height: 18),
-
-                        /// Phone
-                        TextFormField(
-                          controller: childphone,
-                          keyboardType: TextInputType.phone,
-                          decoration: InputDecoration(
-                            labelText: "Parent Phone",
-                            hintText: "01XXXXXXXXX",
-                            prefixIcon: const Icon(Icons.phone_outlined),
-                            filled: true,
-                            fillColor: Colors.grey.shade100,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-
+              personInfo(personname, personage, personphone),
+              //upload image
               GestureDetector(
                 onTap: () async {
                   await pickImage("child");
@@ -147,7 +55,7 @@ class _PublishState extends State<Publish> {
                     color: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Colors.grey.shade300, width: 1.5),
-                  ),  
+                  ),
                   child: imagechild == null
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -182,7 +90,7 @@ class _PublishState extends State<Publish> {
                         ),
                 ),
               ),
-
+              //choose location
               Card(
                 elevation: 3,
                 shape: RoundedRectangleBorder(
@@ -193,7 +101,7 @@ class _PublishState extends State<Publish> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                       Row(
+                      Row(
                         children: [
                           Icon(Icons.location_on, color: Colors.blue),
                           SizedBox(width: 10.w),
@@ -225,7 +133,6 @@ class _PublishState extends State<Publish> {
                         },
                         decoration: InputDecoration(
                           labelText: "Last Seen Location",
-                          hintText: "Choose Location",
                           prefixIcon: const Icon(Icons.map),
                           suffixIcon: const Icon(
                             Icons.arrow_forward_ios,
@@ -250,12 +157,12 @@ class _PublishState extends State<Publish> {
                           ),
                         ),
                       ),
-                       SizedBox(height: 15.h),
+                      SizedBox(height: 15.h),
                     ],
                   ),
                 ),
               ),
-
+              //decscription
               Card(
                 elevation: 3,
                 shape: RoundedRectangleBorder(
@@ -266,7 +173,7 @@ class _PublishState extends State<Publish> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                       Row(
+                      Row(
                         children: [
                           Icon(Icons.description, color: Colors.blue),
                           SizedBox(width: 10.w),
@@ -280,7 +187,7 @@ class _PublishState extends State<Publish> {
                         ],
                       ),
 
-                       SizedBox(height: 20.h),
+                      SizedBox(height: 20.h),
 
                       TextFormField(
                         controller: descrip,
@@ -292,7 +199,7 @@ class _PublishState extends State<Publish> {
                           hintText:
                               "Describe the child's appearance, clothes, last seen location, or any helpful details...",
                           alignLabelWithHint: true,
-                          prefixIcon:  Padding(
+                          prefixIcon: Padding(
                             padding: EdgeInsets.only(bottom: 70),
                             child: Icon(Icons.description_outlined),
                           ),
@@ -319,106 +226,32 @@ class _PublishState extends State<Publish> {
                   ),
                 ),
               ),
-
-              Card(
-                elevation: 3,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                       Row(
-                        children: [
-                          Icon(Icons.report, color: Colors.blue),
-                          SizedBox(width: 10.w),
-                          Text(
-                            "Report Details",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      const Text(
-                        "Case Type",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-
-                       SizedBox(height: 15.h),
-
-                      SegmentedButton<String>(
-                        segments: const [
-                          ButtonSegment(
-                            value: "Missing",
-                            label: Text("Missing"),
-                            icon: Icon(Icons.search),
-                          ),
-                          ButtonSegment(
-                            value: "Found",
-                            label: Text("Found"),
-                            icon: Icon(Icons.check_circle),
-                          ),
-                          ButtonSegment(
-                            value: "Accident",
-                            label: Text("Accident"),
-                            icon: Icon(Icons.warning_amber),
-                          ),
-                        ],
-                        selected: {childStatus},
-                        onSelectionChanged: (value) {
-                          setState(() {
-                            childStatus = value.first;
-                          });
-                        },
-                      ),
-
-                      const SizedBox(height: 25),
-
-                      const Text(
-                        "Person Type",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-
-                       SizedBox(height: 15.h),
-
-                      SegmentedButton<String>(
-                        segments: const [
-                          ButtonSegment(
-                            value: "Child",
-                            label: Text("Child"),
-                            icon: Icon(Icons.child_care),
-                          ),
-                          ButtonSegment(
-                            value: "Adult",
-                            label: Text("Adult"),
-                            icon: Icon(Icons.person),
-                          ),
-                        ],
-                        selected: {personType},
-                        onSelectionChanged: (value) {
-                          setState(() {
-                            personType = value.first;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
+              //report detail
+              reportDetail(
+                context: context,
+                selectedDateTime: selectedDateTime,
+                mfSinceController: mfSinceController,
+                childStatus: childStatus,
+                personType: personType,
+                onChildStatusChanged: (value) {
+                  setState(() {
+                    childStatus = value;
+                  });
+                },
+                onPersonTypeChanged: (value) {
+                  setState(() {
+                    personType = value;
+                  });
+                },
+                onDateChanged: (value) {
+                  setState(() {
+                    selectedDateTime = value;
+                  });
+                },
               ),
+              SizedBox(height: 18.h),
 
-               SizedBox(height: 20.h),
-
+              ///publish button
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 35),
                 child: SizedBox(
@@ -439,12 +272,7 @@ class _PublishState extends State<Publish> {
                       ],
                     ),
                     child: ElevatedButton.icon(
-                      onPressed: () {
-                        
-
-
-                        
-                      },
+                      onPressed: () {},
                       icon: const Icon(Icons.publish_rounded, size: 24),
                       label: const Text(
                         "Publish Report",
