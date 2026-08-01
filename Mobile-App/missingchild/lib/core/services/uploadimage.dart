@@ -1,53 +1,46 @@
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
-File? profileImage;
-File? idImage;
-File? imagechild;
-File? liveImage;
+class ImageService {
+  File? profileImage;
+  File? idImage;
+  File? personImage;
+  File? liveImage;
 
-Future<void> pickImage(String type) async {
+  final ImagePicker _picker = ImagePicker();
 
-  final ImagePicker picker = ImagePicker();
+  Future<void> pickImage(String type) async {
+    final XFile? pickedImage = await _picker.pickImage(
+      source: ImageSource.gallery,
+    );
 
-  final XFile? pickedImage = await picker.pickImage(
-    source: ImageSource.gallery,
-  );
+    if (pickedImage == null) return;
 
+    final file = File(pickedImage.path);
 
-  if (pickedImage != null) {
+    switch (type) {
+      case "profile":
+        profileImage = file;
+        break;
 
-    if (type == "profile") {
+      case "person":
+        personImage = file;
+        break;
 
-      profileImage = File(pickedImage.path);
-
-    } else if (type == "child") {
-
-      imagechild = File(pickedImage.path);
-
-    } else if (type == "id") {
-
-      idImage = File(pickedImage.path);
-
+      case "id":
+        idImage = file;
+        break;
     }
-
-    print(pickedImage.path);
-
-  } else {
-
-    print("No image selected");
-
   }
-}
 
+  Future<void> uploadLiveImage() async {
+    final XFile? image = await _picker.pickImage(
+      source: ImageSource.camera,
+      imageQuality: 80,
+    );
 
-Future<void> uploadLiveImage() async {
-  final ImagePicker picker = ImagePicker();
-  final XFile? image = await picker.pickImage(
-    source: ImageSource.camera,
-    imageQuality: 80,
-  );
-  if (image != null) {
-    liveImage = File(image.path);
+    if (image != null) {
+      liveImage = File(image.path);
+    }
   }
 }

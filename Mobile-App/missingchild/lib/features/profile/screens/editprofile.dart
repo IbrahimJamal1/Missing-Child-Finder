@@ -12,6 +12,8 @@ class Editprofile extends StatefulWidget {
 class _EditprofileState extends State<Editprofile> {
   final editprofile = GlobalKey<FormState>();
 
+  final imageService = ImageService(); //object of ImageService class
+
   final TextEditingController name = TextEditingController(
     text: "Ahmed Mohamed",
   );
@@ -81,7 +83,7 @@ class _EditprofileState extends State<Editprofile> {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(50.r),
                       onTap: () {
-                        pickImage('profileImage');
+                        imageService.pickImage('profile');
                       },
                       child: Container(
                         padding: EdgeInsets.all(10.r),

@@ -33,6 +33,12 @@ Widget personInfo(TextEditingController personname, TextEditingController person
             /// Name
             TextFormField(
               controller: personname,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter the name';
+                }
+                return null;
+              },
               decoration: InputDecoration(
                 labelText: "Full Name",
                 hintText: "Enter person's name",
@@ -52,6 +58,12 @@ Widget personInfo(TextEditingController personname, TextEditingController person
             TextFormField(
               controller: personage,
               keyboardType: TextInputType.number,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter the age';
+                }
+                return null;
+              },
               decoration: InputDecoration(
                 labelText: "Age",
                 hintText: "Enter age",
@@ -71,6 +83,12 @@ Widget personInfo(TextEditingController personname, TextEditingController person
             TextFormField(
               controller: personphone,
               keyboardType: TextInputType.phone,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter the phone number';
+                }
+                return null;
+              },
               decoration: InputDecoration(
                 labelText: "Phone",
                 hintText: "01XXXXXXXXX",

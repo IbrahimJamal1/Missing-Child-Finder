@@ -21,15 +21,17 @@ class _RegisterState extends State<Register> {
 
   bool _isPasswordHidden = true;
 
+  final imageService = ImageService(); //object of ImageService class
+
   @override
   void dispose() {
     username.dispose();
     phone.dispose();
     usermail.dispose();
     userpassword.dispose();
-    idImage = null;
-    liveImage = null;
-    profileImage = null;
+    imageService.idImage = null;
+    imageService.liveImage = null;
+    imageService.profileImage = null;
     super.dispose();
   }
 
@@ -86,7 +88,7 @@ class _RegisterState extends State<Register> {
                         SizedBox(height: 28.h),
                         GestureDetector(
                           onTap: () async {
-                            await pickImage("profile");
+                            await imageService.pickImage("profile");
                             setState(() {});
                           },
                           child: Stack(
@@ -110,7 +112,7 @@ class _RegisterState extends State<Register> {
                                     ),
                                   ],
                                 ),
-                                child: profileImage == null
+                                child: imageService.profileImage == null
                                     ? Icon(
                                         Icons.person_outline_rounded,
                                         size: 48.r,
@@ -118,7 +120,7 @@ class _RegisterState extends State<Register> {
                                       )
                                     : ClipOval(
                                         child: Image.file(
-                                          profileImage!,
+                                          imageService.profileImage!,
                                           fit: BoxFit.cover,
                                           width: 100.r,
                                           height: 100.r,
@@ -211,25 +213,27 @@ class _RegisterState extends State<Register> {
                         SizedBox(height: 8.h),
                         OutlinedButton.icon(
                           onPressed: () async {
-                            await pickImage("id");
+                            await imageService.pickImage("id");
                             setState(() {});
                           },
                           icon: Icon(
-                            idImage != null
+                            imageService.idImage != null
                                 ? Icons.check_circle_rounded
                                 : Icons.badge_outlined,
                             size: 20.r,
-                            color: idImage != null
+                            color: imageService.idImage != null
                                 ? Colors.green
                                 : const Color(0xFF1E293B),
                           ),
                           label: Text(
-                            idImage != null ? "ID UPLOADED" : "UPLOAD ID",
+                            imageService.idImage != null
+                                ? "ID UPLOADED"
+                                : "UPLOAD ID",
                             style: TextStyle(
                               fontSize: 15.sp,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 0.5,
-                              color: idImage != null
+                              color: imageService.idImage != null
                                   ? Colors.green
                                   : const Color(0xFF1E293B),
                             ),
@@ -237,12 +241,12 @@ class _RegisterState extends State<Register> {
                           style: OutlinedButton.styleFrom(
                             minimumSize: Size(double.infinity, 52.h),
                             side: BorderSide(
-                              color: idImage != null
+                              color: imageService.idImage != null
                                   ? Colors.green
                                   : Colors.grey.shade300,
                               width: 1.5.w,
                             ),
-                            backgroundColor: idImage != null
+                            backgroundColor: imageService.idImage != null
                                 ? Colors.green.shade50
                                 : Colors.grey.shade50,
                             shape: RoundedRectangleBorder(
@@ -253,27 +257,27 @@ class _RegisterState extends State<Register> {
                         SizedBox(height: 24.h),
                         OutlinedButton.icon(
                           onPressed: () async {
-                            await uploadLiveImage();
+                            await imageService.uploadLiveImage();
                             setState(() {});
                           },
                           icon: Icon(
-                            liveImage != null
+                            imageService.liveImage != null
                                 ? Icons.photo_camera_rounded
                                 : Icons.camera_alt_outlined,
                             size: 20.r,
-                            color: liveImage != null
+                            color: imageService.liveImage != null
                                 ? Colors.green
                                 : const Color(0xFF1E293B),
                           ),
                           label: Text(
-                            liveImage != null
+                            imageService.liveImage != null
                                 ? "Live Photo UPLOADED"
                                 : "UPLOAD Live Photo",
                             style: TextStyle(
                               fontSize: 15.sp,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 0.5,
-                              color: liveImage != null
+                              color: imageService.liveImage != null
                                   ? Colors.green
                                   : const Color(0xFF1E293B),
                             ),
@@ -281,12 +285,12 @@ class _RegisterState extends State<Register> {
                           style: OutlinedButton.styleFrom(
                             minimumSize: Size(double.infinity, 52.h),
                             side: BorderSide(
-                              color: liveImage != null
+                              color: imageService.liveImage != null
                                   ? Colors.green
                                   : Colors.grey.shade300,
                               width: 1.5.w,
                             ),
-                            backgroundColor: liveImage != null
+                            backgroundColor: imageService.liveImage != null
                                 ? Colors.green.shade50
                                 : Colors.grey.shade50,
                             shape: RoundedRectangleBorder(
@@ -301,9 +305,10 @@ class _RegisterState extends State<Register> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text(
-                                    "confirm your Phone number to complete registration",
+                                    "Confirm your phone number to complete registration",
+                                    style: TextStyle(color: Colors.white),
                                   ),
-                                  backgroundColor: Color(0xff2563EB),
+                                  backgroundColor: Colors.green,
                                 ),
                               );
 

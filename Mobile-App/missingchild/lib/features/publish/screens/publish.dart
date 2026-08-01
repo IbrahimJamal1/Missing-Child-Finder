@@ -31,63 +31,77 @@ class _PublishState extends State<Publish> {
       TextEditingController(); //show text of missing since
   DateTime? selectedDateTime; //store the selected date and time
 
+  final GlobalKey<FormState> reportkey = GlobalKey<FormState>();
+
+  final imageService = ImageService(); //object of ImageService class
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(
+          key: reportkey,
           child: Column(
             children: [
               header_report(),
-
               personInfo(personname, personage, personphone),
               //upload image
-              GestureDetector(
-                onTap: () async {
-                  await pickImage("child");
+              OutlinedButton.icon(
+                onPressed: () async {
+                  await imageService.pickImage("person");
                   setState(() {});
                 },
-                child: Container(
-                  width: double.infinity.w,
-                  height: 160.h,
-
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.grey.shade300, width: 1.5),
+                icon: CircleAvatar(
+                  radius: 18.r,
+                  backgroundColor: imageService.personImage != null
+                      ? Colors.green.shade100
+                      : Colors.blue.shade50,
+                  child: Icon(
+                    imageService.personImage != null
+                        ? Icons.check_circle
+                        : Icons.cloud_upload_outlined,
+                    color: imageService.personImage != null ? Colors.green : Colors.blue,
+                    size: 22.r,
                   ),
-                  child: imagechild == null
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CircleAvatar(
-                              radius: 35,
-                              backgroundColor: Colors.blue.shade50,
-                              child: const Icon(
-                                Icons.cloud_upload_outlined,
-                                size: 35,
-                                color: Colors.blue,
-                              ),
-                            ),
-                            const SizedBox(height: 15),
-                            const Text(
-                              "Tap to Upload Image",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        )
-                      : ClipRRect(
-                          borderRadius: BorderRadius.circular(18),
-                          child: Image.file(
-                            imagechild!,
-                            width: double.infinity.w,
-                            height: 200.h,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                ),
+                label: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      imageService.personImage != null
+                          ? "Photo Uploaded"
+                          : "Upload Person Photo",
+                      style: TextStyle(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    SizedBox(height: 2.h),
+                    Text(
+                      imageService.personImage != null
+                          ? "Tap to change the image"
+                          : "JPG, PNG or JPEG",
+                      style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                    ),
+                  ],
+                ),
+                style: OutlinedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 70.h),
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 12.h,
+                  ),
+                  backgroundColor: Colors.white,
+                  side: BorderSide(
+                    color: imageService.personImage != null
+                        ? Colors.green
+                        : Colors.grey.shade300,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.r),
+                  ),
                 ),
               ),
               //choose location
@@ -118,6 +132,12 @@ class _PublishState extends State<Publish> {
                       TextFormField(
                         controller: locationController,
                         readOnly: true,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please select the last seen location';
+                          }
+                          return null;
+                        },
                         onTap: () async {
                           location =
                               await Navigator.pushNamed(context, 'map')
@@ -191,6 +211,12 @@ class _PublishState extends State<Publish> {
 
                       TextFormField(
                         controller: descrip,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a description';
+                          }
+                          return null;
+                        },
                         maxLines: 3,
                         minLines: 2,
                         textInputAction: TextInputAction.newline,
@@ -272,7 +298,13 @@ class _PublishState extends State<Publish> {
                       ],
                     ),
                     child: ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (reportkey.currentState!.validate()) {
+                          if (childStatus == "Accident") {
+                            personType = "Accident";
+                          }
+                        }
+                      },
                       icon: const Icon(Icons.publish_rounded, size: 24),
                       label: const Text(
                         "Publish Report",
