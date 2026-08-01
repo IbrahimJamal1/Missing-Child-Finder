@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
@@ -12,6 +14,38 @@ class Otpverification extends StatefulWidget {
 class _OtpverificationState extends State<Otpverification> {
   String otp = "";
 
+  Timer? _timer;
+  int _secondsRemaining = 30;
+  bool _canResend = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  void _startTimer() {
+    setState(() {
+      _secondsRemaining = 30;
+      _canResend = false;
+    });
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_secondsRemaining > 0) {
+        setState(() => _secondsRemaining--);
+      } else {
+        _timer?.cancel();
+        setState(() => _canResend = true);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -19,10 +53,7 @@ class _OtpverificationState extends State<Otpverification> {
     final defaultPinTheme = PinTheme(
       width: 56.w,
       height: 60.h,
-      textStyle: TextStyle(
-        fontSize: 22.sp,
-        fontWeight: FontWeight.bold,
-      ),
+      textStyle: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),
       decoration: BoxDecoration(
         color: Colors.grey.shade100,
         borderRadius: BorderRadius.circular(12.r),
@@ -125,13 +156,18 @@ class _OtpverificationState extends State<Otpverification> {
                     if (otp.length == 5) {
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Please enter full 5-digit code")),
+                        const SnackBar(
+                          content: Text("Please enter full 5-digit code"),
+                        ),
                       );
                     }
                   },
                   child: Text(
                     "Verify",
-                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),
@@ -141,15 +177,32 @@ class _OtpverificationState extends State<Otpverification> {
                 children: [
                   Text(
                     "Didn't receive the code? ",
-                    style: TextStyle(color: Colors.grey.shade600, fontSize: 14.sp),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Resend Code",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
+                    style: TextStyle(
+                      color: Colors.grey.shade600,
+                      fontSize: 14.sp,
                     ),
                   ),
+                  _canResend
+                      ? TextButton(
+                          onPressed: () {
+                            _startTimer();
+                          },
+                          child: Text(
+                            "Resend Code",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14.sp,
+                            ),
+                          ),
+                        )
+                      : Text(
+                          "Resend in ${_secondsRemaining}s",
+                          style: TextStyle(
+                            color: theme.primaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14.sp,
+                          ),
+                        ),
                 ],
               ),
             ],

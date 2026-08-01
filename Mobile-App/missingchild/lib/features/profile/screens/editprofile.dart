@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/features/profile/widgets/inputui.dart';
 import 'package:flutter/material.dart';
 import 'package:ai_safetrack/core/services/uploadimage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,21 +11,22 @@ class Editprofile extends StatefulWidget {
 }
 
 class _EditprofileState extends State<Editprofile> {
-  final editprofile = GlobalKey<FormState>();
+  final keyeditprofile = GlobalKey<FormState>();
+  final _imageService = ImageService();
 
-  final imageService = ImageService(); //object of ImageService class
+  late final TextEditingController _nameController = TextEditingController();
+  late final TextEditingController _emailController = TextEditingController();
+  late final TextEditingController _phoneController = TextEditingController();
 
-  final TextEditingController name = TextEditingController(
-    text: "Ahmed Mohamed",
-  );
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    super.dispose();
+  }
 
-  final TextEditingController email = TextEditingController(
-    text: "ahmed@gmail.com",
-  );
 
-  final TextEditingController phone = TextEditingController(
-    text: "01012345678",
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +50,10 @@ class _EditprofileState extends State<Editprofile> {
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
         child: Form(
-          key: editprofile,
+          key: keyeditprofile,
           child: Column(
             children: [
+              // Profile Image Avatar Stack
               Stack(
                 alignment: Alignment.center,
                 children: [
@@ -71,30 +74,43 @@ class _EditprofileState extends State<Editprofile> {
                       child: CircleAvatar(
                         radius: 60.r,
                         backgroundColor: const Color(0xffF1F5F9),
-                        backgroundImage: const NetworkImage(
-                          "https://i.pravatar.cc/300",
-                        ),
+                        backgroundImage: _imageService.profileImage != null
+                            ? FileImage(_imageService.profileImage!)
+                                as ImageProvider
+                            : const NetworkImage("https://i.pravatar.cc/400"),
                       ),
                     ),
                   ),
                   Positioned(
                     bottom: 0,
                     right: 4.w,
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(50.r),
-                      onTap: () {
-                        imageService.pickImage('profile');
+                    child: GestureDetector(
+                      onTap: () async {
+                        
+                            await _imageService.pickImage("profile");
+                        setState(() {}); // Refresh the UI after picking an image
                       },
                       child: Container(
-                        padding: EdgeInsets.all(10.r),
-                        decoration: const BoxDecoration(
-                          color: Color(0xff10B981),
+                        padding: EdgeInsets.all(8.r),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF2563EB),
                           shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 2.w,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.blue.withOpacity(0.2),
+                              blurRadius: 8.r,
+                              offset: Offset(0, 2.h),
+                            ),
+                          ],
                         ),
                         child: Icon(
                           Icons.camera_alt_rounded,
+                          size: 18.r,
                           color: Colors.white,
-                          size: 20.r,
                         ),
                       ),
                     ),
@@ -102,6 +118,8 @@ class _EditprofileState extends State<Editprofile> {
                 ],
               ),
               SizedBox(height: 32.h),
+
+              // Inputs Card
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -118,57 +136,21 @@ class _EditprofileState extends State<Editprofile> {
                 child: Column(
                   children: [
                     TextFormField(
-                      controller: name,
+                      controller: _nameController,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'Please enter your full name';
                         }
                         return null;
                       },
-                      decoration: InputDecoration(
-                        labelText: "Full Name",
-                        labelStyle: TextStyle(
-                          color: const Color(0xff64748B),
-                          fontSize: 14.sp,
-                        ),
-                        prefixIcon: Icon(
-                          Icons.person_rounded,
-                          color: const Color(0xff3B82F6),
-                          size: 22.r,
-                        ),
-                        filled: true,
-                        fillColor: const Color(0xffF8FAFC),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.r),
-                          borderSide: const BorderSide(
-                            color: Color(0xffE2E8F0),
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.r),
-                          borderSide: BorderSide(
-                            color: const Color(0xff3B82F6),
-                            width: 1.5.w,
-                          ),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.r),
-                          borderSide: const BorderSide(
-                            color: Color(0xffEF4444),
-                          ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.r),
-                          borderSide: BorderSide(
-                            color: const Color(0xffEF4444),
-                            width: 1.5.w,
-                          ),
-                        ),
+                      decoration: buildInputDecoration(
+                        label: "Full Name",
+                        icon: Icons.person_rounded,
                       ),
                     ),
                     SizedBox(height: 20.h),
                     TextFormField(
-                      controller: email,
+                      controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
@@ -179,50 +161,14 @@ class _EditprofileState extends State<Editprofile> {
                         }
                         return null;
                       },
-                      decoration: InputDecoration(
-                        labelText: "Email Address",
-                        labelStyle: TextStyle(
-                          color: const Color(0xff64748B),
-                          fontSize: 14.sp,
-                        ),
-                        prefixIcon: Icon(
-                          Icons.email_rounded,
-                          color: const Color(0xff3B82F6),
-                          size: 22.r,
-                        ),
-                        filled: true,
-                        fillColor: const Color(0xffF8FAFC),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.r),
-                          borderSide: const BorderSide(
-                            color: Color(0xffE2E8F0),
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.r),
-                          borderSide: BorderSide(
-                            color: const Color(0xff3B82F6),
-                            width: 1.5.w,
-                          ),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.r),
-                          borderSide: const BorderSide(
-                            color: Color(0xffEF4444),
-                          ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.r),
-                          borderSide: BorderSide(
-                            color: const Color(0xffEF4444),
-                            width: 1.5.w,
-                          ),
-                        ),
+                      decoration: buildInputDecoration(
+                        label: "Email Address",
+                        icon: Icons.email_rounded,
                       ),
                     ),
                     SizedBox(height: 20.h),
                     TextFormField(
-                      controller: phone,
+                      controller: _phoneController,
                       keyboardType: TextInputType.phone,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
@@ -233,73 +179,35 @@ class _EditprofileState extends State<Editprofile> {
                         }
                         return null;
                       },
-                      decoration: InputDecoration(
-                        labelText: "Phone Number",
-                        labelStyle: TextStyle(
-                          color: const Color(0xff64748B),
-                          fontSize: 14.sp,
-                        ),
-                        prefixIcon: Icon(
-                          Icons.phone_rounded,
-                          color: const Color(0xff3B82F6),
-                          size: 22.r,
-                        ),
-                        filled: true,
-                        fillColor: const Color(0xffF8FAFC),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.r),
-                          borderSide: const BorderSide(
-                            color: Color(0xffE2E8F0),
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.r),
-                          borderSide: BorderSide(
-                            color: const Color(0xff3B82F6),
-                            width: 1.5.w,
-                          ),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.r),
-                          borderSide: const BorderSide(
-                            color: Color(0xffEF4444),
-                          ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.r),
-                          borderSide: BorderSide(
-                            color: const Color(0xffEF4444),
-                            width: 1.5.w,
-                          ),
-                        ),
+                      decoration: buildInputDecoration(
+                        label: "Phone Number",
+                        icon: Icons.phone_rounded,
                       ),
                     ),
-
-                    SizedBox(height: 40.h),
+                    SizedBox(height: 32.h),
                     SizedBox(
                       width: double.infinity,
                       height: 52.h,
-                      child: ElevatedButton.icon(
+                      child: OutlinedButton.icon(
                         onPressed: () {
                           Navigator.pushNamed(context, 'updatepass');
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff1E3A8A),
-                          elevation: 0,
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: Color(0xff1E3A8A)),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(14.r),
                           ),
                         ),
                         icon: Icon(
-                          Icons.update,
-                          color: Colors.white,
+                          Icons.lock_reset_rounded,
+                          color: const Color(0xff1E3A8A),
                           size: 20.r,
                         ),
                         label: Text(
                           "Update Password",
                           style: TextStyle(
                             fontSize: 16.sp,
-                            color: Colors.white,
+                            color: const Color(0xff1E3A8A),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -308,13 +216,15 @@ class _EditprofileState extends State<Editprofile> {
                   ],
                 ),
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 24.h),
+
+              // Save Action Button
               SizedBox(
                 width: double.infinity,
                 height: 52.h,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    if (editprofile.currentState!.validate()) {
+                    if (keyeditprofile.currentState!.validate()) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text("Profile Updated Successfully"),

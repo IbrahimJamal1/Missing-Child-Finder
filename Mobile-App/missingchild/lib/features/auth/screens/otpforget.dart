@@ -45,26 +45,6 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
     super.dispose();
   }
 
-  void _verifyAndNavigate() {
-    if (otp.length == 5) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('OTP Verified: $otp'),
-          backgroundColor: Colors.green,
-        ),
-      );
-
-      Navigator.pushNamed(context, 'updatepass');
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please enter the full 5-digit code'),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -104,7 +84,11 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new, color: Colors.black87, size: 20.r),
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.black87,
+            size: 20.r,
+          ),
           onPressed: () => Navigator.maybePop(context),
         ),
       ),
@@ -158,7 +142,6 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
                 },
                 onCompleted: (pin) {
                   otp = pin;
-                  _verifyAndNavigate();
                 },
               ),
               SizedBox(height: 36.h),
@@ -173,7 +156,26 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
                       borderRadius: BorderRadius.circular(14.r),
                     ),
                   ),
-                  onPressed: _verifyAndNavigate,
+                  onPressed: () {
+                    if (otp.length == 5) {
+                      
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('OTP Verified: $otp'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+
+                      Navigator.pushNamed(context, 'updatepass');
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please enter the full 5-digit code'),
+                          backgroundColor: Colors.redAccent,
+                        ),
+                      );
+                    }
+                  },
                   child: Text(
                     "Continue",
                     style: TextStyle(
