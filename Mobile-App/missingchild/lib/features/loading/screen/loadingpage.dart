@@ -32,7 +32,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     },
   ];
 
-  int currentPage = 0;
+  int currentPage = 1000;
   late PageController controller;
 
   @override
@@ -123,7 +123,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 ),
                         ),
 
-                        SizedBox(height: 15.h),
+                        isWideScreen
+                            ? SizedBox(height: 0.h)
+                            : SizedBox(height: 10.h),
 
                         _buildPageIndicator(),
 

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget buildActionButtons(bool isWideScreen,context) {
+Widget buildActionButtons(bool isWideScreen, context) {
   return Container(
     constraints: BoxConstraints(maxWidth: isWideScreen ? 500 : double.infinity),
     child: Column(
       children: [
         SizedBox(
           width: double.infinity,
-          height: 52.h,
+          height: 40.h,
           child: ElevatedButton(
             onPressed: () => Navigator.pushNamed(context, 'publish'),
             style: ElevatedButton.styleFrom(
@@ -17,17 +17,19 @@ Widget buildActionButtons(bool isWideScreen,context) {
                 borderRadius: BorderRadius.circular(16.r),
               ),
             ),
-            child: Text(
-              "Publish Report",
-              style: TextStyle(
-                fontSize: 16.sp,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: isWideScreen
+                ? Text(
+                    "Publish Report",
+                    style: TextStyle(
+                      fontSize: 9.sp,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                : Text(""),
           ),
         ),
-        SizedBox(height: 12.h),
+        SizedBox(height: 16.h),
         Row(
           children: [
             Expanded(
@@ -39,10 +41,10 @@ Widget buildActionButtons(bool isWideScreen,context) {
                     borderRadius: BorderRadius.circular(14.r),
                   ),
                 ),
-                child: Text("Log In", style: TextStyle(fontSize: 15.sp)),
+                child: Text("Log In", style: TextStyle(fontSize: 12.sp)),
               ),
             ),
-            SizedBox(width: 12.w),
+            SizedBox(width: 15.w),
             Expanded(
               child: ElevatedButton(
                 onPressed: () => Navigator.pushNamed(context, 'register'),
@@ -55,7 +57,7 @@ Widget buildActionButtons(bool isWideScreen,context) {
                 ),
                 child: Text(
                   "Register",
-                  style: TextStyle(color: Colors.white, fontSize: 15.sp),
+                  style: TextStyle(color: Colors.white, fontSize: 12.sp),
                 ),
               ),
             ),

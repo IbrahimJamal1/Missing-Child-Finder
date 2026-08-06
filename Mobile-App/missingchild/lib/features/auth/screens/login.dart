@@ -148,7 +148,7 @@ class _LoginState extends State<Login> {
                               "SIGN IN",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18.sp,
+                                fontSize: 9.sp,
                                 letterSpacing: 2,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -163,7 +163,7 @@ class _LoginState extends State<Login> {
                               padding: EdgeInsets.symmetric(horizontal: 10.w),
                               child: Text(
                                 "OR",
-                                style: TextStyle(fontSize: 14.sp),
+                                style: TextStyle(fontSize: 8.sp),
                               ),
                             ),
                             const Expanded(child: Divider()),

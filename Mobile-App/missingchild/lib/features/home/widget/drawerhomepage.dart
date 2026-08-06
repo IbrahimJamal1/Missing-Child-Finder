@@ -8,9 +8,11 @@ Widget buildHomeDrawer(BuildContext context) {
   const dividerColor = Color(0xFFE2E8F0);
   const logoutBgColor = Color(0xFFFEF2F2);
   const logoutTextColor = Color(0xFFEF4444);
+  final width = MediaQuery.of(context).size.width;
+  bool isWideScreen = width >= 700 ; //tablet
 
   return Drawer(
-    width: MediaQuery.of(context).size.width * .75,
+    width: MediaQuery.of(context).size.width * .66,
     child: Material(
       color: backgroundColor,
       child: Column(
@@ -34,7 +36,7 @@ Widget buildHomeDrawer(BuildContext context) {
                 shape: BoxShape.circle,
                 color: Colors.white,
               ),
-              padding: EdgeInsets.all(2.r),
+              padding: EdgeInsets.all(3.r),
               child: CircleAvatar(
                 backgroundColor: const Color(0xFFEFF6FF),
                 child: Icon(
@@ -45,7 +47,17 @@ Widget buildHomeDrawer(BuildContext context) {
               ),
             ),
 
-            accountName: Padding(
+            accountName:isWideScreen? Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: Text(
+                "Ibrahim Gamal",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 11.sp,
+                  color: Colors.white,
+                ),
+              ),
+            ):Padding(
               padding: EdgeInsets.only(top: 20),
               child: Text(
                 "Ibrahim Gamal",
@@ -56,10 +68,13 @@ Widget buildHomeDrawer(BuildContext context) {
                 ),
               ),
             ),
-            accountEmail: Text(
+            accountEmail:isWideScreen? Text(
+              "ibrahimgamal932@gmail.com",
+              style: TextStyle(color: const Color(0xFFCBD5E1), fontSize: 9.sp),
+            ):Text(
               "ibrahimgamal932@gmail.com",
               style: TextStyle(color: const Color(0xFFCBD5E1), fontSize: 13.sp),
-            ),
+            )
           ),
           SizedBox(height: 12.h),
           Expanded(
