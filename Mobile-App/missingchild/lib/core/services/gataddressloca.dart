@@ -2,10 +2,16 @@ import 'package:geocoding/geocoding.dart';
 
 Future<String> getAddressFromLatLng(double latitude, double longitude) async {
   try {
-    List<Placemark> placemarks = await placemarkFromCoordinates(
-      latitude,
-      longitude,
-    );
+    List<Placemark> placemarks;
+    try {
+      placemarks = await placemarkFromCoordinates(
+        latitude,
+        longitude,
+      );
+    }catch (e) {
+      print(e);
+      return "Unknown address";
+    }
 
     if (placemarks.isNotEmpty) {
       Placemark place = placemarks.first;
@@ -27,6 +33,6 @@ Future<String> getAddressFromLatLng(double latitude, double longitude) async {
     }
     return "Unknown Location";
   } catch (e) {
-    return "Unknown Location";
+    return '$e';
   }
 }

@@ -1,6 +1,7 @@
+import 'package:ai_safetrack/core/services/uploadimage.dart';
+import 'package:ai_safetrack/features/profile/widgets/imageprofiles.dart';
 import 'package:ai_safetrack/features/profile/widgets/inputui.dart';
 import 'package:flutter/material.dart';
-import 'package:ai_safetrack/core/services/uploadimage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Editprofile extends StatefulWidget {
@@ -12,7 +13,7 @@ class Editprofile extends StatefulWidget {
 
 class _EditprofileState extends State<Editprofile> {
   final keyeditprofile = GlobalKey<FormState>();
-  final _imageService = ImageService();
+  final imageservice = ImageService();
 
   late final TextEditingController _nameController = TextEditingController();
   late final TextEditingController _emailController = TextEditingController();
@@ -24,9 +25,8 @@ class _EditprofileState extends State<Editprofile> {
     _emailController.dispose();
     _phoneController.dispose();
     super.dispose();
+    
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -47,77 +47,18 @@ class _EditprofileState extends State<Editprofile> {
         iconTheme: const IconThemeData(color: Color(0xff1E3A8A)),
       ),
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
         child: Form(
           key: keyeditprofile,
           child: Column(
             children: [
               // Profile Image Avatar Stack
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.06),
-                          blurRadius: 16.r,
-                          offset: Offset(0, 4.h),
-                        ),
-                      ],
-                    ),
-                    child: CircleAvatar(
-                      radius: 64.r,
-                      backgroundColor: Colors.white,
-                      child: CircleAvatar(
-                        radius: 60.r,
-                        backgroundColor: const Color(0xffF1F5F9),
-                        backgroundImage: _imageService.profileImage != null
-                            ? FileImage(_imageService.profileImage!)
-                                as ImageProvider
-                            : const NetworkImage("https://i.pravatar.cc/400"),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 4.w,
-                    child: GestureDetector(
-                      onTap: () async {
-                        
-                            await _imageService.pickImage("profile");
-                        setState(() {}); // Refresh the UI after picking an image
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(8.r),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF2563EB),
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 2.w,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.blue.withOpacity(0.2),
-                              blurRadius: 8.r,
-                              offset: Offset(0, 2.h),
-                            ),
-                          ],
-                        ),
-                        child: Icon(
-                          Icons.camera_alt_rounded,
-                          size: 18.r,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+              imageProfile(
+                imageType: true,
+                imageService: imageservice,
+                refresh: () {
+                  setState(() {});
+                },
               ),
-              SizedBox(height: 32.h),
 
               // Inputs Card
               Container(
@@ -224,20 +165,22 @@ class _EditprofileState extends State<Editprofile> {
                 height: 52.h,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    if (keyeditprofile.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Profile Updated Successfully"),
-                          backgroundColor: Color(0xff10B981),
-                          behavior: SnackBarBehavior.floating,
-                        ),
-                      );
+                    if (keyeditprofile.currentState!.validate() || true) {
+                      print(imageservice.updateimageprofile?.path);
+                      print(imageservice.coverprofile?.path);
 
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        "profile",
-                        (route) => false,
-                      );
+                      // ScaffoldMessenger.of(context).showSnackBar(
+                      //   const SnackBar(
+                      //     content: Text("Profile Updated Successfully"),
+                      //     backgroundColor: Color(0xff10B981),
+                      //     behavior: SnackBarBehavior.floating,
+                      //   ),
+                      // );
+                      // Navigator.pushNamedAndRemoveUntil(
+                      //   context,
+                      //   "profile",
+                      //   (route) => false,
+                      // );
                     }
                   },
                   style: ElevatedButton.styleFrom(

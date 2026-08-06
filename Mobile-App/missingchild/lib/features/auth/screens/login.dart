@@ -142,7 +142,7 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             onPressed: () {
-                              Navigator.pushNamed(context, "home");
+                              Navigator.pushNamedAndRemoveUntil(context, "home",(route)=>false);
                             },
                             child: Text(
                               "SIGN IN",

@@ -1,10 +1,11 @@
-import 'package:ai_safetrack/core/helpfunc/bouns.dart';
+import 'package:ai_safetrack/core/services/uploadimage.dart';
+import 'package:ai_safetrack/features/profile/widgets/deleteaccountdilog.dart';
+import 'package:ai_safetrack/features/profile/widgets/imageprofiles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
-
   @override
   State<Profile> createState() => _ProfileState();
 }
@@ -26,6 +27,17 @@ class _ProfileState extends State<Profile> {
             fontSize: 20.sp,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) => deleteAccountDialog(onDelete: () {}),
+              );
+            },
+            icon: Icon(Icons.delete, color: Colors.red, size: 30),
+          ),
+        ],
       ),
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
@@ -33,66 +45,11 @@ class _ProfileState extends State<Profile> {
           SliverToBoxAdapter(
             child: Column(
               children: [
-                Stack(
-                  clipBehavior: Clip.none,
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      height: 160.h,
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage("https://picsum.photos/800/400"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: -50.h,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.08),
-                              blurRadius: 12.r,
-                              offset: Offset(0, 4.h),
-                            ),
-                          ],
-                        ),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            SizedBox(
-                              width: 132.r,
-                              height: 132.r,
-                              child: CircularProgressIndicator(
-                                value: calculateBonus(),
-                                strokeWidth: 5.w,
-                                backgroundColor: const Color(0xFFE2E8F0),
-                                valueColor: const AlwaysStoppedAnimation<Color>(
-                                  Color(0xFF1E3A8A),
-                                ),
-                              ),
-                            ),
-                            CircleAvatar(
-                              radius: 60.r,
-                              backgroundColor: Colors.white,
-                              child: CircleAvatar(
-                                radius: 63.r,
-                                backgroundColor: const Color(0xffF1F5F9),
-                                backgroundImage: const NetworkImage(
-                                  "https://i.pravatar.cc/300",
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                imageProfile(
+                  imageType: false,
+                  imageService: ImageService(),
+                  refresh: () {},
                 ),
-                SizedBox(height: 64.h),
                 Text(
                   "Ibrahim Gamal",
                   style: TextStyle(

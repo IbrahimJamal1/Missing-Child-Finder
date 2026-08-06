@@ -4,9 +4,8 @@ Future<Position> determinePosition() async {
   bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
   if (!serviceEnabled) {
-    throw Exception("Location services are disabled.");
+    await Geolocator.openLocationSettings();
   }
-
   LocationPermission permission = await Geolocator.checkPermission();
 
   if (permission == LocationPermission.denied) {

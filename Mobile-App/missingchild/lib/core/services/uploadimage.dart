@@ -7,6 +7,10 @@ class ImageService {
   File? personImage;
   File? liveImage;
 
+  //update image profile
+  File? coverprofile;
+  File? updateimageprofile;
+
   final ImagePicker _picker = ImagePicker();
 
   Future<void> pickImage(String type) async {
@@ -29,6 +33,12 @@ class ImageService {
 
       case "id":
         idImage = file;
+        break;
+      case "updateimageprofile":
+        updateimageprofile = file;
+        break;
+      case "coverprofile":
+        coverprofile = file;
         break;
     }
   }

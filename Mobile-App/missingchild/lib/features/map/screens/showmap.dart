@@ -44,16 +44,30 @@ class _ShowmapState extends State<Showmap> {
   Future<void> getCurrentLocation() async {
     try {
       Position position = await determinePosition();
+
       currentLocation = LatLng(position.latitude, position.longitude);
     } catch (e) {
-      debugPrint(e.toString());
-    }
+      if (!mounted) return;
 
-    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString().replaceFirst("Exception: ", "")),
+          backgroundColor: Colors.red,
+        ),
+      );
+
       setState(() {
         loading = false;
       });
+
+      return;
     }
+
+    if (!mounted) return;
+
+    setState(() {
+      loading = false;
+    });
   }
 
   LatLng? get mapLocation {
@@ -69,48 +83,48 @@ class _ShowmapState extends State<Showmap> {
               child: CircularProgressIndicator(color: Color(0xff3B82F6)),
             )
           : mapLocation == null
-              ? Center(
-                  child: Text(
-                    "Cannot retrieve location data",
-                    style: TextStyle(
-                      color: const Color(0xff64748B),
-                      fontSize: 16.sp,
-                    ),
-                  ),
-                )
-              : GoogleMap(
-                  initialCameraPosition: CameraPosition(
-                    target: mapLocation!,
-                    zoom: 16,
-                  ),
-                  myLocationEnabled: true,
-                  myLocationButtonEnabled: false,
-                  zoomControlsEnabled: false,
-                  onMapCreated: (controller) {
-                    mapController = controller;
-                  },
-                  markers: {
-                    Marker(
-                      markerId: const MarkerId("location"),
-                      position: mapLocation!,
-                      infoWindow: InfoWindow(
-                        title: selectedLocation != null
-                            ? "Target Location"
-                            : "My Current Location",
-                      ),
-                    ),
-                  },
-                  circles: {
-                    Circle(
-                      circleId: const CircleId("radius"),
-                      center: mapLocation!,
-                      radius: 70,
-                      fillColor: const Color(0xff3B82F6).withOpacity(0.15),
-                      strokeColor: const Color(0xff3B82F6),
-                      strokeWidth: 1,
-                    ),
-                  },
+          ? Center(
+              child: Text(
+                "Cannot retrieve location data",
+                style: TextStyle(
+                  color: const Color(0xff64748B),
+                  fontSize: 16.sp,
                 ),
+              ),
+            )
+          : GoogleMap(
+              initialCameraPosition: CameraPosition(
+                target: mapLocation!,
+                zoom: 16,
+              ),
+              myLocationEnabled: true,
+              myLocationButtonEnabled: false,
+              zoomControlsEnabled: false,
+              onMapCreated: (controller) {
+                mapController = controller;
+              },
+              markers: {
+                Marker(
+                  markerId: const MarkerId("location"),
+                  position: mapLocation!,
+                  infoWindow: InfoWindow(
+                    title: selectedLocation != null
+                        ? "Target Location"
+                        : "My Current Location",
+                  ),
+                ),
+              },
+              circles: {
+                Circle(
+                  circleId: const CircleId("radius"),
+                  center: mapLocation!,
+                  radius: 70,
+                  fillColor: const Color(0xff3B82F6).withOpacity(0.15),
+                  strokeColor: const Color(0xff3B82F6),
+                  strokeWidth: 1,
+                ),
+              },
+            ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -123,11 +137,7 @@ class _ShowmapState extends State<Showmap> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
         ),
-        icon: Icon(
-          Icons.check_circle_rounded,
-          color: Colors.white,
-          size: 20.r,
-        ),
+        icon: Icon(Icons.check_circle_rounded, color: Colors.white, size: 20.r),
         label: Text(
           "Confirm Location",
           style: TextStyle(
