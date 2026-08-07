@@ -1,7 +1,15 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget personInfo(TextEditingController personname, TextEditingController personage, TextEditingController personphone) {
+Widget personInfo(
+  BuildContext context,
+  TextEditingController personname,
+  TextEditingController personage,
+  TextEditingController personphone,
+) {
+  double width = MediaQuery.of(context).size.width;
+
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 15),
     child: Card(
@@ -15,7 +23,7 @@ Widget personInfo(TextEditingController personname, TextEditingController person
           children: [
             Row(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 18,
                   backgroundColor: Color.fromARGB(255, 208, 231, 248),
                   child: Icon(Icons.person, color: Color(0xff1565C0)),
@@ -23,16 +31,19 @@ Widget personInfo(TextEditingController personname, TextEditingController person
                 SizedBox(width: 12.w),
                 Text(
                   "Personal Information",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: AppFont.header(width),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
 
             SizedBox(height: 25.h),
 
-            /// Name
             TextFormField(
               controller: personname,
+              style: TextStyle(fontSize: AppFont.body(width)),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter the name';
@@ -41,7 +52,9 @@ Widget personInfo(TextEditingController personname, TextEditingController person
               },
               decoration: InputDecoration(
                 labelText: "Full Name",
+                labelStyle: TextStyle(fontSize: AppFont.body(width)),
                 hintText: "Enter person's name",
+                hintStyle: TextStyle(fontSize: AppFont.body(width)),
                 prefixIcon: const Icon(Icons.person_outline),
                 filled: true,
                 fillColor: Colors.grey.shade100,
@@ -54,10 +67,10 @@ Widget personInfo(TextEditingController personname, TextEditingController person
 
             const SizedBox(height: 18),
 
-            /// Age
             TextFormField(
               controller: personage,
               keyboardType: TextInputType.number,
+              style: TextStyle(fontSize: AppFont.body(width)),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter the age';
@@ -66,7 +79,9 @@ Widget personInfo(TextEditingController personname, TextEditingController person
               },
               decoration: InputDecoration(
                 labelText: "Age",
+                labelStyle: TextStyle(fontSize: AppFont.body(width)),
                 hintText: "Enter age",
+                hintStyle: TextStyle(fontSize: AppFont.body(width)),
                 prefixIcon: const Icon(Icons.cake_outlined),
                 filled: true,
                 fillColor: Colors.grey.shade100,
@@ -79,10 +94,10 @@ Widget personInfo(TextEditingController personname, TextEditingController person
 
             const SizedBox(height: 18),
 
-            /// Phone
             TextFormField(
               controller: personphone,
               keyboardType: TextInputType.phone,
+              style: TextStyle(fontSize: AppFont.body(width)),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter the phone number';
@@ -91,7 +106,9 @@ Widget personInfo(TextEditingController personname, TextEditingController person
               },
               decoration: InputDecoration(
                 labelText: "Phone",
+                labelStyle: TextStyle(fontSize: AppFont.body(width)),
                 hintText: "01XXXXXXXXX",
+                hintStyle: TextStyle(fontSize: AppFont.body(width)),
                 prefixIcon: const Icon(Icons.phone_outlined),
                 filled: true,
                 fillColor: Colors.grey.shade100,

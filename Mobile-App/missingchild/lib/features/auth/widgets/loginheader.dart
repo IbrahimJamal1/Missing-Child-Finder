@@ -1,7 +1,8 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget buildHeader() {
+Widget buildHeader(double widthscreen) {
   return Container(
     width: double.infinity,
     padding: EdgeInsets.only(top: 30.h, bottom: 40.h),
@@ -22,7 +23,7 @@ Widget buildHeader() {
         Text(
           "Welcome Back",
           style: TextStyle(
-            fontSize: 30.sp,
+            fontSize:AppFont.title(widthscreen),
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
@@ -32,9 +33,9 @@ Widget buildHeader() {
           "Login to continue",
           style: TextStyle(
             color: Colors.white70,
-            fontSize: 17.sp,
+            fontSize:AppFont.body(widthscreen),
           ),
-        ),
+        )
       ],
     ),
   );

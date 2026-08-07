@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:ai_safetrack/core/services/time_ago.dart';
 import 'package:ai_safetrack/getdata.dart';
@@ -8,6 +9,8 @@ class Notificationpage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: const Color(0xffF8FAFC),
       appBar: AppBar(
@@ -19,7 +22,7 @@ class Notificationpage extends StatelessWidget {
           style: TextStyle(
             color: const Color(0xff1E3A8A),
             fontWeight: FontWeight.bold,
-            fontSize: 20.sp,
+            fontSize: AppFont.header(width),
           ),
         ),
       ),
@@ -67,7 +70,10 @@ class Notificationpage extends StatelessWidget {
                                   ? Colors.red
                                   : Colors.green,
                               shape: BoxShape.circle,
-                              border: Border.all(color: Colors.white, width: 2.w),
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 2.w,
+                              ),
                             ),
                             child: Icon(
                               isMissing ? Icons.person_search : Icons.check,
@@ -86,7 +92,7 @@ class Notificationpage extends StatelessWidget {
                           Text(
                             item["reporterName"],
                             style: TextStyle(
-                              fontSize: 17.sp,
+                              fontSize: AppFont.subtitle(width),
                               fontWeight: FontWeight.bold,
                               color: const Color(0xff0F172A),
                             ),
@@ -96,7 +102,7 @@ class Notificationpage extends StatelessWidget {
                             item["description"],
                             style: TextStyle(
                               color: const Color(0xff64748B),
-                              fontSize: 13.sp,
+                              fontSize: AppFont.body(width),
                             ),
                           ),
                           SizedBox(height: 8.h),
@@ -112,7 +118,7 @@ class Notificationpage extends StatelessWidget {
                                 timeAgo(DateTime.parse(item["reportDate"])),
                                 style: TextStyle(
                                   color: Colors.grey,
-                                  fontSize: 12.sp,
+                                  fontSize: AppFont.caption(width),
                                 ),
                               ),
                             ],

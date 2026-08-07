@@ -26,7 +26,14 @@ Widget buildActionButtons(bool isWideScreen, context) {
                       fontWeight: FontWeight.bold,
                     ),
                   )
-                : Text(""),
+                : Text(
+                    "Publish Report",
+                    style: TextStyle(
+                      fontSize: 15.sp,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
           ),
         ),
         SizedBox(height: 16.h),

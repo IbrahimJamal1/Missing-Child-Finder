@@ -1,4 +1,5 @@
 import 'package:ai_safetrack/core/services/uploadimage.dart';
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:ai_safetrack/features/auth/widgets/customfiled.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,7 +22,8 @@ class _RegisterState extends State<Register> {
 
   bool _isPasswordHidden = true;
 
-  final imageService = ImageService(); //object of ImageService class
+  final imageService = ImageService();
+
 
   @override
   void dispose() {
@@ -37,6 +39,8 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -72,7 +76,7 @@ class _RegisterState extends State<Register> {
                         Text(
                           "Create Account",
                           style: TextStyle(
-                            fontSize: 28.sp,
+                            fontSize: AppFont.header(width),
                             color: const Color(0xFF0F172A),
                             letterSpacing: -0.5,
                           ),
@@ -81,7 +85,7 @@ class _RegisterState extends State<Register> {
                         Text(
                           "Fill in your details to get started",
                           style: TextStyle(
-                            fontSize: 14.sp,
+                            fontSize: AppFont.caption(width),
                             color: Colors.grey.shade600,
                           ),
                         ),
@@ -153,6 +157,8 @@ class _RegisterState extends State<Register> {
                             }
                             return null;
                           },
+
+                          width: width
                         ),
                         buildCustomField(
                           icon: Icons.phone_outlined,
@@ -167,7 +173,7 @@ class _RegisterState extends State<Register> {
                               return "Phone must be 11 digits";
                             }
                             return null;
-                          },
+                          }, width: width
                         ),
                         buildCustomField(
                           icon: Icons.email_outlined,
@@ -182,7 +188,7 @@ class _RegisterState extends State<Register> {
                               return "Enter a valid email address";
                             }
                             return null;
-                          },
+                          }, width: width
                         ),
                         buildCustomField(
                           icon: Icons.lock_outline_rounded,
@@ -208,7 +214,7 @@ class _RegisterState extends State<Register> {
                               return "Password must be at least 6 characters";
                             }
                             return null;
-                          },
+                          }, width: width
                         ),
                         SizedBox(height: 8.h),
                         OutlinedButton.icon(
@@ -230,7 +236,7 @@ class _RegisterState extends State<Register> {
                                 ? "ID UPLOADED"
                                 : "UPLOAD ID",
                             style: TextStyle(
-                              fontSize: 15.sp,
+                              fontSize: AppFont.button(width),
                               fontWeight: FontWeight.bold,
                               letterSpacing: 0.5,
                               color: imageService.idImage != null
@@ -274,7 +280,7 @@ class _RegisterState extends State<Register> {
                                 ? "Live Photo UPLOADED"
                                 : "UPLOAD Live Photo",
                             style: TextStyle(
-                              fontSize: 15.sp,
+                              fontSize: AppFont.button(width),
                               fontWeight: FontWeight.bold,
                               letterSpacing: 0.5,
                               color: imageService.liveImage != null
@@ -303,10 +309,13 @@ class _RegisterState extends State<Register> {
                           onPressed: () {
                             if (registerkey.currentState!.validate() || true) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
+                                SnackBar(
                                   content: Text(
                                     "Confirm your phone number to complete registration",
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: AppFont.body(width),
+                                    ),
                                   ),
                                   backgroundColor: Colors.green,
                                 ),
@@ -330,7 +339,7 @@ class _RegisterState extends State<Register> {
                           child: Text(
                             "SIGN UP",
                             style: TextStyle(
-                              fontSize: 16.sp,
+                              fontSize: AppFont.button(width),
                               fontWeight: FontWeight.bold,
                               letterSpacing: 1.2,
                             ),
@@ -344,7 +353,7 @@ class _RegisterState extends State<Register> {
                               "Already have an account? ",
                               style: TextStyle(
                                 color: Colors.grey.shade600,
-                                fontSize: 14.sp,
+                                fontSize: AppFont.caption(width),
                               ),
                             ),
                             GestureDetector(
@@ -356,7 +365,7 @@ class _RegisterState extends State<Register> {
                                 style: TextStyle(
                                   color: const Color(0xFF2563EB),
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 14.sp,
+                                  fontSize: AppFont.button(width),
                                 ),
                               ),
                             ),

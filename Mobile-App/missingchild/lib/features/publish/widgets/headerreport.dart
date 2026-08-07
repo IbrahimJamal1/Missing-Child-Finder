@@ -1,7 +1,10 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget header_report() {
+Widget header_report(BuildContext context) {
+  double width = MediaQuery.of(context).size.width;
+
   return Container(
     width: double.infinity.w,
     padding: const EdgeInsets.only(top: 40, bottom: 35),
@@ -16,21 +19,21 @@ Widget header_report() {
         bottomRight: Radius.circular(35),
       ),
     ),
-    child: const Column(
+    child: Column(
       children: [
-        CircleAvatar(
+        const CircleAvatar(
           radius: 35,
           backgroundColor: Colors.white,
           child: Icon(Icons.campaign, size: 38, color: Color(0xff1565C0)),
         ),
 
-        SizedBox(height: 18),
+        const SizedBox(height: 18),
 
         Text(
           "Report Case",
           style: TextStyle(
             color: Colors.white,
-            fontSize: 28,
+            fontSize: AppFont.title(width),
             fontWeight: FontWeight.bold,
           ),
         ),

@@ -1,11 +1,13 @@
 import 'package:ai_safetrack/core/services/uploadimage.dart';
-import 'package:ai_safetrack/features/profile/widgets/deleteaccountdilog.dart';
+import 'package:ai_safetrack/core/theme/fonttext.dart';
+import 'package:ai_safetrack/features/profile/widgets/deletepost.dart';
 import 'package:ai_safetrack/features/profile/widgets/imageprofiles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
+
   @override
   State<Profile> createState() => _ProfileState();
 }
@@ -13,6 +15,8 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: const Color(0xffF8FAFC),
       appBar: AppBar(
@@ -24,20 +28,9 @@ class _ProfileState extends State<Profile> {
           style: TextStyle(
             color: const Color(0xff1E3A8A),
             fontWeight: FontWeight.w800,
-            fontSize: 20.sp,
+            fontSize: AppFont.header(width),
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (_) => deleteAccountDialog(onDelete: () {}),
-              );
-            },
-            icon: Icon(Icons.delete, color: Colors.red, size: 30),
-          ),
-        ],
       ),
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
@@ -53,7 +46,7 @@ class _ProfileState extends State<Profile> {
                 Text(
                   "Ibrahim Gamal",
                   style: TextStyle(
-                    fontSize: 24.sp,
+                    fontSize: AppFont.title(width),
                     fontWeight: FontWeight.bold,
                     color: const Color(0xff1E293B),
                   ),
@@ -63,7 +56,7 @@ class _ProfileState extends State<Profile> {
                   "ibrahim@gmail.com",
                   style: TextStyle(
                     color: const Color(0xff64748B),
-                    fontSize: 14.sp,
+                    fontSize: AppFont.body(width),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -79,7 +72,7 @@ class _ProfileState extends State<Profile> {
                       "Edit Profile",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 14.sp,
+                        fontSize: AppFont.button(width),
                       ),
                     ),
                     style: OutlinedButton.styleFrom(
@@ -106,7 +99,7 @@ class _ProfileState extends State<Profile> {
                     child: Text(
                       "My Posts",
                       style: TextStyle(
-                        fontSize: 20.sp,
+                        fontSize: AppFont.header(width),
                         fontWeight: FontWeight.w800,
                         color: const Color(0xff1E293B),
                         letterSpacing: 0.5,
@@ -122,81 +115,90 @@ class _ProfileState extends State<Profile> {
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
             sliver: SliverGrid(
               delegate: SliverChildBuilderDelegate((context, index) {
-                return Card(
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.r),
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
+                return GestureDetector(//tap
+                onLongPress: (){
+                  showDialog(
+                    context: context,
+                    builder: (_) => deletepost(onDelete: () {}),
+                  );
+                }
+                ,
+                  child: Card(
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16.r),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.02),
-                          blurRadius: 10.r,
-                          offset: Offset(0, 4.h),
-                        ),
-                      ],
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(16.r),
-                            ),
-                            child: Image.network(
-                              "https://picsum.photos/300?random=$index",
-                              width: double.infinity,
-                              fit: BoxFit.cover,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16.r),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.02),
+                            blurRadius: 10.r,
+                            offset: Offset(0, 4.h),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(16.r),
+                              ),
+                              child: Image.network(
+                                "https://picsum.photos/300?random=$index",
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(12.r),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                index.isEven
-                                    ? "Missing Child"
-                                    : "Accident Report",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: const Color(0xff334155),
-                                  fontSize: 14.sp,
-                                ),
-                              ),
-                              SizedBox(height: 4.h),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.location_on_rounded,
-                                    color: const Color(0xffEF4444),
-                                    size: 14.r,
+                          Padding(
+                            padding: EdgeInsets.all(12.r),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  index.isEven
+                                      ? "Missing Child"
+                                      : "Accident Report",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: const Color(0xff334155),
+                                    fontSize: AppFont.subtitle(width),
                                   ),
-                                  SizedBox(width: 4.w),
-                                  Expanded(
-                                    child: Text(
-                                      "Quesna, Menoufia",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        color: const Color(0xff94A3B8),
-                                        fontSize: 12.sp,
+                                ),
+                                SizedBox(height: 4.h),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.location_on_rounded,
+                                      color: const Color(0xffEF4444),
+                                      size: 14.r,
+                                    ),
+                                    SizedBox(width: 4.w),
+                                    Expanded(
+                                      child: Text(
+                                        "Quesna, Menoufia",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: const Color(0xff94A3B8),
+                                          fontSize: AppFont.caption(width),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 );

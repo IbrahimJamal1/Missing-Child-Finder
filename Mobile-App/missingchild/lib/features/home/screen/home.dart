@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:ai_safetrack/features/home/widget/drawerhomepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +17,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -26,7 +29,7 @@ class _HomeState extends State<Home> {
           style: TextStyle(
             color: const Color(0xff1565C0),
             fontWeight: FontWeight.bold,
-            fontSize: 22.sp,
+            fontSize: AppFont.header(width),
           ),
         ),
         iconTheme: IconThemeData(

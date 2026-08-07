@@ -1,7 +1,13 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget buildActionCard(String label, IconData icon, {required VoidCallback onTap}) {
+Widget buildActionCard(
+  double width,
+  String label,
+  IconData icon, {
+  required VoidCallback onTap,
+}) {
   return Material(
     color: Colors.transparent,
     child: InkWell(
@@ -31,7 +37,7 @@ Widget buildActionCard(String label, IconData icon, {required VoidCallback onTap
                 label,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontSize: 13.sp,
+                  fontSize: AppFont.body(width),
                   fontWeight: FontWeight.w600,
                   color: const Color(0xff64748B),
                 ),

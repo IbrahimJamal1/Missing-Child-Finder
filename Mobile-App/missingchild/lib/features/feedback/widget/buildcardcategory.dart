@@ -1,7 +1,9 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget buildCategoryCard({
+  required double width,
   required String category,
   required IconData icon,
   required String selectedCategory,
@@ -50,7 +52,7 @@ Widget buildCategoryCard({
                   category,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    fontSize: 13.sp,
+                    fontSize: AppFont.body(width),
                     fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
                     color: isSelected ? const Color(0xff2563EB) : const Color(0xff64748B),
                   ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
@@ -48,12 +49,16 @@ class _OtpverificationState extends State<Otpverification> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     final theme = Theme.of(context);
 
     final defaultPinTheme = PinTheme(
       width: 56.w,
       height: 60.h,
-      textStyle: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),
+      textStyle: TextStyle(
+        fontSize: AppFont.subtitle(width),
+        fontWeight: FontWeight.bold,
+      ),
       decoration: BoxDecoration(
         color: Colors.grey.shade100,
         borderRadius: BorderRadius.circular(12.r),
@@ -84,7 +89,10 @@ class _OtpverificationState extends State<Otpverification> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("OTP Verification"),
+        title: Text(
+          "OTP Verification",
+          style: TextStyle(fontSize: AppFont.subtitle(width)),
+        ),
         centerTitle: true,
         elevation: 0,
       ),
@@ -112,7 +120,7 @@ class _OtpverificationState extends State<Otpverification> {
               Text(
                 "Enter Verification Code",
                 style: TextStyle(
-                  fontSize: 22.sp,
+                  fontSize: AppFont.header(width),
                   fontWeight: FontWeight.bold,
                   letterSpacing: -0.5,
                 ),
@@ -122,7 +130,7 @@ class _OtpverificationState extends State<Otpverification> {
                 "Please enter the 5-digit code sent to your phone.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 14.sp,
+                  fontSize: AppFont.caption(width),
                   color: Colors.grey.shade600,
                   height: 1.4,
                 ),
@@ -156,8 +164,11 @@ class _OtpverificationState extends State<Otpverification> {
                     if (otp.length == 5) {
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Please enter full 5-digit code"),
+                        SnackBar(
+                          content: Text(
+                            "Please enter full 5-digit code",
+                            style: TextStyle(fontSize: AppFont.body(width)),
+                          ),
                         ),
                       );
                     }
@@ -165,7 +176,7 @@ class _OtpverificationState extends State<Otpverification> {
                   child: Text(
                     "Verify",
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: AppFont.button(width),
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -179,7 +190,7 @@ class _OtpverificationState extends State<Otpverification> {
                     "Didn't receive the code? ",
                     style: TextStyle(
                       color: Colors.grey.shade600,
-                      fontSize: 14.sp,
+                      fontSize: AppFont.caption(width),
                     ),
                   ),
                   _canResend
@@ -191,7 +202,7 @@ class _OtpverificationState extends State<Otpverification> {
                             "Resend Code",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 14.sp,
+                              fontSize: AppFont.caption(width),
                             ),
                           ),
                         )
@@ -200,7 +211,7 @@ class _OtpverificationState extends State<Otpverification> {
                           style: TextStyle(
                             color: theme.primaryColor,
                             fontWeight: FontWeight.bold,
-                            fontSize: 14.sp,
+                            fontSize: AppFont.caption(width),
                           ),
                         ),
                 ],

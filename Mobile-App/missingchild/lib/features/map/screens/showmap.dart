@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
@@ -76,6 +77,8 @@ class _ShowmapState extends State<Showmap> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: const Color(0xffF8FAFC),
       body: loading
@@ -88,7 +91,7 @@ class _ShowmapState extends State<Showmap> {
                 "Cannot retrieve location data",
                 style: TextStyle(
                   color: const Color(0xff64748B),
-                  fontSize: 16.sp,
+                  fontSize: AppFont.body(width),
                 ),
               ),
             )
@@ -143,7 +146,7 @@ class _ShowmapState extends State<Showmap> {
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 14.sp,
+            fontSize: AppFont.button(width),
             letterSpacing: 0.5,
           ),
         ),

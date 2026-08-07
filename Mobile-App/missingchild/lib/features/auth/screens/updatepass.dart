@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -25,29 +26,8 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
     super.dispose();
   }
 
-  void updatePassword() {
-    if (_formKey.currentState!.validate() || true) {
-      Navigator.popUntil(context, ModalRoute.withName('login'));
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Row(
-            children: [
-              Icon(Icons.check_circle, color: Colors.white, size: 20.r),
-              SizedBox(width: 8.w),
-              Text(
-                "Password updated successfully",
-                style: TextStyle(fontSize: 14.sp),
-              ),
-            ],
-          ),
-          backgroundColor: Colors.green,
-          behavior: SnackBarBehavior.floating,
-        ),
-      );
-    }
-  }
-
   InputDecoration _buildInputDecoration({
+    required double width,
     required String labelText,
     required String hintText,
     required IconData prefixIcon,
@@ -55,8 +35,12 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
   }) {
     return InputDecoration(
       labelText: labelText,
+      labelStyle: TextStyle(fontSize: AppFont.body(width)),
       hintText: hintText,
-      hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14.sp),
+      hintStyle: TextStyle(
+        color: Colors.grey.shade400,
+        fontSize: AppFont.caption(width),
+      ),
       prefixIcon: Icon(prefixIcon, color: Colors.grey.shade600, size: 22.r),
       suffixIcon: suffixIcon,
       filled: true,
@@ -87,13 +71,19 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new, color: Colors.black87, size: 20.r),
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.black87,
+            size: 20.r,
+          ),
           onPressed: () => Navigator.maybePop(context),
         ),
       ),
@@ -123,7 +113,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                 Text(
                   "Create New Password",
                   style: TextStyle(
-                    fontSize: 24.sp,
+                    fontSize: AppFont.header(width),
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
                   ),
@@ -133,7 +123,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                   "Your new password must be different from\npreviously used passwords.",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: AppFont.caption(width),
                     color: Colors.grey.shade600,
                     height: 1.5,
                   ),
@@ -142,7 +132,9 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                 TextFormField(
                   controller: passwordController,
                   obscureText: obscurePassword,
+                  style: TextStyle(fontSize: AppFont.body(width)),
                   decoration: _buildInputDecoration(
+                    width: width,
                     labelText: "New Password",
                     hintText: "Enter at least 8 characters",
                     prefixIcon: Icons.lock_outline_rounded,
@@ -175,7 +167,9 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                 TextFormField(
                   controller: confirmPasswordController,
                   obscureText: obscureConfirmPassword,
+                  style: TextStyle(fontSize: AppFont.body(width)),
                   decoration: _buildInputDecoration(
+                    width: width,
                     labelText: "Confirm Password",
                     hintText: "Re-enter your new password",
                     prefixIcon: Icons.lock_reset_rounded,
@@ -216,11 +210,17 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                         borderRadius: BorderRadius.circular(14.r),
                       ),
                     ),
-                    onPressed: updatePassword,
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        "login",
+                        (rout) => false,
+                      );
+                    },
                     child: Text(
                       "Reset Password",
                       style: TextStyle(
-                        fontSize: 16.sp,
+                        fontSize: AppFont.button(width),
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),

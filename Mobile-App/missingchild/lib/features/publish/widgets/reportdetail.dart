@@ -1,4 +1,5 @@
 import 'package:ai_safetrack/core/helpfunc/missingsinceago.dart';
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,6 +13,8 @@ Widget reportDetail({
   required ValueChanged<String> onPersonTypeChanged,
   required ValueChanged<DateTime> onDateChanged,
 }) {
+  double width = MediaQuery.of(context).size.width;
+
   final String statePersonLabel = switch (childStatus) {
     "Missing" => "Missing",
     "Found" => "Found",
@@ -28,7 +31,6 @@ Widget reportDetail({
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header Section
           Row(
             children: [
               Container(
@@ -42,36 +44,50 @@ Widget reportDetail({
               SizedBox(width: 12.w),
               Text(
                 "Report Details",
-                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: AppFont.header(width),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),
 
           SizedBox(height: 25.h),
 
-          // Person Status Section
           Text(
-            "Person Status",
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+            "$statePersonLabel Status",
+            style: TextStyle(
+              fontSize: AppFont.subtitle(width),
+              fontWeight: FontWeight.w600,
+            ),
           ),
           SizedBox(height: 12.h),
 
           SegmentedButton<String>(
-            segments: const [
+            segments: [
               ButtonSegment(
                 value: "Missing",
-                icon: Icon(Icons.search),
-                label: Text("Missing"),
+                icon: const Icon(Icons.search),
+                label: Text(
+                  "Missing",
+                  style: TextStyle(fontSize: AppFont.caption(width)),
+                ),
               ),
               ButtonSegment(
                 value: "Found",
-                icon: Icon(Icons.check_circle),
-                label: Text("Found"),
+                icon: const Icon(Icons.check_circle),
+                label: Text(
+                  "Found",
+                  style: TextStyle(fontSize: AppFont.caption(width)),
+                ),
               ),
               ButtonSegment(
                 value: "Accident",
-                icon: Icon(Icons.warning_amber),
-                label: Text("Accident"),
+                icon: const Icon(Icons.warning_amber),
+                label: Text(
+                  "Accident",
+                  style: TextStyle(fontSize: AppFont.caption(width)),
+                ),
               ),
             ],
             selected: {childStatus},
@@ -83,26 +99,34 @@ Widget reportDetail({
           if (!isAccident) ...[
             SizedBox(height: 25.h),
             Text(
-              "Person Type",
-              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+              "$statePersonLabel Type",
+              style: TextStyle(
+                fontSize: AppFont.subtitle(width),
+                fontWeight: FontWeight.w600,
+              ),
             ),
             SizedBox(height: 12.h),
             SegmentedButton<String>(
-              segments: const [
+              segments: [
                 ButtonSegment(
                   value: "Child",
-                  icon: Icon(Icons.child_care),
-                  label: Text("Child"),
+                  icon: const Icon(Icons.child_care),
+                  label: Text(
+                    "Child",
+                    style: TextStyle(fontSize: AppFont.caption(width)),
+                  ),
                 ),
                 ButtonSegment(
                   value: "Adult",
-                  icon: Icon(Icons.person),
-                  label: Text("Adult"),
+                  icon: const Icon(Icons.person),
+                  label: Text(
+                    "Adult",
+                    style: TextStyle(fontSize: AppFont.caption(width)),
+                  ),
                 ),
               ],
               selected: {personType},
               onSelectionChanged: (value) {
-              
                 onPersonTypeChanged(value.first);
               },
             ),
@@ -112,15 +136,20 @@ Widget reportDetail({
 
           Text(
             "$statePersonLabel Since",
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              fontSize: AppFont.subtitle(width),
+              fontWeight: FontWeight.w600,
+            ),
           ),
           SizedBox(height: 12.h),
 
           TextFormField(
             controller: mfSinceController,
             readOnly: true,
+            style: TextStyle(fontSize: AppFont.body(width)),
             decoration: InputDecoration(
               labelText: isAccident ? "Accident Time" : "Last Seen Time",
+              labelStyle: TextStyle(fontSize: AppFont.body(width)),
               prefixIcon: const Icon(Icons.access_time),
               suffixIcon: const Icon(Icons.keyboard_arrow_down),
               filled: true,

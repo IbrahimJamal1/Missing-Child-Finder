@@ -1,4 +1,5 @@
 import 'package:ai_safetrack/core/services/uploadimage.dart';
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:ai_safetrack/features/profile/widgets/imageprofiles.dart';
 import 'package:ai_safetrack/features/profile/widgets/inputui.dart';
 import 'package:flutter/material.dart';
@@ -25,11 +26,12 @@ class _EditprofileState extends State<Editprofile> {
     _emailController.dispose();
     _phoneController.dispose();
     super.dispose();
-    
   }
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: const Color(0xffF8FAFC),
       appBar: AppBar(
@@ -41,7 +43,7 @@ class _EditprofileState extends State<Editprofile> {
           style: TextStyle(
             color: const Color(0xff1E3A8A),
             fontWeight: FontWeight.w800,
-            fontSize: 20.sp,
+            fontSize: AppFont.header(width),
           ),
         ),
         iconTheme: const IconThemeData(color: Color(0xff1E3A8A)),
@@ -51,7 +53,6 @@ class _EditprofileState extends State<Editprofile> {
           key: keyeditprofile,
           child: Column(
             children: [
-              // Profile Image Avatar Stack
               imageProfile(
                 imageType: true,
                 imageService: imageservice,
@@ -59,8 +60,6 @@ class _EditprofileState extends State<Editprofile> {
                   setState(() {});
                 },
               ),
-
-              // Inputs Card
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -78,6 +77,7 @@ class _EditprofileState extends State<Editprofile> {
                   children: [
                     TextFormField(
                       controller: _nameController,
+                      style: TextStyle(fontSize: AppFont.body(width)),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'Please enter your full name';
@@ -92,6 +92,7 @@ class _EditprofileState extends State<Editprofile> {
                     SizedBox(height: 20.h),
                     TextFormField(
                       controller: _emailController,
+                      style: TextStyle(fontSize: AppFont.body(width)),
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
@@ -110,6 +111,7 @@ class _EditprofileState extends State<Editprofile> {
                     SizedBox(height: 20.h),
                     TextFormField(
                       controller: _phoneController,
+                      style: TextStyle(fontSize: AppFont.body(width)),
                       keyboardType: TextInputType.phone,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
@@ -147,7 +149,7 @@ class _EditprofileState extends State<Editprofile> {
                         label: Text(
                           "Update Password",
                           style: TextStyle(
-                            fontSize: 16.sp,
+                            fontSize: AppFont.button(width),
                             color: const Color(0xff1E3A8A),
                             fontWeight: FontWeight.bold,
                           ),
@@ -158,8 +160,6 @@ class _EditprofileState extends State<Editprofile> {
                 ),
               ),
               SizedBox(height: 24.h),
-
-              // Save Action Button
               SizedBox(
                 width: double.infinity,
                 height: 52.h,
@@ -168,19 +168,6 @@ class _EditprofileState extends State<Editprofile> {
                     if (keyeditprofile.currentState!.validate() || true) {
                       print(imageservice.updateimageprofile?.path);
                       print(imageservice.coverprofile?.path);
-
-                      // ScaffoldMessenger.of(context).showSnackBar(
-                      //   const SnackBar(
-                      //     content: Text("Profile Updated Successfully"),
-                      //     backgroundColor: Color(0xff10B981),
-                      //     behavior: SnackBarBehavior.floating,
-                      //   ),
-                      // );
-                      // Navigator.pushNamedAndRemoveUntil(
-                      //   context,
-                      //   "profile",
-                      //   (route) => false,
-                      // );
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -198,7 +185,7 @@ class _EditprofileState extends State<Editprofile> {
                   label: Text(
                     "Save Changes",
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: AppFont.button(width),
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),

@@ -1,4 +1,6 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:ai_safetrack/features/home/widget/builddraweritem.dart';
+import 'package:ai_safetrack/features/profile/widgets/deleteaccountdilog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,7 +11,6 @@ Widget buildHomeDrawer(BuildContext context) {
   const logoutBgColor = Color(0xFFFEF2F2);
   const logoutTextColor = Color(0xFFEF4444);
   final width = MediaQuery.of(context).size.width;
-  bool isWideScreen = width >= 700 ; //tablet
 
   return Drawer(
     width: MediaQuery.of(context).size.width * .66,
@@ -19,7 +20,6 @@ Widget buildHomeDrawer(BuildContext context) {
         children: [
           UserAccountsDrawerHeader(
             margin: EdgeInsets.zero,
-
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [primaryColor, Color(0xFF0D47A1)],
@@ -46,35 +46,24 @@ Widget buildHomeDrawer(BuildContext context) {
                 ),
               ),
             ),
-
-            accountName:isWideScreen? Padding(
-              padding: EdgeInsets.only(top: 20),
+            accountName: Padding(
+              padding: const EdgeInsets.only(top: 20),
               child: Text(
                 "Ibrahim Gamal",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 11.sp,
-                  color: Colors.white,
-                ),
-              ),
-            ):Padding(
-              padding: EdgeInsets.only(top: 20),
-              child: Text(
-                "Ibrahim Gamal",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.sp,
+                  fontSize: AppFont.subtitle(width),
                   color: Colors.white,
                 ),
               ),
             ),
-            accountEmail:isWideScreen? Text(
+            accountEmail: Text(
               "ibrahimgamal932@gmail.com",
-              style: TextStyle(color: const Color(0xFFCBD5E1), fontSize: 9.sp),
-            ):Text(
-              "ibrahimgamal932@gmail.com",
-              style: TextStyle(color: const Color(0xFFCBD5E1), fontSize: 13.sp),
-            )
+              style: TextStyle(
+                color: const Color(0xFFCBD5E1),
+                fontSize: AppFont.caption(width),
+              ),
+            ),
           ),
           SizedBox(height: 12.h),
           Expanded(
@@ -82,14 +71,16 @@ Widget buildHomeDrawer(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 12.w),
               children: [
                 buildDrawerItem(
-                  icon: Icons.public_rounded,
-                  title: "Publish",
+                  width: width,
+                  icon: Icons.update,
+                  title: "Update Password",
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.pushNamed(context, 'publish');
+                    Navigator.pushNamed(context, 'updatepass');
                   },
                 ),
                 buildDrawerItem(
+                  width: width,
                   icon: Icons.person_outline_rounded,
                   title: "Profile",
                   onTap: () {
@@ -99,6 +90,7 @@ Widget buildHomeDrawer(BuildContext context) {
                 ),
                 const CustomDivider(color: dividerColor),
                 buildDrawerItem(
+                  width: width,
                   icon: Icons.notifications_none_rounded,
                   title: "Notifications",
                   onTap: () {
@@ -108,6 +100,7 @@ Widget buildHomeDrawer(BuildContext context) {
                 ),
                 const CustomDivider(color: dividerColor),
                 buildDrawerItem(
+                  width: width,
                   icon: Icons.person_search_rounded,
                   title: "Missing",
                   onTap: () {
@@ -116,6 +109,7 @@ Widget buildHomeDrawer(BuildContext context) {
                   },
                 ),
                 buildDrawerItem(
+                  width: width,
                   icon: Icons.check_circle_outline_rounded,
                   title: "Found",
                   onTap: () {
@@ -125,6 +119,7 @@ Widget buildHomeDrawer(BuildContext context) {
                 ),
                 const CustomDivider(color: dividerColor),
                 buildDrawerItem(
+                  width: width,
                   icon: Icons.info_outline_rounded,
                   title: "About Us",
                   onTap: () {
@@ -133,6 +128,7 @@ Widget buildHomeDrawer(BuildContext context) {
                   },
                 ),
                 buildDrawerItem(
+                  width: width,
                   icon: Icons.star_outline_rounded,
                   title: "Rate App",
                   onTap: () {
@@ -141,6 +137,7 @@ Widget buildHomeDrawer(BuildContext context) {
                   },
                 ),
                 buildDrawerItem(
+                  width: width,
                   icon: Icons.feedback_outlined,
                   title: "Feedback",
                   onTap: () {
@@ -151,8 +148,43 @@ Widget buildHomeDrawer(BuildContext context) {
               ],
             ),
           ),
+
           Padding(
-            padding: EdgeInsets.all(16.r),
+            padding: EdgeInsets.all(5.r),
+            child: SizedBox(
+              width: double.infinity,
+              height: 48.h,
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: logoutBgColor,
+                  foregroundColor: logoutTextColor,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (_) => deleteAccountDialog(onDelete: () {}),
+                  );
+                },
+
+                icon: Icon(Icons.delete, size: 20.r),
+                label: Text(
+                  "Delet Account",
+                  style: TextStyle(
+                    fontSize: AppFont.button(width),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          Padding(
+            padding: EdgeInsets.all(10),
             child: SizedBox(
               width: double.infinity,
               height: 48.h,
@@ -170,7 +202,7 @@ Widget buildHomeDrawer(BuildContext context) {
                 label: Text(
                   "Logout",
                   style: TextStyle(
-                    fontSize: 15.sp,
+                    fontSize: AppFont.button(width),
                     fontWeight: FontWeight.bold,
                   ),
                 ),

@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,6 +21,8 @@ class _ResetpassState extends State<Resetpass> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -62,7 +65,7 @@ class _ResetpassState extends State<Resetpass> {
                         Text(
                           "Reset Password",
                           style: TextStyle(
-                            fontSize: 26.sp,
+                            fontSize: AppFont.header(width),
                             fontWeight: FontWeight.bold,
                             color: const Color(0xff1E293B),
                           ),
@@ -72,7 +75,7 @@ class _ResetpassState extends State<Resetpass> {
                           "Enter your phone number and we'll send you instructions to reset your password.",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 14.sp,
+                            fontSize: AppFont.caption(width),
                             color: Colors.grey.shade600,
                           ),
                         ),
@@ -90,7 +93,13 @@ class _ResetpassState extends State<Resetpass> {
                           },
                           decoration: InputDecoration(
                             labelText: "Phone Number",
+                            labelStyle: TextStyle(
+                              fontSize: AppFont.body(width),
+                            ),
                             hintText: "01xxxxxxx",
+                            hintStyle: TextStyle(
+                              fontSize: AppFont.body(width),
+                            ),
                             prefixIcon: Icon(
                               Icons.phone,
                               color: const Color(0xff2563EB),
@@ -142,9 +151,14 @@ class _ResetpassState extends State<Resetpass> {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Password reset Phone sent!"),
-                                    backgroundColor: Color(0xff2563EB),
+                                  SnackBar(
+                                    content: Text(
+                                      "Password reset Phone sent!",
+                                      style: TextStyle(
+                                        fontSize: AppFont.body(width),
+                                      ),
+                                    ),
+                                    backgroundColor: const Color(0xff2563EB),
                                   ),
                                 );
 
@@ -154,7 +168,7 @@ class _ResetpassState extends State<Resetpass> {
                             child: Text(
                               "RESET PASSWORD",
                               style: TextStyle(
-                                fontSize: 16.sp,
+                                fontSize: AppFont.button(width),
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 1.2,
                               ),
@@ -176,7 +190,7 @@ class _ResetpassState extends State<Resetpass> {
                             style: TextStyle(
                               color: const Color(0xff2563EB),
                               fontWeight: FontWeight.bold,
-                              fontSize: 14.sp,
+                              fontSize: AppFont.button(width),
                             ),
                           ),
                         ),

@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -30,6 +31,8 @@ class _RatePageState extends State<RatePage> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: const Color(0xffF8FAFC),
       appBar: AppBar(
@@ -41,7 +44,7 @@ class _RatePageState extends State<RatePage> {
           style: TextStyle(
             color: const Color(0xff1E3A8A),
             fontWeight: FontWeight.w800,
-            fontSize: 20.sp,
+            fontSize: AppFont.subtitle(width),
           ),
         ),
         iconTheme: const IconThemeData(color: Color(0xff1E3A8A)),
@@ -82,7 +85,7 @@ class _RatePageState extends State<RatePage> {
                 Text(
                   "Enjoying AI-MIDS?",
                   style: TextStyle(
-                    fontSize: 22.sp,
+                    fontSize: AppFont.header(width),
                     fontWeight: FontWeight.bold,
                     color: const Color(0xff1E293B),
                   ),
@@ -93,7 +96,7 @@ class _RatePageState extends State<RatePage> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: const Color(0xff64748B),
-                    fontSize: 14.sp,
+                    fontSize: AppFont.body(width),
                     height: 1.5,
                   ),
                 ),
@@ -137,7 +140,9 @@ class _RatePageState extends State<RatePage> {
                                     SnackBar(
                                       content: Text(
                                         "Thank you for your rating!",
-                                        style: TextStyle(fontSize: 14.sp),
+                                        style: TextStyle(
+                                          fontSize: AppFont.body(width),
+                                        ),
                                       ),
                                       backgroundColor: const Color(0xff10B981),
                                       behavior: SnackBarBehavior.floating,
@@ -156,7 +161,7 @@ class _RatePageState extends State<RatePage> {
                           child: Text(
                             "Submit",
                             style: TextStyle(
-                              fontSize: 16.sp,
+                              fontSize: AppFont.button(width),
                               fontWeight: FontWeight.bold,
                               color: _selectedStars == 0
                                   ? const Color(0xff94A3B8)
@@ -185,7 +190,7 @@ class _RatePageState extends State<RatePage> {
                             "Maybe Later",
                             style: TextStyle(
                               color: const Color(0xff64748B),
-                              fontSize: 15.sp,
+                              fontSize: AppFont.button(width),
                               fontWeight: FontWeight.bold,
                             ),
                           ),

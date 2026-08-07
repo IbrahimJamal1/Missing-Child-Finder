@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
@@ -47,13 +48,14 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     final theme = Theme.of(context);
 
     final defaultPinTheme = PinTheme(
       width: 48.w,
       height: 56.h,
       textStyle: TextStyle(
-        fontSize: 20.sp,
+        fontSize: AppFont.subtitle(width),
         fontWeight: FontWeight.bold,
         color: Colors.black87,
       ),
@@ -116,7 +118,7 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
               Text(
                 "Reset Password",
                 style: TextStyle(
-                  fontSize: 24.sp,
+                  fontSize: AppFont.header(width),
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
                 ),
@@ -126,7 +128,7 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
                 "We sent a 5-digit recovery code to\nyour registered phone or email.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 14.sp,
+                  fontSize: AppFont.caption(width),
                   color: Colors.grey.shade600,
                   height: 1.5,
                 ),
@@ -158,10 +160,12 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
                   ),
                   onPressed: () {
                     if (otp.length == 5) {
-                      
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('OTP Verified: $otp'),
+                          content: Text(
+                            'OTP Verified: $otp',
+                            style: TextStyle(fontSize: AppFont.body(width)),
+                          ),
                           backgroundColor: Colors.green,
                         ),
                       );
@@ -169,8 +173,11 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
                       Navigator.pushNamed(context, 'updatepass');
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Please enter the full 5-digit code'),
+                        SnackBar(
+                          content: Text(
+                            'Please enter the full 5-digit code',
+                            style: TextStyle(fontSize: AppFont.body(width)),
+                          ),
                           backgroundColor: Colors.redAccent,
                         ),
                       );
@@ -179,7 +186,7 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
                   child: Text(
                     "Continue",
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: AppFont.button(width),
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -194,7 +201,7 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
                     "Didn't receive the code? ",
                     style: TextStyle(
                       color: Colors.grey.shade600,
-                      fontSize: 14.sp,
+                      fontSize: AppFont.caption(width),
                     ),
                   ),
                   _canResend
@@ -206,7 +213,7 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
                             "Resend Code",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 14.sp,
+                              fontSize: AppFont.caption(width),
                             ),
                           ),
                         )
@@ -215,7 +222,7 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
                           style: TextStyle(
                             color: theme.primaryColor,
                             fontWeight: FontWeight.bold,
-                            fontSize: 14.sp,
+                            fontSize: AppFont.caption(width),
                           ),
                         ),
                 ],

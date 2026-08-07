@@ -1,7 +1,9 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget buildCustomField({
+  required final width,
   required IconData icon,
   required String label,
   bool obscure = false,
@@ -17,10 +19,16 @@ Widget buildCustomField({
       keyboardType: keyboard,
       controller: controller,
       validator: validator,
-      style: TextStyle(fontSize: 15.sp, color: const Color(0xFF0F172A)),
+      style: TextStyle(
+        fontSize: AppFont.body(width),
+        color: const Color(0xFF0F172A),
+      ),
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: TextStyle(color: Colors.grey.shade600, fontSize: 14.sp),
+        labelStyle: TextStyle(
+          color: Colors.grey.shade600,
+          fontSize: AppFont.body(width),
+        ),
         prefixIcon: Icon(icon, color: const Color(0xFF3B82F6), size: 22.r),
         suffixIcon: suffixIcon,
         filled: true,

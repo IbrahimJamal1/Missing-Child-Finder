@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -25,11 +26,13 @@ class _CommentpageState extends State<Commentpage> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Comments",
-          style: TextStyle(fontSize: 20.sp),
+          style: TextStyle(fontSize: AppFont.header(width)),
         ),
       ),
       body: Column(
@@ -48,15 +51,18 @@ class _CommentpageState extends State<Commentpage> {
                     ),
                     title: Text(
                       "Name Person",
-                      style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: AppFont.subtitle(width),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     subtitle: Text(
                       comment[index],
-                      style: TextStyle(fontSize: 13.sp),
+                      style: TextStyle(fontSize: AppFont.body(width)),
                     ),
                     trailing: Text(
                       "12:00 PM",
-                      style: TextStyle(fontSize: 11.sp),
+                      style: TextStyle(fontSize: AppFont.caption(width)),
                     ),
                   ),
                 );
@@ -64,17 +70,20 @@ class _CommentpageState extends State<Commentpage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(10.r),
+            padding: EdgeInsets.all(15.r),
             child: Row(
               children: [
                 Expanded(
                   child: TextField(
                     controller: commentController,
-                    style: TextStyle(fontSize: 14.sp),
+                    style: TextStyle(fontSize: AppFont.body(width)),
                     decoration: InputDecoration(
                       hintText: "Write a comment...",
-                      hintStyle: TextStyle(fontSize: 14.sp),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                      hintStyle: TextStyle(fontSize: AppFont.body(width)),
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 16.w,
+                        vertical: 12.h,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25.r),
                       ),

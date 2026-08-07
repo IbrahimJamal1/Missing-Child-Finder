@@ -1,7 +1,9 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget buildDrawerItem({
+  required double width,
   required IconData icon,
   required String title,
   required VoidCallback onTap,
@@ -17,7 +19,7 @@ Widget buildDrawerItem({
       title: Text(
         title,
         style: TextStyle(
-          fontSize: 15.sp,
+          fontSize: AppFont.body(width),
           fontWeight: FontWeight.w500,
           color: const Color(0xFF1E293B),
         ),

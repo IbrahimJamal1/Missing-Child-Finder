@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:ai_safetrack/features/auth/widgets/loginheader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,6 +25,8 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: const Color(0xffF4F7FC),
       body: SafeArea(
@@ -32,7 +35,7 @@ class _LoginState extends State<Login> {
             key: loginkey,
             child: Column(
               children: [
-                buildHeader(),
+                buildHeader(width),
                 SizedBox(height: 30.h),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -61,7 +64,7 @@ class _LoginState extends State<Login> {
                           },
                           decoration: InputDecoration(
                             hintText: "Email Or Phone Number",
-                            hintStyle: TextStyle(fontSize: 14.sp),
+                            hintStyle: TextStyle(fontSize: AppFont.body(width)),
                             prefixIcon: Icon(
                               Icons.email_outlined,
                               color: const Color(0xff2563EB),
@@ -90,7 +93,7 @@ class _LoginState extends State<Login> {
                           },
                           decoration: InputDecoration(
                             hintText: "Password",
-                            hintStyle: TextStyle(fontSize: 14.sp),
+                            hintStyle: TextStyle(fontSize: AppFont.body(width)),
                             prefixIcon: Icon(
                               Icons.lock_outline,
                               color: const Color(0xff2563EB),
@@ -126,7 +129,9 @@ class _LoginState extends State<Login> {
                             },
                             child: Text(
                               "Forgot Password?",
-                              style: TextStyle(fontSize: 14.sp),
+                              style: TextStyle(
+                                fontSize: AppFont.body(width),
+                              ),
                             ),
                           ),
                         ),
@@ -142,13 +147,19 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             onPressed: () {
-                              Navigator.pushNamedAndRemoveUntil(context, "home",(route)=>false);
+                              if (loginkey.currentState!.validate()) {
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  "home",
+                                  (route) => false,
+                                );
+                              }
                             },
                             child: Text(
                               "SIGN IN",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 9.sp,
+                                fontSize: AppFont.button(width),
                                 letterSpacing: 2,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -163,7 +174,7 @@ class _LoginState extends State<Login> {
                               padding: EdgeInsets.symmetric(horizontal: 10.w),
                               child: Text(
                                 "OR",
-                                style: TextStyle(fontSize: 8.sp),
+                                style: TextStyle(fontSize: AppFont.body(width)),
                               ),
                             ),
                             const Expanded(child: Divider()),
@@ -196,7 +207,7 @@ class _LoginState extends State<Login> {
                   children: [
                     Text(
                       "Don't have an account?",
-                      style: TextStyle(fontSize: 14.sp),
+                      style: TextStyle(fontSize: AppFont.body(width)),
                     ),
                     TextButton(
                       onPressed: () {
@@ -206,7 +217,7 @@ class _LoginState extends State<Login> {
                         "Sign Up",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 14.sp,
+                          fontSize: AppFont.button(width),
                         ),
                       ),
                     ),

@@ -1,7 +1,9 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget buildFeatureRow(IconData icon, String title, String subtitle) {
+Widget buildFeatureRow(IconData icon, String title, String subtitle, BuildContext context) {
+      final width = MediaQuery.of(context).size.width;
   return Padding(
     padding: EdgeInsets.only(bottom: 16.h),
     child: Row(
@@ -22,7 +24,7 @@ Widget buildFeatureRow(IconData icon, String title, String subtitle) {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: const Color(0xff334155),
-                  fontSize: 14.sp,
+                  fontSize: AppFont.body(width),
                 ),
               ),
               SizedBox(height: 2.h),
@@ -30,7 +32,7 @@ Widget buildFeatureRow(IconData icon, String title, String subtitle) {
                 subtitle,
                 style: TextStyle(
                   color: const Color(0xff64748B),
-                  fontSize: 12.sp,
+                  fontSize: AppFont.caption(width),
                   height: 1.3,
                 ),
               ),

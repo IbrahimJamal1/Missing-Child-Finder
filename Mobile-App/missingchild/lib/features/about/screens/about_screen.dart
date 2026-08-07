@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:ai_safetrack/features/about/widgets/aboutcard.dart';
 import 'package:ai_safetrack/features/about/widgets/featurerow.dart';
 import 'package:flutter/material.dart';
@@ -5,9 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
+  
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: const Color(0xffF8FAFC),
       appBar: AppBar(
@@ -19,7 +22,7 @@ class AboutPage extends StatelessWidget {
           style: TextStyle(
             color: const Color(0xff1E3A8A),
             fontWeight: FontWeight.w800,
-            fontSize: 20.sp,
+            fontSize: AppFont.header(width),
           ),
         ),
         iconTheme: const IconThemeData(color: Color(0xff1E3A8A)),
@@ -49,7 +52,7 @@ class AboutPage extends StatelessWidget {
                   Text(
                     "AI-MIDS",
                     style: TextStyle(
-                      fontSize: 26.sp,
+                      fontSize: AppFont.header(width),
                       fontWeight: FontWeight.w900,
                       color: const Color(0xff1E293B),
                       letterSpacing: 1.0,
@@ -60,7 +63,7 @@ class AboutPage extends StatelessWidget {
                     "Version 1.0.0",
                     style: TextStyle(
                       color: const Color(0xff94A3B8),
-                      fontSize: 14.sp,
+                      fontSize: AppFont.caption(width),
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -74,6 +77,7 @@ class AboutPage extends StatelessWidget {
               iconColor: const Color(0xff3B82F6),
               description:
                   "AI-MIDS is an advanced medical imaging and smart disease detection ecosystem designed to empower healthcare professionals. By combining cutting-edge Deep Learning architectures with community safety tools, we aim to deliver fast, accurate, and accessible diagnostic assistance, making healthcare smarter and more unified.",
+              
             ),
             SizedBox(height: 16.h),
             Container(
@@ -96,7 +100,7 @@ class AboutPage extends StatelessWidget {
                   Text(
                     "Core Capabilities",
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: AppFont.body(width),
                       fontWeight: FontWeight.bold,
                       color: const Color(0xff1E293B),
                     ),
@@ -106,16 +110,19 @@ class AboutPage extends StatelessWidget {
                     Icons.psychology_rounded,
                     "AI Diagnostics",
                     " deep learning models for accurate classification.",
+                    context
                   ),
                   buildFeatureRow(
                     Icons.location_on_rounded,
                     "Geolocated Reports",
                     "Mapping emergency accidents and missing reports in real-time.",
+                    context
                   ),
                   buildFeatureRow(
                     Icons.qr_code_scanner_rounded,
                     "Secure QR Ecosystem",
                     "Instant and secure information sharing via smart identifiers.",
+                    context
                   ),
                 ],
               ),
@@ -126,7 +133,7 @@ class AboutPage extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: const Color(0xff94A3B8),
-                fontSize: 12.sp,
+                fontSize: AppFont.caption(width),
                 fontWeight: FontWeight.w500,
               ),
             ),

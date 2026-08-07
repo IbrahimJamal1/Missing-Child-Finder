@@ -71,7 +71,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
                   return Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: isWideScreen ? 5.w : 1.w,
+                      horizontal: isWideScreen ? 5.w : 10.w,
                       vertical: 10.h,
                     ),
                     child: Column(

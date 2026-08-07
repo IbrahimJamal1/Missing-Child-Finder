@@ -1,10 +1,11 @@
-import 'package:ai_safetrack/features/reports/widget/showDialog.dart';
+import 'package:ai_safetrack/core/theme/fonttext.dart';
+import 'package:ai_safetrack/features/reports/widget/actionbuttominpost.dart';
+import 'package:ai_safetrack/features/reports/widget/infobuttonpost.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ai_safetrack/core/services/callphone.dart';
 import 'package:ai_safetrack/core/services/gataddressloca.dart';
-import 'package:ai_safetrack/core/services/qrcode.dart';
 
 class ReportCard extends StatelessWidget {
   final String reporterName;
@@ -38,6 +39,8 @@ class ReportCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Container(
       margin: EdgeInsets.only(bottom: 10.h, left: 5.w, right: 5.w),
       decoration: BoxDecoration(
@@ -64,22 +67,30 @@ class ReportCard extends StatelessWidget {
                 ),
                 SizedBox(width: 12.w),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        reporterName,
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
+                  child: GestureDetector(
+                    onTap: () {
+                      
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          reporterName,
+                          style: TextStyle(
+                            fontSize: AppFont.body(width),
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 5.h),
-                      Text(
-                        reportDate,
-                        style: TextStyle(color: Colors.grey[600], fontSize: 12.sp),
-                      ),
-                    ],
+                        SizedBox(height: 5.h),
+                        Text(
+                          reportDate,
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: AppFont.caption(width),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Container(
@@ -88,7 +99,8 @@ class ReportCard extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
-                    onPressed: onCall ??
+                    onPressed:
+                        onCall ??
                         () {
                           makePhoneCall(phone);
                         },
@@ -123,7 +135,10 @@ class ReportCard extends StatelessWidget {
                 top: 15.h,
                 right: 30.w,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 7.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 7.h,
+                  ),
                   decoration: BoxDecoration(
                     color: status == "Missing" ? Colors.red : Colors.green,
                     borderRadius: BorderRadius.circular(30.r),
@@ -133,7 +148,7 @@ class ReportCard extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 14.sp,
+                      fontSize: AppFont.caption(width),
                     ),
                   ),
                 ),
@@ -148,7 +163,7 @@ class ReportCard extends StatelessWidget {
                 Text(
                   description,
                   style: TextStyle(
-                    fontSize: 15.sp,
+                    fontSize: AppFont.body(width),
                     height: 1.5,
                     color: const Color(0xff475569),
                   ),
@@ -200,214 +215,23 @@ class ReportCard extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 20.h),
-                Row(
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        height: 48.h,
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            showShareDialog(
-                              context,
-                              onShare: () {},
-                            );
-                          },
-                          icon: Icon(Icons.share_rounded, size: 18.r),
-                          label: Text(
-                            "Share",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14.sp,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF1E3A8A),
-                            foregroundColor: Colors.white,
-                            elevation: 0,
-                            padding: EdgeInsets.zero,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.r),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 8.w),
-                    Expanded(
-                      child: SizedBox(
-                        height: 48.h,
-                        child: ElevatedButton.icon(
-                          onPressed: () async {
-                            final address = await getAddressFromLatLng(
-                              location.latitude,
-                              location.longitude,
-                            );
 
-                            if (!context.mounted) return;
-
-                            showQrCode(
-                              context,
-                              childId: reporterName,
-                              name: childName,
-                              phone: phone,
-                              age: age,
-                              status: status,
-                              description: description,
-                              location: address,
-                            );
-                          },
-                          icon: Icon(Icons.qr_code_rounded, size: 18.r),
-                          label: Text(
-                            "QR",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14.sp,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFF97316),
-                            foregroundColor: Colors.white,
-                            elevation: 0,
-                            padding: EdgeInsets.zero,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.r),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 8.w),
-                    Expanded(
-                      child: SizedBox(
-                        height: 48.h,
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.pushNamed(context, 'comment');
-                          },
-                          icon: Icon(
-                            Icons.chat_bubble_outline_rounded,
-                            size: 18.r,
-                          ),
-                          label: Text(
-                            "Comment",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14.sp,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFEFF6FF),
-                            foregroundColor: const Color(0xFF1E3A8A),
-                            elevation: 0,
-                            padding: EdgeInsets.zero,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.r),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                actionButtonPost(
+                  context,
+                  status,
+                  description,
+                  childName,
+                  age,
+                  phone,
+                  description,
+                  childName,
+                  reporterName,
+                  location,
                 ),
               ],
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class InfoCard extends StatelessWidget {
-  final String title;
-  final String value;
-  final IconData icon;
-  final Color iconColor;
-  final Color bgColor;
-  final VoidCallback? onTap;
-
-  const InfoCard({
-    super.key,
-    required this.title,
-    required this.value,
-    required this.icon,
-    required this.iconColor,
-    required this.bgColor,
-    this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(18.r),
-      child: Container(
-        constraints: BoxConstraints(minHeight: 75.h),
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-        decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(18.r),
-          border: Border.all(color: Colors.white, width: 1.5.w),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(.04),
-              blurRadius: 8.r,
-              offset: Offset(0, 4.h),
-            ),
-          ],
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              width: 42.r,
-              height: 42.r,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(color: iconColor.withOpacity(.15), blurRadius: 8.r),
-                ],
-              ),
-              child: Icon(icon, color: iconColor, size: 22.r),
-            ),
-            SizedBox(width: 10.w),
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 12.sp, color: const Color(0xff64748B)),
-                  ),
-                  SizedBox(height: 2.h),
-                  Text(
-                    value,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xff1E293B),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            if (onTap != null)
-              Padding(
-                padding: EdgeInsets.only(left: 4.w),
-                child: Icon(
-                  Icons.arrow_forward_ios,
-                  size: 14.r,
-                  color: const Color(0xff94A3B8),
-                ),
-              ),
-          ],
-        ),
       ),
     );
   }

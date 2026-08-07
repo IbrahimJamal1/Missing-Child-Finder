@@ -1,7 +1,10 @@
+import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<void> showShareDialog(BuildContext context, {VoidCallback? onShare}) {
+  double width = MediaQuery.of(context).size.width;
+
   return showDialog<void>(
     context: context,
     builder: (BuildContext dialogContext) {
@@ -20,7 +23,7 @@ Future<void> showShareDialog(BuildContext context, {VoidCallback? onShare}) {
             Text(
               "Share Report",
               style: TextStyle(
-                fontSize: 18.sp,
+                fontSize: AppFont.subtitle(width),
                 fontWeight: FontWeight.bold,
                 color: const Color(0xFF1E293B),
               ),
@@ -30,7 +33,7 @@ Future<void> showShareDialog(BuildContext context, {VoidCallback? onShare}) {
         content: Text(
           "Are you sure you want to share this report?",
           style: TextStyle(
-            fontSize: 14.sp,
+            fontSize: AppFont.body(width),
             color: const Color(0xFF64748B),
             height: 1.4,
           ),
@@ -47,7 +50,10 @@ Future<void> showShareDialog(BuildContext context, {VoidCallback? onShare}) {
             ),
             child: Text(
               "Cancel",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp),
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: AppFont.button(width),
+              ),
             ),
           ),
           ElevatedButton(
@@ -68,7 +74,10 @@ Future<void> showShareDialog(BuildContext context, {VoidCallback? onShare}) {
             ),
             child: Text(
               "Share",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: AppFont.button(width),
+              ),
             ),
           ),
         ],
