@@ -4,13 +4,13 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 void showQrCode(
   BuildContext context, {
-  required String childId,
+  String? childId,
   required String name,
   required String phone,
   required String age,
-  required String status,
+  String? status,
   required String description,
-  required String location,
+   String? location,
 }) {
   final qrData =
     '''
@@ -29,7 +29,7 @@ void showQrCode(
       return AlertDialog(
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24), // حواف دائرية متناسقة
+          borderRadius: BorderRadius.circular(24), 
         ),
         title:  Text(
           "Child QR Code",
@@ -43,7 +43,7 @@ void showQrCode(
           mainAxisSize: MainAxisSize.min,
           children: [
              Text(
-              "Scan this code to get full child details instantly.",
+              "Scan this code to get full person details instantly.",
               textAlign: TextAlign.center,
               style: TextStyle(color: Color(0xff64748B), fontSize: 13.sp),
             ),

@@ -69,7 +69,7 @@ class ReportCard extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      
+                      Navigator.pushNamed(context, 'userprofile');
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,7 +194,6 @@ class ReportCard extends StatelessWidget {
                               ConnectionState.done) {
                             address = snapshot.data ?? "Unknown location";
                           }
-
                           return InfoCard(
                             title: "Location",
                             value: address,

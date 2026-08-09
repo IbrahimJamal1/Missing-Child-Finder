@@ -6,7 +6,8 @@ Widget deletepost({required VoidCallback onDelete}) {
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
     child: Padding(
       padding: EdgeInsets.all(24.r),
-      child: Column(
+      child: SingleChildScrollView(
+          child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           CircleAvatar(
@@ -53,6 +54,8 @@ Widget deletepost({required VoidCallback onDelete}) {
             ],
           ),
         ],
+      ),
+    
       ),
     ),
   );

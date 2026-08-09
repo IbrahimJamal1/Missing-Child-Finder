@@ -1,4 +1,5 @@
 import 'package:ai_safetrack/features/loading/widget/actionbutton.dart';
+import 'package:ai_safetrack/features/loading/widget/createqrcode.dart';
 import 'package:ai_safetrack/features/loading/widget/screenlaayout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -49,7 +50,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      floatingActionButton: floatActionCreateQR(width,context),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -67,7 +72,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   final width = MediaQuery.of(context).size.width;
                   // ignore: unused_local_variable
                   final height = MediaQuery.of(context).size.height;
-                  bool isWideScreen = width >= 700 ; //tablet
+                  bool isWideScreen = width >= 700; //tablet
 
                   return Padding(
                     padding: EdgeInsets.symmetric(

@@ -18,6 +18,7 @@ import 'package:ai_safetrack/features/publish/screens/publish.dart';
 import 'package:ai_safetrack/features/reports/screens/accident.dart';
 import 'package:ai_safetrack/features/reports/screens/found.dart';
 import 'package:ai_safetrack/features/reports/screens/missing.dart';
+import 'package:ai_safetrack/features/userprofile/screen/userprofile.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,7 +51,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
+ 
       routes: {
         'map': (context) => Showmap(),
         'publish': (context) => Publish(),
@@ -72,6 +73,7 @@ class _MyAppState extends State<MyApp> {
         'otpVerification': (context) => Otpverification(),
         'otpforgetpass': (context) => Otpforgetpass(),
         'updatepass': (context) => UpdatePasswordScreen(),
+        'userprofile':(context) => Userprofile()
       },
 
       home: WelcomeScreen(),
