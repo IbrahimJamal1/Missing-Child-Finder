@@ -20,6 +20,7 @@ class ReportCard extends StatelessWidget {
   final String locationName;
   final LatLng location;
   final VoidCallback? onCall;
+  // final last
 
   const ReportCard({
     super.key,

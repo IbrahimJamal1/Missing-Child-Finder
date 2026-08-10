@@ -18,19 +18,6 @@ class _UserprofileState extends State<Userprofile> {
 
     return Scaffold(
       backgroundColor: const Color(0xffF8FAFC),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          'Profile',
-          style: TextStyle(
-            color: const Color(0xff1E3A8A),
-            fontWeight: FontWeight.w800,
-            fontSize: AppFont.header(width),
-          ),
-        ),
-      ),
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -43,7 +30,7 @@ class _UserprofileState extends State<Userprofile> {
                   refresh: () {},
                 ),
                 Text(
-                  "Ibrahim Gamal",
+                  "User name",
                   style: TextStyle(
                     fontSize: AppFont.title(width),
                     fontWeight: FontWeight.bold,
@@ -52,7 +39,7 @@ class _UserprofileState extends State<Userprofile> {
                 ),
                 SizedBox(height: 4.h),
                 Text(
-                  "ibrahim@gmail.com",
+                  "email@gmail.com",
                   style: TextStyle(
                     color: const Color(0xff64748B),
                     fontSize: AppFont.body(width),
@@ -65,7 +52,7 @@ class _UserprofileState extends State<Userprofile> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "My Posts",
+                      "Posts",
                       style: TextStyle(
                         fontSize: AppFont.header(width),
                         fontWeight: FontWeight.w800,

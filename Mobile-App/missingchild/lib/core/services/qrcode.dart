@@ -10,17 +10,17 @@ void showQrCode(
   required String age,
   String? status,
   required String description,
-   String? location,
+  String? location,
 }) {
   final qrData =
     '''
-    Name: $name
-    Reporter: $childId
-    Age: $age
-    Status: $status
-    Description: $description
-    Location: $location
-    Phone:$phone
+      Name: $name
+      ${childId != null ? 'Reporter: $childId\n' : ''}
+      Age: $age
+      ${status != null ? 'Status: $status\n' : ''}
+      Description: $description
+      ${location != null ? 'Location: $location\n' : ''}
+      Phone: $phone
     ''';
 
   showDialog(
@@ -28,10 +28,8 @@ void showQrCode(
     builder: (context) {
       return AlertDialog(
         backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24), 
-        ),
-        title:  Text(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        title: Text(
           "Child QR Code",
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -42,12 +40,12 @@ void showQrCode(
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-             Text(
+            Text(
               "Scan this code to get full person details instantly.",
               textAlign: TextAlign.center,
               style: TextStyle(color: Color(0xff64748B), fontSize: 13.sp),
             ),
-             SizedBox(height: 20.h),
+            SizedBox(height: 20.h),
 
             SizedBox(
               width: 220.w,
@@ -57,11 +55,11 @@ void showQrCode(
                 version: QrVersions.auto,
                 size: 220,
                 gapless: false,
-                eyeStyle:  QrEyeStyle(
+                eyeStyle: QrEyeStyle(
                   eyeShape: QrEyeShape.square,
                   color: Color(0xff1E3A8A),
                 ),
-                dataModuleStyle:  QrDataModuleStyle(
+                dataModuleStyle: QrDataModuleStyle(
                   dataModuleShape: QrDataModuleShape.square,
                   color: Color(0xff1E3A8A),
                 ),
@@ -74,9 +72,9 @@ void showQrCode(
           TextButton(
             onPressed: () => Navigator.pop(context),
             style: TextButton.styleFrom(
-              padding:  EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             ),
-            child:  Text(
+            child: Text(
               "Close",
               style: TextStyle(
                 fontWeight: FontWeight.bold,

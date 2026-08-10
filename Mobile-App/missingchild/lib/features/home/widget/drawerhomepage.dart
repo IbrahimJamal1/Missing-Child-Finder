@@ -58,7 +58,7 @@ Widget buildHomeDrawer(BuildContext context) {
               ),
             ),
             accountEmail: Text(
-              "ibrahimgamal932@gmail.com",
+              "ibrahimgamal@gmail.com",
               style: TextStyle(
                 color: const Color(0xFFCBD5E1),
                 fontSize: AppFont.caption(width),
@@ -70,15 +70,6 @@ Widget buildHomeDrawer(BuildContext context) {
             child: ListView(
               padding: EdgeInsets.symmetric(horizontal: 12.w),
               children: [
-                buildDrawerItem(
-                  width: width,
-                  icon: Icons.update,
-                  title: "Update Password",
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.pushNamed(context, 'updatepass');
-                  },
-                ),
                 buildDrawerItem(
                   width: width,
                   icon: Icons.person_outline_rounded,
