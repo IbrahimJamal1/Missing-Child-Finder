@@ -7,37 +7,38 @@ class MissingAdult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List foundchild = data.where((item) {
-      return item["childStatus"] == "Missing" && item["personType"] == "Adult";
+    List missingAdult = data.where((item) {
+      return item["status"] == "Missing" &&
+          item["personType"] == "Adult";
     }).toList();
 
     return ListView.builder(
       padding: const EdgeInsets.all(16),
-
-      itemCount: foundchild.length,
+      itemCount: missingAdult.length,
 
       itemBuilder: (context, index) {
-        final child = foundchild[index];
+        final adult = missingAdult[index];
 
         return ReportCard(
-          reporterName: child["reporterName"],
+          reporterName: adult["reporterName"],
+          reporterImage: adult["reporterImage"],
+          reportDate: adult["reportDate"],
+          image: adult["image"],
 
-          reporterImage: child["reporterImage"],
+          status: adult["status"],
 
-          reportDate: child["reportDate"],
+          phone: adult["phone"],
 
-          image: child["image"],
+          description: adult["description"],
 
-          status: child["childStatus"],
-          phone: child["childPhone"],
-          description: child["description"],
+          age: adult["age"],
 
-          age: child["childAge"],
+          locationName: adult["locationName"],
+          location: adult["location"],
 
-          locationName: child["locationName"],
+          childName: adult["childName"],
 
-          location: child["location"],
-          childName: '',
+          lastseen: adult["lastseen"],
         );
       },
     );

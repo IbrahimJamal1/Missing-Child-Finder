@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/core/helpfunc/validationinput.dart';
 import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:ai_safetrack/features/auth/widgets/loginheader.dart';
 import 'package:flutter/material.dart';
@@ -56,12 +57,7 @@ class _LoginState extends State<Login> {
                       children: [
                         TextFormField(
                           controller: emailorphone,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Enter your email or phone number";
-                            }
-                            return null;
-                          },
+                          validator:ValidationInput().emailValidation,
                           decoration: InputDecoration(
                             hintText: "Email Or Phone Number",
                             hintStyle: TextStyle(fontSize: AppFont.body(width)),
@@ -82,15 +78,7 @@ class _LoginState extends State<Login> {
                         TextFormField(
                           controller: password,
                           obscureText: hidePassword,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Enter password";
-                            }
-                            if (value.length < 6) {
-                              return "Minimum 6 characters";
-                            }
-                            return null;
-                          },
+                          validator:ValidationInput().passwordValidationlogin,
                           decoration: InputDecoration(
                             hintText: "Password",
                             hintStyle: TextStyle(fontSize: AppFont.body(width)),

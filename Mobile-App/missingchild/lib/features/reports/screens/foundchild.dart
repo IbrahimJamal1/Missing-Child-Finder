@@ -7,42 +7,37 @@ class FoundChild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    List foundchild = data.where((item) {
-      return item["childStatus"] == "Found" && item["personType"]== "Child" ;
+    List foundChild = data.where((item) {
+      return item["status"] == "Found" &&
+          item["personType"] == "Child";
     }).toList();
-
 
     return ListView.builder(
       padding: const EdgeInsets.all(16),
-
-      itemCount: foundchild.length,
+      itemCount: foundChild.length,
 
       itemBuilder: (context, index) {
-
-        final child = foundchild[index];
-
+        final child = foundChild[index];
 
         return ReportCard(
-
           reporterName: child["reporterName"],
-
           reporterImage: child["reporterImage"],
-
           reportDate: child["reportDate"],
-
           image: child["image"],
+          status: child["status"],
 
-          status: child["childStatus"],
-phone: child["childPhone"],
+        
+          phone: child["phone"],
+
           description: child["description"],
 
-          age: child["childAge"],
+          
+          age: child["age"],
 
           locationName: child["locationName"],
-
-          location: child["location"], childName: '',
-
+          location: child["location"],
+          childName: child["childName"],
+          lastseen: child["lastseen"],
         );
       },
     );

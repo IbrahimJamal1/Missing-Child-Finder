@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/core/helpfunc/validationinput.dart';
 import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -83,14 +84,7 @@ class _ResetpassState extends State<Resetpass> {
                         TextFormField(
                           controller: _phone,
                           keyboardType: TextInputType.phone,
-                          validator: (value) {
-                            if (value == null ||
-                                value.trim().isEmpty ||
-                                !value.contains(RegExp(r'^[0-9]+$'))) {
-                              return "Please enter a valid phone number";
-                            }
-                            return null;
-                          },
+                          validator:ValidationInput().phoneValidation ,
                           decoration: InputDecoration(
                             labelText: "Phone Number",
                             labelStyle: TextStyle(

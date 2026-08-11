@@ -1,38 +1,38 @@
+import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 
-Future<String> getAddressFromLatLng(double latitude, double longitude) async {
+Future<String> getAddressFromLatLng(
+  double latitude,
+  double longitude,
+) async {
   try {
-    List<Placemark> placemarks;
-    try {
-      placemarks = await placemarkFromCoordinates(
-        latitude,
-        longitude,
-      );
-    }catch (e) {
-      print(e);
-      return "Unknown address";
+    final placemarks = await placemarkFromCoordinates(
+      latitude,
+      longitude,
+    );
+
+    if (placemarks.isEmpty) {
+      return "Unknown Location";
     }
 
-    if (placemarks.isNotEmpty) {
-      Placemark place = placemarks.first;
+    final place = placemarks.first;
 
-      List<String> addressParts = [
-        if (place.street != null && place.street!.isNotEmpty) place.street!,
-        if (place.subLocality != null && place.subLocality!.isNotEmpty)
-          place.subLocality!,
-        if (place.locality != null && place.locality!.isNotEmpty)
-          place.locality!,
-        if (place.administrativeArea != null &&
-            place.administrativeArea!.isNotEmpty)
-          place.administrativeArea!,
-      ];
+    final addressParts = [
+      if (place.street?.isNotEmpty ?? false)
+        place.street!,
+      if (place.subLocality?.isNotEmpty ?? false)
+        place.subLocality!,
+      if (place.locality?.isNotEmpty ?? false)
+        place.locality!,
+      if (place.administrativeArea?.isNotEmpty ?? false)
+        place.administrativeArea!,
+    ];
 
-      return addressParts.isNotEmpty
-          ? addressParts.join(', ')
-          : "Unknown Location";
-    }
-    return "Unknown Location";
+    return addressParts.isNotEmpty
+        ? addressParts.join(', ')
+        : "Unknown Location";
   } catch (e) {
-    return '$e';
+    debugPrint("Geocoding error: $e");
+    return "Unknown address";
   }
 }

@@ -56,7 +56,7 @@ class InfoCard extends StatelessWidget {
                   BoxShadow(color: iconColor.withOpacity(.15), blurRadius: 8.r),
                 ],
               ),
-              child: Icon(icon, color: iconColor, size: 22.r),
+              child: Icon(icon, color: iconColor, size: 18.r),
             ),
             SizedBox(width: 10.w),
             Expanded(
@@ -79,10 +79,10 @@ class InfoCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: AppFont.body(width),
+                      fontSize: AppFont.caption(width),
                       fontWeight: FontWeight.bold,
                       color: const Color(0xff1E293B),
-                    ),
+                    ), 
                   ),
                 ],
               ),

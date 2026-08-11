@@ -6,18 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-Widget actionButtonPost(
-  BuildContext context,
-  final String status,
-  final String descriptiond,
-  final String childNamed,
-  final String age,
-  final String phone,
-  final String description,
-  final String childName,
-  final String reporterName,
-  LatLng location,
-) {
+Widget actionButtonPost({
+  required BuildContext context,
+  required String status,
+  required String description,
+  required String childName,
+  required String age,
+  required String phone,
+  required String reporterName,
+  required LatLng location, 
+  String? lastseen,
+}) {
   final double width = MediaQuery.of(context).size.width;
 
   return Row(
@@ -29,7 +28,9 @@ Widget actionButtonPost(
             onPressed: () {
               showShareDialog(
                 context,
-                onShare: () {},
+                onShare: () {
+
+                },
               );
             },
             icon: Icon(
@@ -55,9 +56,7 @@ Widget actionButtonPost(
           ),
         ),
       ),
-
       SizedBox(width: 8.w),
-
       Expanded(
         child: SizedBox(
           height: 48.h,
@@ -72,13 +71,14 @@ Widget actionButtonPost(
 
               showQrCode(
                 context,
-                childId: reporterName,
+                reporterName: reporterName,
                 name: childName,
                 phone: phone,
                 age: age,
                 status: status,
                 description: description,
-                location: address
+                location: address,
+                lastseen:lastseen
               );
             },
             icon: Icon(
@@ -104,9 +104,7 @@ Widget actionButtonPost(
           ),
         ),
       ),
-
       SizedBox(width: 8.w),
-
       Expanded(
         child: SizedBox(
           height: 48.h,

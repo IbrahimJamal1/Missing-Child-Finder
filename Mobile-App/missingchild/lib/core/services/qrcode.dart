@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/core/services/time_ago.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -10,10 +11,13 @@ void showQrCode(
   required String age,
   String? status,
   required String description,
-  String? location,
+  String? location, 
+  required String reporterName,
+   String? lastseen,
 }) {
   final qrData =
     '''
+      Reporter Name: $reporterName
       Name: $name
       ${childId != null ? 'Reporter: $childId\n' : ''}
       Age: $age
@@ -21,6 +25,7 @@ void showQrCode(
       Description: $description
       ${location != null ? 'Location: $location\n' : ''}
       Phone: $phone
+      lastseen : is $status • ${timeAgo(DateTime.parse(lastseen!))}
     ''';
 
   showDialog(

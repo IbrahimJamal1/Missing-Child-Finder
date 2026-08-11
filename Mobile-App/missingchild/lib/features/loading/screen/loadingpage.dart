@@ -54,7 +54,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
 
-          width > 700 ? SizedBox(height: 30.h):SizedBox(height: 60.h),
+          width > 700 ? SizedBox(height: 20.h):SizedBox(height: 40.h),
 
           actionbuttonloadpage(width, context),
 

@@ -45,7 +45,7 @@ Widget actionbuttonloadpage(final width, context) {
           height: 52.h,
           child: OutlinedButton(
             onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(context, 'signup',(route)=>false);
+              Navigator.pushNamedAndRemoveUntil(context, 'register',(route)=>false);
             },
             style: OutlinedButton.styleFrom(
               side: const BorderSide(color: Color(0xff1E3A8A), width: 1.5),

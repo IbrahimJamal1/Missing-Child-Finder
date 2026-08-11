@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/core/helpfunc/validationinput.dart';
 import 'package:ai_safetrack/core/services/uploadimage.dart';
 import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:ai_safetrack/features/auth/widgets/customfiled.dart';
@@ -23,7 +24,6 @@ class _RegisterState extends State<Register> {
   bool _isPasswordHidden = true;
 
   final imageService = ImageService();
-
 
   @override
   void dispose() {
@@ -105,8 +105,8 @@ class _RegisterState extends State<Register> {
                                   shape: BoxShape.circle,
                                   color: Colors.blue.shade50,
                                   border: Border.all(
-                                    color: const Color(0xFF3B82F6),
-                                    width: 3.w,
+                                    color: Colors.white,
+                                    width: 2.w,
                                   ),
                                   boxShadow: [
                                     BoxShadow(
@@ -151,44 +151,25 @@ class _RegisterState extends State<Register> {
                           icon: Icons.person_outline_rounded,
                           label: "Full Name",
                           controller: username,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return "Name is required";
-                            }
-                            return null;
-                          },
+                          validator: ValidationInput().validationName,
 
-                          width: width
+                          width: width,
                         ),
                         buildCustomField(
                           icon: Icons.phone_outlined,
                           label: "Phone Number",
                           keyboard: TextInputType.phone,
                           controller: phone,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return "Phone is required";
-                            }
-                            if (value.trim().length != 11) {
-                              return "Phone must be 11 digits";
-                            }
-                            return null;
-                          }, width: width
+                          validator: ValidationInput().phoneValidation,
+                          width: width,
                         ),
                         buildCustomField(
                           icon: Icons.email_outlined,
                           label: "Email Address",
                           keyboard: TextInputType.emailAddress,
                           controller: usermail,
-                          validator: (value) {
-                            if (value == null ||
-                                !RegExp(
-                                  r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                                ).hasMatch(value)) {
-                              return "Enter a valid email address";
-                            }
-                            return null;
-                          }, width: width
+                          validator: ValidationInput().emailValidation,
+                          width: width,
                         ),
                         buildCustomField(
                           icon: Icons.lock_outline_rounded,
@@ -209,33 +190,32 @@ class _RegisterState extends State<Register> {
                               });
                             },
                           ),
-                          validator: (value) {
-                            if (value == null || value.length < 6) {
-                              return "Password must be at least 6 characters";
-                            }
-                            return null;
-                          }, width: width
+                          validator: ValidationInput().passwordValidationreg,
+                          width: width,
                         ),
                         SizedBox(height: 8.h),
-                        OutlinedButton.icon(
-                          onPressed: () async {
+                        TextFormField(
+                          validator: (_) {
+                            if (imageService.idImage == null) {
+                              return "Please upload ID Card";
+                            }
+
+                            return null;
+                          },
+
+                          readOnly: true,
+
+                          onTap: () async {
                             await imageService.pickImage("id");
                             setState(() {});
                           },
-                          icon: Icon(
-                            imageService.idImage != null
-                                ? Icons.check_circle_rounded
-                                : Icons.badge_outlined,
-                            size: 20.r,
-                            color: imageService.idImage != null
-                                ? Colors.green
-                                : const Color(0xFF1E293B),
-                          ),
-                          label: Text(
-                            imageService.idImage != null
+
+                          decoration: InputDecoration(
+                            hintText: imageService.idImage != null
                                 ? "ID UPLOADED"
                                 : "UPLOAD ID",
-                            style: TextStyle(
+
+                            hintStyle: TextStyle(
                               fontSize: AppFont.button(width),
                               fontWeight: FontWeight.bold,
                               letterSpacing: 0.5,
@@ -243,43 +223,83 @@ class _RegisterState extends State<Register> {
                                   ? Colors.green
                                   : const Color(0xFF1E293B),
                             ),
-                          ),
-                          style: OutlinedButton.styleFrom(
-                            minimumSize: Size(double.infinity, 52.h),
-                            side: BorderSide(
+
+                            prefixIcon: Icon(
+                              imageService.idImage != null
+                                  ? Icons.check_circle_rounded
+                                  : Icons.badge_outlined,
+                              size: 20.r,
                               color: imageService.idImage != null
                                   ? Colors.green
-                                  : Colors.grey.shade300,
-                              width: 1.5.w,
+                                  : const Color(0xFF1E293B),
                             ),
-                            backgroundColor: imageService.idImage != null
+
+                            filled: true,
+
+                            fillColor: imageService.idImage != null
                                 ? Colors.green.shade50
                                 : Colors.grey.shade50,
-                            shape: RoundedRectangleBorder(
+
+                            enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16.r),
+                              borderSide: BorderSide(
+                                color: imageService.idImage != null
+                                    ? Colors.green
+                                    : Colors.grey.shade300,
+                                width: 1.5.w,
+                              ),
+                            ),
+
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16.r),
+                              borderSide: BorderSide(
+                                color: imageService.idImage != null
+                                    ? Colors.green
+                                    : const Color(0xFF1565C0),
+                                width: 1.5.w,
+                              ),
+                            ),
+
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16.r),
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                                width: 1.5.w,
+                              ),
+                            ),
+
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16.r),
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                                width: 1.5.w,
+                              ),
                             ),
                           ),
                         ),
                         SizedBox(height: 24.h),
-                        OutlinedButton.icon(
-                          onPressed: () async {
+                        TextFormField(
+                          readOnly: true,
+
+                          onTap: () async {
                             await imageService.uploadLiveImage();
                             setState(() {});
                           },
-                          icon: Icon(
-                            imageService.liveImage != null
-                                ? Icons.photo_camera_rounded
-                                : Icons.camera_alt_outlined,
-                            size: 20.r,
-                            color: imageService.liveImage != null
-                                ? Colors.green
-                                : const Color(0xFF1E293B),
-                          ),
-                          label: Text(
-                            imageService.liveImage != null
+
+                          validator: (_) {
+                            if (imageService.liveImage == null) {
+                              return "Please upload Live Photo";
+                            }
+
+                            return null;
+                          },
+
+                          decoration: InputDecoration(
+                            hintText: imageService.liveImage != null
                                 ? "Live Photo UPLOADED"
                                 : "UPLOAD Live Photo",
-                            style: TextStyle(
+
+                            hintStyle: TextStyle(
                               fontSize: AppFont.button(width),
                               fontWeight: FontWeight.bold,
                               letterSpacing: 0.5,
@@ -287,27 +307,64 @@ class _RegisterState extends State<Register> {
                                   ? Colors.green
                                   : const Color(0xFF1E293B),
                             ),
-                          ),
-                          style: OutlinedButton.styleFrom(
-                            minimumSize: Size(double.infinity, 52.h),
-                            side: BorderSide(
+
+                            prefixIcon: Icon(
+                              imageService.liveImage != null
+                                  ? Icons.photo_camera_rounded
+                                  : Icons.camera_alt_outlined,
+                              size: 20.r,
                               color: imageService.liveImage != null
                                   ? Colors.green
-                                  : Colors.grey.shade300,
-                              width: 1.5.w,
+                                  : const Color(0xFF1E293B),
                             ),
-                            backgroundColor: imageService.liveImage != null
+
+                            filled: true,
+
+                            fillColor: imageService.liveImage != null
                                 ? Colors.green.shade50
                                 : Colors.grey.shade50,
-                            shape: RoundedRectangleBorder(
+
+                            enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16.r),
+                              borderSide: BorderSide(
+                                color: imageService.liveImage != null
+                                    ? Colors.green
+                                    : Colors.grey.shade300,
+                                width: 1.5.w,
+                              ),
+                            ),
+
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16.r),
+                              borderSide: BorderSide(
+                                color: imageService.liveImage != null
+                                    ? Colors.green
+                                    : const Color(0xFF2563EB),
+                                width: 1.5.w,
+                              ),
+                            ),
+
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16.r),
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                                width: 1.5.w,
+                              ),
+                            ),
+
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16.r),
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                                width: 1.5.w,
+                              ),
                             ),
                           ),
                         ),
                         SizedBox(height: 24.h),
                         ElevatedButton(
                           onPressed: () {
-                            if (registerkey.currentState!.validate() || true) {
+                            if (registerkey.currentState!.validate()) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(

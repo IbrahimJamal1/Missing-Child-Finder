@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/core/helpfunc/validationinput.dart';
 import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +11,7 @@ class UpdatePasswordScreen extends StatefulWidget {
 }
 
 class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final updatepasswordkey = GlobalKey<FormState>();
 
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
@@ -91,7 +92,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
           child: Form(
-            key: _formKey,
+            key: updatepasswordkey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -131,6 +132,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                 SizedBox(height: 36.h),
                 TextFormField(
                   controller: passwordController,
+
                   obscureText: obscurePassword,
                   style: TextStyle(fontSize: AppFont.body(width)),
                   decoration: _buildInputDecoration(
@@ -153,15 +155,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                       },
                     ),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter a new password";
-                    }
-                    if (value.length < 8) {
-                      return "Password must be at least 8 characters";
-                    }
-                    return null;
-                  },
+                  validator: ValidationInput().passwordValidationreg,
                 ),
                 SizedBox(height: 20.h),
                 TextFormField(
@@ -188,15 +182,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                       },
                     ),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please confirm your password";
-                    }
-                    if (value != passwordController.text) {
-                      return "Passwords do not match";
-                    }
-                    return null;
-                  },
+                  validator: ValidationInput().passwordValidationreg,
                 ),
                 SizedBox(height: 36.h),
                 SizedBox(
@@ -211,11 +197,26 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        "login",
-                        (rout) => false,
-                      );
+                      if (updatepasswordkey.currentState!.validate()) {
+                        if (passwordController.text ==
+                            confirmPasswordController.text) {
+
+
+                              
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            "login",
+                            (route) => false,
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Passwords do not match"),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
+                      }
                     },
                     child: Text(
                       "Reset Password",

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:ai_safetrack/getdata.dart';
 import 'reportCard .dart';
@@ -8,37 +7,41 @@ class MissingChild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List foundchild = data.where((item) {
-      return item["childStatus"] == "Missing" && item["personType"] == "Child";
+    List missingChild = data.where((item) {
+      return item["status"] == "Missing" &&
+          item["personType"] == "Child";
     }).toList();
 
     return ListView.builder(
       padding: const EdgeInsets.all(16),
-
-      itemCount: foundchild.length,
+      itemCount: missingChild.length,
 
       itemBuilder: (context, index) {
-        final child = foundchild[index];
+        final child = missingChild[index];
 
         return ReportCard(
           reporterName: child["reporterName"],
-
           reporterImage: child["reporterImage"],
-
           reportDate: child["reportDate"],
-
           image: child["image"],
+          status: child["status"],
 
-          status: child["childStatus"],
-          phone: child["childPhone"],
+          
+          phone: child["phone"],
+
           description: child["description"],
 
-          age: child["childAge"],
+         
+          age: child["age"],
 
           locationName: child["locationName"],
-
           location: child["location"],
-          childName: '',
+
+         
+          childName: child["childName"],
+
+         
+          lastseen: child["lastseen"],
         );
       },
     );
