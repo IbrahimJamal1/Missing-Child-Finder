@@ -1,6 +1,5 @@
 String timeAgo(DateTime dateTime) {
   final Duration difference = DateTime.now().difference(dateTime);
-
   if (difference.inSeconds < 60) {
     return "Just now";
   } else if (difference.inMinutes < 60) {

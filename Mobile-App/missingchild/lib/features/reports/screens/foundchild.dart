@@ -1,44 +1,41 @@
+import 'package:ai_safetrack/features/reports/models/report_model.dart';
+import 'package:ai_safetrack/features/reports/screens/reportCard%20.dart';
 import 'package:flutter/material.dart';
 import 'package:ai_safetrack/getdata.dart';
-import 'reportCard .dart';
 
 class FoundChild extends StatelessWidget {
   const FoundChild({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List foundChild = data.where((item) {
-      return item["status"] == "Found" &&
-          item["personType"] == "Child";
+    final foundChild = data.where((item) {
+      return item["status"] == "Found" && item["personType"] == "Child";
     }).toList();
 
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: foundChild.length,
-
       itemBuilder: (context, index) {
         final child = foundChild[index];
 
-        return ReportCard(
+        final report = ReportModel(
           reporterName: child["reporterName"],
           reporterImage: child["reporterImage"],
-          reportDate: child["reportDate"],
+          reportDate: DateTime.parse(child["reportDate"]),
           image: child["image"],
+          childName: child["childName"],
           status: child["status"],
-
-        
-          phone: child["phone"],
-
           description: child["description"],
-
-          
           age: child["age"],
-
+          phone: child["phone"],
           locationName: child["locationName"],
           location: child["location"],
-          childName: child["childName"],
+
           lastseen: child["lastseen"],
+          report_id: child["report_id"],
         );
+
+        return ReportCard(report: report);
       },
     );
   }

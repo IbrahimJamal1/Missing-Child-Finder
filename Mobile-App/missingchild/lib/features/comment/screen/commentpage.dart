@@ -13,9 +13,9 @@ class _CommentpageState extends State<Commentpage> {
   final TextEditingController commentController = TextEditingController();
 
   final List<String> comment = [
-    "Great application 👏",
+    "Great application ",
     "Hope this child is found soon.",
-    "Thank you for your efforts ❤️",
+    "Thank you for your efforts ",
   ];
 
   @override
@@ -27,6 +27,10 @@ class _CommentpageState extends State<Commentpage> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    // ignore: unused_local_variable
+    final reportId = ModalRoute.of(context)!.settings.arguments as String;
+    // ignore: unused_local_variable
+    DateTime currentdatecomment=DateTime.now() ;
 
     return Scaffold(
       appBar: AppBar(
@@ -94,7 +98,14 @@ class _CommentpageState extends State<Commentpage> {
                 CircleAvatar(
                   radius: 25.r,
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      
+                      // print("==========================$reportId");
+                      // print("==========================$currentdatecomment");
+                      // print("==============================${commentController.text}");
+
+
+                    },
                     icon: Icon(Icons.send, size: 20.r),
                   ),
                 ),

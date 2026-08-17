@@ -1,5 +1,6 @@
 import 'package:ai_safetrack/core/services/uploadimage.dart';
 import 'package:ai_safetrack/core/theme/fonttext.dart';
+import 'package:ai_safetrack/features/profile/models/myprofilemodel.dart';
 import 'package:ai_safetrack/features/profile/widgets/imageprofiles.dart';
 import 'package:ai_safetrack/features/profile/widgets/inputui.dart';
 import 'package:flutter/material.dart';
@@ -16,38 +17,48 @@ class _EditprofileState extends State<Editprofile> {
   final keyeditprofile = GlobalKey<FormState>();
   final imageservice = ImageService();
 
-  late final TextEditingController _nameController = TextEditingController();
-  late final TextEditingController _emailController = TextEditingController();
-  late final TextEditingController _phoneController = TextEditingController();
+  late ProfileModel profile;
+
+  late final TextEditingController nameController;
+  late final TextEditingController emailController;
+  late final TextEditingController phoneController;
+
+  bool _initialized = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (_initialized) return;
+
+    final args = ModalRoute.of(context)?.settings.arguments;
+
+    if (args is! ProfileModel) {
+      return;
+    }
+
+    profile = args;
+
+    nameController = TextEditingController(text: profile.name);
+    emailController = TextEditingController(text: profile.email);
+    phoneController = TextEditingController(text: profile.phone);
+
+    _initialized = true;
+  }
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
+    nameController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: const Color(0xffF8FAFC),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          "Edit Profile",
-          style: TextStyle(
-            color: const Color(0xff1E3A8A),
-            fontWeight: FontWeight.w800,
-            fontSize: AppFont.header(width),
-          ),
-        ),
-        iconTheme: const IconThemeData(color: Color(0xff1E3A8A)),
-      ),
       body: SingleChildScrollView(
         child: Form(
           key: keyeditprofile,
@@ -59,6 +70,8 @@ class _EditprofileState extends State<Editprofile> {
                 refresh: () {
                   setState(() {});
                 },
+                imageurl: profile.imageUrl,
+                coverpage: profile.coverpage,
               ),
               Container(
                 decoration: BoxDecoration(
@@ -66,7 +79,7 @@ class _EditprofileState extends State<Editprofile> {
                   borderRadius: BorderRadius.circular(24.r),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.02),
+                      color: Colors.black.withValues(alpha: 0.02),
                       blurRadius: 12.r,
                       offset: Offset(0, 6.h),
                     ),
@@ -76,7 +89,7 @@ class _EditprofileState extends State<Editprofile> {
                 child: Column(
                   children: [
                     TextFormField(
-                      controller: _nameController,
+                      controller: nameController,
                       style: TextStyle(fontSize: AppFont.body(width)),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
@@ -91,7 +104,7 @@ class _EditprofileState extends State<Editprofile> {
                     ),
                     SizedBox(height: 20.h),
                     TextFormField(
-                      controller: _emailController,
+                      controller: emailController,
                       style: TextStyle(fontSize: AppFont.body(width)),
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
@@ -110,7 +123,7 @@ class _EditprofileState extends State<Editprofile> {
                     ),
                     SizedBox(height: 20.h),
                     TextFormField(
-                      controller: _phoneController,
+                      controller: phoneController,
                       style: TextStyle(fontSize: AppFont.body(width)),
                       keyboardType: TextInputType.phone,
                       validator: (value) {
@@ -165,9 +178,12 @@ class _EditprofileState extends State<Editprofile> {
                 height: 52.h,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    if (keyeditprofile.currentState!.validate() || true) {
+                    if (keyeditprofile.currentState!.validate()) {
                       print(imageservice.updateimageprofile?.path);
                       print(imageservice.coverprofile?.path);
+                      print(nameController.text);
+                      print(emailController.text);
+                      print(phoneController.text);
                     }
                   },
                   style: ElevatedButton.styleFrom(

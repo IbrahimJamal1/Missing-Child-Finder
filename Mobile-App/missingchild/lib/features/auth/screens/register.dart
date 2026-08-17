@@ -378,7 +378,7 @@ class _RegisterState extends State<Register> {
                                 ),
                               );
 
-                              Navigator.pushNamed(context, 'otpVerification');
+                              Navigator.pushNamedAndRemoveUntil(context, 'otpVerification',(route)=>false);
                             }
                           },
                           style: ElevatedButton.styleFrom(

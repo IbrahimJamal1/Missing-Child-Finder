@@ -15,7 +15,9 @@ class WelcomeScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: floatActionCreateQR(width, context),
       floatingActionButtonLocation:FloatingActionButtonLocation.endTop ,
+
       backgroundColor: const Color(0xFFF8FAFC),
+      
       body: Column(
         children: [
           SizedBox(height: 50),

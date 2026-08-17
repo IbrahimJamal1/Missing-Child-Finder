@@ -7,6 +7,11 @@ Widget imageProfile({
   required bool imageType,
   required ImageService imageService,
   required VoidCallback refresh,
+   final String? myname,
+   final String? myemail,
+   final String? phone,
+   final String? imageurl,
+   final String? coverpage,
 }) {
   return SizedBox(
     height: 220.h,
@@ -22,7 +27,7 @@ Widget imageProfile({
             image: DecorationImage(
               image: imageService.coverprofile != null
                   ? FileImage(imageService.coverprofile!)
-                  : const NetworkImage("https://picsum.photos/800/400"),
+                  :  NetworkImage(coverpage??""),
               fit: BoxFit.cover,
             ),
           ),
@@ -70,7 +75,7 @@ Widget imageProfile({
                   radius: 56.r,
                   backgroundImage: imageService.updateimageprofile != null
                       ? FileImage(imageService.updateimageprofile!)
-                      : const NetworkImage("https://i.pravatar.cc/300"),
+                      :  NetworkImage(imageurl??""),
                 ),
               ),
 

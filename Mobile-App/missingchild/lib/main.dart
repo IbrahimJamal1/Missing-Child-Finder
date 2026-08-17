@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
         'otpVerification': (context) => Otpverification(),
         'otpforgetpass': (context) => Otpforgetpass(),
         'updatepass': (context) => UpdatePasswordScreen(),
-        'userprofile':(context) => Userprofile()
+        'userprofile':(context) => Userprofile(),
       },
 
       home: WelcomeScreen(),

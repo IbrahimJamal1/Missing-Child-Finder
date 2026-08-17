@@ -15,7 +15,7 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
   String otp = "";
 
   Timer? _timer;
-  int _secondsRemaining = 30;
+  int _secondsRemaining = 60;
   bool _canResend = false;
 
   @override
@@ -170,7 +170,7 @@ class _OtpforgetpassState extends State<Otpforgetpass> {
                         ),
                       );
 
-                      Navigator.pushNamed(context, 'updatepass');
+                      Navigator.pushNamedAndRemoveUntil(context, 'updatepass',(route)=>false);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

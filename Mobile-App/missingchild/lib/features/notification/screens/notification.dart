@@ -28,11 +28,11 @@ class Notificationpage extends StatelessWidget {
       ),
       body: ListView.builder(
         padding: EdgeInsets.all(16.r),
-        itemCount: 5,
+        itemCount: data.length,
         itemBuilder: (context, index) {
           final item = data[index];
-          final bool isMissing = item["childStatus"] == "Missing";
-          final bool isAccident = item["childStatus"] == "Accident";
+          final bool isMissing = item["status"] == "Missing";
+          final bool isAccident = item["status"] == "Accident";
 
           return Padding(
             padding: EdgeInsets.only(bottom: 14.h),

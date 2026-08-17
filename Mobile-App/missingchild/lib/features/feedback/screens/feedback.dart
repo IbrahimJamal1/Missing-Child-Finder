@@ -1,6 +1,5 @@
 import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:flutter/material.dart';
-import 'package:ai_safetrack/features/feedback/widget/buildactioncard.dart';
 import 'package:ai_safetrack/features/feedback/widget/buildcardcategory.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -106,12 +105,6 @@ class _FeedbackPageState extends State<FeedbackPage> {
                         _selectedCategory = category;
                       });
                     }, width: width,
-                  ),
-                  buildActionCard(
-                     width,
-                    "Rate Us",
-                    Icons.star_outline_rounded,
-                    onTap: () => Navigator.pushNamed(context, 'rate'),
                   ),
                   buildCategoryCard(
                     category: "Other",

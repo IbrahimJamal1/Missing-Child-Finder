@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/core/services/time_ago.dart';
 import 'package:flutter/material.dart';
 
 Future<(DateTime, String)?> missingSinceAgo(BuildContext context) async {
@@ -24,21 +25,7 @@ Future<(DateTime, String)?> missingSinceAgo(BuildContext context) async {
     time.hour,
     time.minute,
   );
-
-  final diff = DateTime.now().difference(selectedDateTime);
-
-  String text;
-  if (diff.inDays >= 365) {
-    text = "${diff.inDays ~/ 365} years ago";
-  } else if (diff.inDays >= 30) {
-    text = "${diff.inDays ~/ 30} months ago";
-  } else if (diff.inDays >= 1) {
-    text = "${diff.inDays} days ago";
-  } else if (diff.inHours >= 1) {
-    text = "${diff.inHours} hours ago";
-  } else {
-    text = "${diff.inMinutes} minutes ago";
-  }
-
+  final text=timeAgo(selectedDateTime);
+  
   return (selectedDateTime, text);
 }

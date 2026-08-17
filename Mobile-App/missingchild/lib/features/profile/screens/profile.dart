@@ -1,7 +1,11 @@
 import 'package:ai_safetrack/core/services/uploadimage.dart';
 import 'package:ai_safetrack/core/theme/fonttext.dart';
+import 'package:ai_safetrack/features/profile/models/myprofilemodel.dart';
 import 'package:ai_safetrack/features/profile/widgets/deletepost.dart';
 import 'package:ai_safetrack/features/profile/widgets/imageprofiles.dart';
+import 'package:ai_safetrack/features/reports/models/report_model.dart';
+import 'package:ai_safetrack/features/reports/screens/reportCard%20.dart';
+import 'package:ai_safetrack/getdata.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,22 +20,17 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    final myname = "ibrahim gamal";
+    final myemail = "ibrahim@gmail.com";
+    final phone = 01011111111;
+    final imageurl =
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMoRu8zC3OvoRY_bzhEtAhGP1ip9rds1YnPUR3geIRzg&s=10";
+    final coverpage =
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRloG_1vGxvVLG7IZYvvGk9IghFjt6mVUfhEbcI6MZrDw&s=10";
 
     return Scaffold(
       backgroundColor: const Color(0xffF8FAFC),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          'Profile',
-          style: TextStyle(
-            color: const Color(0xff1E3A8A),
-            fontWeight: FontWeight.w800,
-            fontSize: AppFont.header(width),
-          ),
-        ),
-      ),
+
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -39,12 +38,14 @@ class _ProfileState extends State<Profile> {
             child: Column(
               children: [
                 imageProfile(
+                  imageurl: imageurl,
+                  coverpage: coverpage,
                   imageType: false,
                   imageService: ImageService(),
                   refresh: () {},
                 ),
                 Text(
-                  "Ibrahim Gamal",
+                  myname,
                   style: TextStyle(
                     fontSize: AppFont.title(width),
                     fontWeight: FontWeight.bold,
@@ -53,7 +54,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 SizedBox(height: 4.h),
                 Text(
-                  "ibrahim@gmail.com",
+                  myemail,
                   style: TextStyle(
                     color: const Color(0xff64748B),
                     fontSize: AppFont.body(width),
@@ -65,7 +66,17 @@ class _ProfileState extends State<Profile> {
                   padding: EdgeInsets.symmetric(horizontal: 24.w),
                   child: OutlinedButton.icon(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'editprofile');
+                      Navigator.pushNamed(
+                        context,
+                        'editprofile',
+                        arguments: ProfileModel(
+                          name: myname,
+                          email: myemail,
+                          phone: phone.toString(),
+                          coverpage: coverpage,
+                          imageUrl: imageurl,
+                        ),
+                      );
                     },
                     icon: Icon(Icons.edit_rounded, size: 18.r),
                     label: Text(
@@ -111,107 +122,51 @@ class _ProfileState extends State<Profile> {
               ],
             ),
           ),
-          SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
-            sliver: SliverGrid(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                return GestureDetector(//tap
-                onLongPress: (){
-                  showDialog(
-                    context: context,
-                    builder: (_) => deletepost(onDelete: () {}),
-                  );
-                }
-                ,
-                  child: Card(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16.r),
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16.r),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.02),
-                            blurRadius: 10.r,
-                            offset: Offset(0, 4.h),
-                          ),
-                        ],
+          SliverLayoutBuilder(
+            builder: (context, constraints) {
+              return SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
+                sliver: SliverGrid(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    final child = data[index];
+
+                    return GestureDetector(
+                      onLongPress: () {
+                        showDialog(
+                          context: context,
+                          builder: (dialogContext) =>
+                              deletepost(onDelete: () {}),
+                        );
+                      },
+                      child: ReportCard(
+                        report: ReportModel(
+                          reporterName: child["reporterName"],
+                          reporterImage: child["reporterImage"],
+                          reportDate: DateTime.parse(child["reportDate"]),
+                          image: child["image"],
+                          childName: child["childName"],
+                          status: child["status"],
+                          description: child["description"],
+                          age: child["age"],
+                          phone: child["phone"],
+                          locationName: child["locationName"],
+                          location: child["location"],
+                          lastseen: child["lastseen"],
+                          report_id: child["report_id"],
+                        ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(16.r),
-                              ),
-                              child: Image.network(
-                                "https://picsum.photos/300?random=$index",
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(12.r),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  index.isEven
-                                      ? "Missing Child"
-                                      : "Accident Report",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: const Color(0xff334155),
-                                    fontSize: AppFont.subtitle(width),
-                                  ),
-                                ),
-                                SizedBox(height: 4.h),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.location_on_rounded,
-                                      color: const Color(0xffEF4444),
-                                      size: 14.r,
-                                    ),
-                                    SizedBox(width: 4.w),
-                                    Expanded(
-                                      child: Text(
-                                        "Quesna, Menoufia",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: const Color(0xff94A3B8),
-                                          fontSize: AppFont.caption(width),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    );
+                  }, childCount: 3),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisSpacing: 14.h,
+                    crossAxisSpacing: 14.w,
+                    childAspectRatio: .60,
                   ),
-                );
-              }, childCount: 2),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 14.h,
-                crossAxisSpacing: 14.w,
-                childAspectRatio: 0.82,
-              ),
-            ),
+                ),
+              );
+            },
           ),
-          SliverToBoxAdapter(child: SizedBox(height: 24.h)),
         ],
       ),
     );

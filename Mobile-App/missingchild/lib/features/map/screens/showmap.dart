@@ -32,13 +32,13 @@ class _ShowmapState extends State<Showmap> {
   void getArgumentLocation() {
     final location = ModalRoute.of(context)?.settings.arguments as LatLng?;
 
-    if (location != null) {
+    if (location != null) {//show location
       setState(() {
         selectedLocation = location;
         loading = false;
       });
     } else {
-      getCurrentLocation();
+      getCurrentLocation();  //create report
     }
   }
 

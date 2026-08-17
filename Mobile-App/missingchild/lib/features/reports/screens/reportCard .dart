@@ -1,53 +1,25 @@
-import 'dart:ui';
-
-import 'package:ai_safetrack/core/services/callphone.dart';
-import 'package:ai_safetrack/core/services/formatreportdate.dart';
 import 'package:ai_safetrack/core/services/gataddressloca.dart';
 import 'package:ai_safetrack/core/services/time_ago.dart';
 import 'package:ai_safetrack/core/theme/fonttext.dart';
+import 'package:ai_safetrack/features/detailspost/screen/detailsposthome.dart';
+import 'package:ai_safetrack/features/reports/models/report_model.dart';
 import 'package:ai_safetrack/features/reports/widget/actionbuttominpost.dart';
 import 'package:ai_safetrack/features/reports/widget/infobuttonpost.dart';
+import 'package:ai_safetrack/features/reports/widget/inforeportdata.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ReportCard extends StatelessWidget {
-  final String reporterName;
-  final String reporterImage;
-  final String reportDate;
-  final String image;
-  final String status;
-  final String description;
-  final String childName;
-  final String age;
-  final String phone;
-  final String locationName;
-  final LatLng location;
-  final VoidCallback? onCall;
-  final String? lastseen;
+  final ReportModel report;
 
-  const ReportCard({
-    super.key,
-    required this.reporterName,
-    required this.reporterImage,
-    required this.reportDate,
-    required this.image,
-    required this.childName,
-    required this.status,
-    required this.description,
-    required this.age,
-    required this.phone,
-    required this.locationName,
-    required this.location,
-    required this.lastseen,
-    this.onCall,
-  });
+  const ReportCard({super.key, required this.report});
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
 
-    final bool isDanger = status == "Missing" || status == "Accident";
+    final bool isDanger =
+        report.status == "Missing" || report.status == "Accident";
 
     final Color statusColor = isDanger ? Colors.red : Colors.green;
 
@@ -59,7 +31,7 @@ class ReportCard extends StatelessWidget {
         border: Border.all(color: Colors.grey.shade100),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(.07),
+            color: Colors.black.withValues(alpha: .07),
             blurRadius: 20.r,
             offset: Offset(0, 8.h),
           ),
@@ -68,104 +40,20 @@ class ReportCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(16.w, 16.h, 12.w, 12.h),
-            child: Row(
-              children: [
-                // Profile Image
-                Container(
-                  padding: EdgeInsets.all(2.r),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: const Color(0xffDBEAFE),
-                      width: 2,
-                    ),
-                  ),
-                  child: CircleAvatar(
-                    radius: 23.r,
-                    backgroundColor: Colors.grey.shade100,
-                    backgroundImage: NetworkImage(reporterImage),
-                  ),
-                ),
+          
+          //info report
+          imforeportdata(report,context,width),
 
-                SizedBox(width: 12.w),
-
-                // Name + Date
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      //user detail profile
-                      Navigator.pushNamed(context, 'userprofile');
-                    },
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          reporterName,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: AppFont.body(width),
-                            fontWeight: FontWeight.bold,
-                            color: const Color(0xff0F172A),
-                          ),
-                        ),
-
-                        SizedBox(height: 4.h),
-
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.access_time_rounded,
-                              size: 14.r,
-                              color: const Color(0xFF7B7A7A),
-                            ),
-
-                            SizedBox(width: 4.w),
-
-                            Expanded(
-                              child: Text(
-                                formatReportDate(reportDate),
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: AppFont.caption(width),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                // Call Button
-                Material(
-                  color: const Color(0xffEFF6FF),
-                  shape: const CircleBorder(),
-                  child: IconButton(
-                    onPressed:
-                        onCall ??
-                        () {
-                          makePhoneCall(phone);
-                        },
-                    icon: Icon(
-                      Icons.phone_rounded,
-                      color: const Color(0xff2563EB),
-                      size: 20.r,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
+         
           InkWell(
             onTap: () {
-              //detailpost
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Detailspost(report: report),
+                ),
+              );
             },
-
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 12.w),
               child: Stack(
@@ -175,7 +63,7 @@ class ReportCard extends StatelessWidget {
                     child: AspectRatio(
                       aspectRatio: 16 / 10,
                       child: Image.network(
-                        image,
+                        report.image,
                         width: double.infinity,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
@@ -227,7 +115,7 @@ class ReportCard extends StatelessWidget {
                           SizedBox(width: 5.w),
 
                           Text(
-                            status,
+                            report.status,
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -251,25 +139,25 @@ class ReportCard extends StatelessWidget {
                 SizedBox(height: 7.h),
 
                 // Status Sentence
-                if (lastseen != null)
-                  Text(
-                    "$childName is $status • "
-                    "${timeAgo(DateTime.parse(lastseen!))}",
-                    style: TextStyle(
-                      fontSize: AppFont.body(width),
-                      height: 1.4,
-                      color: const Color(0xff64748B),
-                    ),
+                Text(
+                  "${report.childName} is ${report.status} • "
+                  "${timeAgo(DateTime.parse(report.lastseen))}",
+                  style: TextStyle(
+                    fontSize: AppFont.body(width),
+                    height: 1.4,
+                    color: const Color(0xff64748B),
                   ),
+                ),
 
                 SizedBox(height: 16.h),
 
                 Row(
                   children: [
+                    // Age
                     Expanded(
                       child: InfoCard(
                         title: "Age",
-                        value: age,
+                        value: report.age,
                         icon: Icons.cake_rounded,
                         iconColor: const Color(0xff2563EB),
                         bgColor: const Color(0xffEFF6FF),
@@ -278,11 +166,12 @@ class ReportCard extends StatelessWidget {
 
                     SizedBox(width: 10.w),
 
+                    // Location
                     Expanded(
                       child: FutureBuilder<String>(
                         future: getAddressFromLatLng(
-                          location.latitude,
-                          location.longitude,
+                          report.location.latitude,
+                          report.location.longitude,
                         ),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
@@ -297,24 +186,7 @@ class ReportCard extends StatelessWidget {
                                 Navigator.pushNamed(
                                   context,
                                   "map",
-                                  arguments: location,
-                                );
-                              },
-                            );
-                          }
-
-                          if (snapshot.hasError) {
-                            return InfoCard(
-                              title: "Location",
-                              value: "Unknown",
-                              icon: Icons.location_on_rounded,
-                              iconColor: const Color(0xffEF4444),
-                              bgColor: const Color(0xffFEF2F2),
-                              onTap: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  "map",
-                                  arguments: location,
+                                  arguments: report.location,
                                 );
                               },
                             );
@@ -330,7 +202,7 @@ class ReportCard extends StatelessWidget {
                               Navigator.pushNamed(
                                 context,
                                 "map",
-                                arguments: location,
+                                arguments: report.location,
                               );
                             },
                           );
@@ -343,16 +215,18 @@ class ReportCard extends StatelessWidget {
                 SizedBox(height: 18.h),
 
                 actionButtonPost(
+                  report_id:report.report_id,
                   context: context,
-                  status: status,
-                  description: description,
-                  childName: childName,
-                  age: age,
-                  phone: phone,
-                  reporterName: reporterName,
-                  location: location,
-                  lastseen:lastseen,
+                  status: report.status,
+                  description: report.description,
+                  childName: report.childName,
+                  age: report.age,
+                  phone: report.phone,
+                  reporterName: report.reporterName,
+                  location: report.location,
+                  lastseen: report.lastseen,
                 ),
+              
               ],
             ),
           ),

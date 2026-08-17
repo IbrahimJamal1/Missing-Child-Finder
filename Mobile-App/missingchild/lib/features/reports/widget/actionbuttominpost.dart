@@ -15,7 +15,8 @@ Widget actionButtonPost({
   required String phone,
   required String reporterName,
   required LatLng location, 
-  String? lastseen,
+  String? lastseen, 
+  String ? report_id,
 }) {
   final double width = MediaQuery.of(context).size.width;
 
@@ -29,7 +30,7 @@ Widget actionButtonPost({
               showShareDialog(
                 context,
                 onShare: () {
-
+                  print("========================$report_id");
                 },
               );
             },
@@ -110,7 +111,7 @@ Widget actionButtonPost({
           height: 48.h,
           child: ElevatedButton.icon(
             onPressed: () {
-              Navigator.pushNamed(context, 'comment');
+              Navigator.pushNamed(context, 'comment',arguments: report_id);
             },
             icon: Icon(
               Icons.chat_bubble_outline_rounded,

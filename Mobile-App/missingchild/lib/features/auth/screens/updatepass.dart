@@ -76,18 +76,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_new,
-            color: Colors.black87,
-            size: 20.r,
-          ),
-          onPressed: () => Navigator.maybePop(context),
-        ),
-      ),
+      
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),

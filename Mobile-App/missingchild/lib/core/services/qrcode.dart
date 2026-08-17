@@ -11,21 +11,22 @@ void showQrCode(
   required String age,
   String? status,
   required String description,
-  String? location, 
+  String? location,
   required String reporterName,
-   String? lastseen,
+  String? lastseen,
 }) {
   final qrData =
-    '''
+      '''
       Reporter Name: $reporterName
       Name: $name
-      ${childId != null ? 'Reporter: $childId\n' : ''}
+      ${childId != null ? 'childid: $childId\n' : ''}
       Age: $age
       ${status != null ? 'Status: $status\n' : ''}
       Description: $description
       ${location != null ? 'Location: $location\n' : ''}
       Phone: $phone
-      lastseen : is $status • ${timeAgo(DateTime.parse(lastseen!))}
+      
+      ${lastseen != null ? 'Last Seen: ${timeAgo(DateTime.parse(lastseen))}\n' : ''}
     ''';
 
   showDialog(

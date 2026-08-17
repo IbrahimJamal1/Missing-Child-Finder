@@ -115,7 +115,6 @@ Widget floatActionCreateQR(double width, BuildContext context) {
 
                       const SizedBox(height: 12),
 
-
                       // Phone
                       TextFormField(
                         controller: personphone,
@@ -152,7 +151,7 @@ Widget floatActionCreateQR(double width, BuildContext context) {
                       // Age
                       TextFormField(
                         controller: personage,
-                              validator: ValidationInput().ageValidation,
+                        validator: ValidationInput().ageValidation,
                         keyboardType: TextInputType.number,
 
                         textInputAction: TextInputAction.next,
@@ -228,10 +227,8 @@ Widget floatActionCreateQR(double width, BuildContext context) {
 
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      
                       if (qrkey.currentState!.validate()) {
-                        Navigator.pop(dialogContext);
-
+                        Navigator.pop(context);
                         showQrCode(
                           context,
 
@@ -241,9 +238,9 @@ Widget floatActionCreateQR(double width, BuildContext context) {
 
                           age: personage.text,
 
-                          description: description.text, 
-                          
-                          reporterName:reporterame.text,
+                          description: description.text,
+
+                          reporterName: reporterame.text,
                         );
 
                         personname.dispose();
