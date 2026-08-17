@@ -14,56 +14,73 @@ class WelcomeScreen extends StatelessWidget {
 
     return Scaffold(
       floatingActionButton: floatActionCreateQR(width, context),
-      floatingActionButtonLocation:FloatingActionButtonLocation.endTop ,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
 
       backgroundColor: const Color(0xFFF8FAFC),
-      
-      body: Column(
-        children: [
-          SizedBox(height: 50),
-          headerpage(width),
-          SizedBox(height: 50.h),
 
-          Text(
-            "Together, We can",
-            style: TextStyle(
-              fontSize: AppFont.title(width),
-              fontWeight: FontWeight.bold,
-              color: const Color(0xff0F172A),
-            ),
-          ),
-
-          SizedBox(height: 4.h),
-
-          RichText(
-            text: TextSpan(
-              style: TextStyle(
-                fontSize: AppFont.title(width),
-                color: const Color(0xff0F172A),
-              ),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            
+            Column(
               children: [
-                const TextSpan(text: "bring "),
-                TextSpan(
-                  text: "hope",
+                SizedBox(height: 30.h),
+
+                headerpage(width),
+
+                SizedBox(height: 25.h),
+
+                Text(
+                  "Together, We can",
                   style: TextStyle(
                     fontSize: AppFont.title(width),
-                    color: const Color(0xff1E3A8A),
                     fontWeight: FontWeight.bold,
+                    color: const Color(0xff0F172A),
                   ),
                 ),
-                const TextSpan(text: " back."),
+
+                SizedBox(height: 4.h),
+
+                RichText(
+                  text: TextSpan(
+                    style: TextStyle(
+                      fontSize: AppFont.title(width),
+                      color: const Color(0xff0F172A),
+                    ),
+                    children: [
+                      const TextSpan(text: "bring "),
+
+                      TextSpan(
+                        text: "hope",
+                        style: TextStyle(
+                          fontSize: AppFont.title(width),
+                          color: const Color(0xff1E3A8A),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+                      const TextSpan(text: " back."),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: 20.h),
+
+                actionbuttonloadpage(width, context),
               ],
             ),
-          ),
-
-          width > 700 ? SizedBox(height: 20.h):SizedBox(height: 40.h),
-
-          actionbuttonloadpage(width, context),
-
-          const Spacer(),
-
-          Image.asset("images/welcomesreenimage.png"),
-        ],
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Image.asset(
+                "images/welcomesreenimage.png",
+                width: width,
+                fit: BoxFit.fitWidth,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
