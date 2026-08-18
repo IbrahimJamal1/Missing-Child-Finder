@@ -98,7 +98,7 @@ The map can be used to:
 * View reported cases.
 * Display the last known location.
 * Show markers on the map.
-* Select a specific location.
+
 * Navigate between different locations.
 
 ### Technologies
