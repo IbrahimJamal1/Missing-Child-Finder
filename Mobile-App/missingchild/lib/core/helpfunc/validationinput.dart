@@ -61,8 +61,8 @@ class ValidationInput {
       return "Enter Password";
     }
 
-    if (value.length < 8) {
-      return "Password must be at least 8 characters";
+    if (value.length < 7) {
+      return "Password must be at least 7 characters";
     }
 
     return null;
@@ -91,6 +91,4 @@ class ValidationInput {
 
     return null;
   }
-
-  
 }

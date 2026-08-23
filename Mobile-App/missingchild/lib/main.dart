@@ -1,4 +1,7 @@
+import 'package:ai_safetrack/core/api/apiservice.dart';
 import 'package:ai_safetrack/features/about/screens/about_screen.dart';
+import 'package:ai_safetrack/features/auth/cubit/logincubit/cubit/login_cubit.dart';
+import 'package:ai_safetrack/features/auth/repository/loginrequest.dart';
 import 'package:ai_safetrack/features/auth/screens/login.dart';
 import 'package:ai_safetrack/features/auth/screens/otpVerification.dart';
 import 'package:ai_safetrack/features/auth/screens/otpforget.dart';
@@ -20,25 +23,37 @@ import 'package:ai_safetrack/features/reports/screens/found.dart';
 import 'package:ai_safetrack/features/reports/screens/missing.dart';
 import 'package:ai_safetrack/features/userprofile/screen/userprofile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+    final apiService = ApiService();
   runApp(
-    ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (_, child) {
-        return const MyApp();
-      },
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<LoginCubit>(
+          create: (_) => LoginCubit(Loginrequest(apiService)),
+        ),
+
+
+
+        
+        
+      ],
+      child: ScreenUtilInit(
+        designSize: const Size(375, 812),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (_, child) {
+          return const MyApp();
+        },
+      ),
     ),
   );
 }
 
-//1080 2340
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -51,7 +66,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
- 
+
       routes: {
         'map': (context) => Showmap(),
         'publish': (context) => Publish(),
@@ -73,7 +88,7 @@ class _MyAppState extends State<MyApp> {
         'otpVerification': (context) => Otpverification(),
         'otpforgetpass': (context) => Otpforgetpass(),
         'updatepass': (context) => UpdatePasswordScreen(),
-        'userprofile':(context) => Userprofile(),
+        'userprofile': (context) => Userprofile(),
       },
 
       home: WelcomeScreen(),

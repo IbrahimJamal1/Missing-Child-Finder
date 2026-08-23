@@ -1,3 +1,4 @@
+import 'package:ai_safetrack/core/api/storagetoken.dart';
 import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:ai_safetrack/features/home/widget/builddraweritem.dart';
 import 'package:ai_safetrack/features/profile/widgets/deleteaccountdilog.dart';
@@ -188,7 +189,10 @@ Widget buildHomeDrawer(BuildContext context) {
                     borderRadius: BorderRadius.circular(12.r),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  TokenStorage.deleteToken();
+                  Navigator.pushNamedAndRemoveUntil(context, 'load', (route)=>false);
+                },
                 icon: Icon(Icons.logout_rounded, size: 20.r),
                 label: Text(
                   "Logout",

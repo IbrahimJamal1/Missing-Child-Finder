@@ -1,12 +1,39 @@
+import 'package:ai_safetrack/core/api/storagetoken.dart';
 import 'package:ai_safetrack/core/theme/fonttext.dart';
+import 'package:ai_safetrack/features/home/screen/home.dart';
 import 'package:ai_safetrack/features/loading/widget/actionbutton.dart';
 import 'package:ai_safetrack/features/loading/widget/createqrcode.dart';
 import 'package:ai_safetrack/features/loading/widget/headerloadpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
+
+  @override
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    checkToken();
+  }
+
+  Future<void> checkToken() async {
+    final token = await TokenStorage.getToken();
+
+    if (!mounted) return;
+
+    if (token != null && token.isNotEmpty) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const Home()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +48,6 @@ class WelcomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            
             Column(
               children: [
                 SizedBox(height: 30.h),
