@@ -1,7 +1,9 @@
 import 'package:ai_safetrack/core/api/apiservice.dart';
 import 'package:ai_safetrack/features/about/screens/about_screen.dart';
 import 'package:ai_safetrack/features/auth/cubit/logincubit/cubit/login_cubit.dart';
+import 'package:ai_safetrack/features/auth/cubit/registercubit/cubit/register_cubit.dart';
 import 'package:ai_safetrack/features/auth/repository/loginrequest.dart';
+import 'package:ai_safetrack/features/auth/repository/registerrequest.dart';
 import 'package:ai_safetrack/features/auth/screens/login.dart';
 import 'package:ai_safetrack/features/auth/screens/otpVerification.dart';
 import 'package:ai_safetrack/features/auth/screens/otpforget.dart';
@@ -37,10 +39,10 @@ void main() async {
           create: (_) => LoginCubit(Loginrequest(apiService)),
         ),
 
+        BlocProvider<RegisterCubit>(
+          create: (_) => RegisterCubit(Registerrequest(apiService)),
+        ),
 
-
-        
-        
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
