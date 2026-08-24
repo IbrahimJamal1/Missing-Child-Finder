@@ -1,4 +1,5 @@
 import 'package:ai_safetrack/core/api/apiservice.dart';
+import 'package:ai_safetrack/core/api/storagetoken.dart';
 import 'package:ai_safetrack/features/about/screens/about_screen.dart';
 import 'package:ai_safetrack/features/auth/cubit/logincubit/cubit/login_cubit.dart';
 import 'package:ai_safetrack/features/auth/cubit/registercubit/cubit/register_cubit.dart';
@@ -26,44 +27,43 @@ import 'package:ai_safetrack/features/reports/screens/missing.dart';
 import 'package:ai_safetrack/features/userprofile/screen/userprofile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-    final apiService = ApiService();
+
+  final apiService = ApiService();
+
+  final token = await TokenStorage.getToken();
+  final hasToken = token != null && token.isNotEmpty;
+
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider<LoginCubit>(
           create: (_) => LoginCubit(Loginrequest(apiService)),
         ),
-
         BlocProvider<RegisterCubit>(
           create: (_) => RegisterCubit(Registerrequest(apiService)),
         ),
-
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (_, child) {
-          return const MyApp();
+          return MyApp(hasToken: hasToken);
         },
       ),
     ),
   );
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class MyApp extends StatelessWidget {
+  final bool hasToken;
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
+  const MyApp({super.key, required this.hasToken});
 
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -93,7 +93,7 @@ class _MyAppState extends State<MyApp> {
         'userprofile': (context) => Userprofile(),
       },
 
-      home: WelcomeScreen(),
+      home: hasToken ? const Home() : WelcomeScreen(),
     );
   }
 }

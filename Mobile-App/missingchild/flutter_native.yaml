@@ -1,11 +1,12 @@
 flutter_native_splash:
-  color: "#ffffff" 
-  image: images/logo.png
+  color: "#ffffff"
+  image: images/logo.jpg
   fullscreen: true
-  
- 
-  android_12:
-    image: images/logo.png
-    color: "#ffffff"
+  branding_mode: bottom
+  branding_bottom_padding: 30
 
-     
+  android_12:
+    color: "#ffffff"
+    image: images/logo12.jpg
+    branding: images/brandingimage12.jpg
+   
