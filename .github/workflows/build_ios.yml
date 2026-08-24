@@ -2,8 +2,7 @@ name: Build iOS Simulator
 
 on:
   push:
-    branches: [ main, master ] # أو اسم البرانش الذي تعمل عليه
-  workflow_dispatch: # يتيح لك تشغيله يدوياً بضغطة زر
+  workflow_dispatch:
 
 jobs:
   build:
@@ -13,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Java (for Flutter toolchain)
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
@@ -24,14 +23,18 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Build iOS Simulator
-        run: flutter build ios --simulator --no-codesign
-
-      - name: Zip Runner.app
+      - name: Find Project and Build iOS Simulator
         run: |
+          # البحث عن المجلد الذي يحتوي على pubspec.yaml
+          PROJECT_DIR=$(find . -name "pubspec.yaml" -not -path "*/.*" | head -n 1 | xargs dirname)
+          echo "Flutter project found at: $PROJECT_DIR"
+          cd "$PROJECT_DIR"
+          
+          # تثبيت الحزم والبناء
+          flutter pub get
+          flutter build ios --simulator --no-codesign
+          
+          # ضغط الناتج
           cd build/ios/iphonesimulator
           zip -r -y Runner.zip Runner.app
 
@@ -39,4 +42,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ios-simulator-build
-          path: build/ios/iphonesimulator/Runner.zip
+          path: "**/Runner.zip"
