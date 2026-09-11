@@ -1,7 +1,6 @@
 import 'package:ai_safetrack/core/helpfunc/validationinput.dart';
 import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:ai_safetrack/features/auth/cubit/logincubit/cubit/login_cubit.dart';
-import 'package:ai_safetrack/features/auth/models/loginmodel.dart';
 import 'package:ai_safetrack/features/auth/widgets/loginheader.dart';
 import 'package:ai_safetrack/features/auth/widgets/scaffoldmessage.dart';
 import 'package:flutter/material.dart';
@@ -162,12 +161,22 @@ class _LoginState extends State<Login> {
 
                                   onPressed: () {
                                     if (loginkey.currentState!.validate()) {
-                                      final model = Loginmodule(
-                                        email: emailorphone.text,
-                                        password: password.text,
-                                      );
+                                      // final model = Loginmodule(
+                                      //   email: emailorphone.text,
+                                      //   password: password.text,
+                                      // );
 
-                                      context.read<LoginCubit>().login(model);
+                                      // context.read<LoginCubit>().login(model);
+
+                                      scaffoldmessenger(
+                                        context,
+                                        true,
+                                        "login suuccess",
+                                      );
+                                      Navigator.pushReplacementNamed(
+                                        context,
+                                        'home',
+                                      );
                                     }
                                   },
                                   child: Text(

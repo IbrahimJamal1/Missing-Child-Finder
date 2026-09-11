@@ -162,6 +162,7 @@ class _OtpverificationState extends State<Otpverification> {
                   ),
                   onPressed: () {
                     if (otp.length == 5) {
+                      Navigator.pushNamedAndRemoveUntil(context, 'login', ((route) => false));
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

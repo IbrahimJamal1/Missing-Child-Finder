@@ -2,7 +2,6 @@ import 'package:ai_safetrack/core/helpfunc/validationinput.dart';
 import 'package:ai_safetrack/core/services/uploadimage.dart';
 import 'package:ai_safetrack/core/theme/fonttext.dart';
 import 'package:ai_safetrack/features/auth/cubit/registercubit/cubit/register_cubit.dart';
-import 'package:ai_safetrack/features/auth/models/registermodel.dart';
 import 'package:ai_safetrack/features/auth/widgets/customfiled.dart';
 import 'package:ai_safetrack/features/auth/widgets/scaffoldmessage.dart';
 import 'package:flutter/material.dart';
@@ -404,15 +403,27 @@ class _RegisterState extends State<Register> {
                               ElevatedButton(
                                 onPressed: () {
                                   if (registerkey.currentState!.validate()) {
-                                    final model = Registermodel(
-                                      name: 'ali',
-                                      email: 'email11@gail.com',
-                                      phone: '01208765432',
-                                      password: '1234567',
-                                      gender: '0',
-                                      passwordConfirmation: '1234567',
+                                    // final model = Registermodel(
+                                    //   name: 'ali',
+                                    //   email: 'email11@gail.com',
+                                    //   phone: '01208765432',
+                                    //   password: '1234567',
+                                    //   gender: '0',
+                                    //   passwordConfirmation: '1234567',
+                                    // );
+                                    // context.read<RegisterCubit>().login(model);
+
+                                    scaffoldmessenger(
+                                      context,
+                                      true,
+                                      "Confirm your phone number to complete registration",
                                     );
-                                    context.read<RegisterCubit>().login(model);
+
+                                    Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      'otpVerification',
+                                      (route) => false,
+                                    );
                                   }
                                 },
 
